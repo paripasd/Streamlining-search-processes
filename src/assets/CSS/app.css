@@ -5,9 +5,6 @@
 @tailwind utilities;
 
 @layer components {
-  .navitem {
-    @apply text-gray-300 tracking-wide text-xl hover:text-white hover:bg-gray-700 pl-2 pr-12 py-4 text-left rounded-md
-  }
 
   .longtextinput {
     @apply rounded-md border border-solid border-slate-300 p-1 m-1 block w-full h-full text-gray-900 text-sm resize-none 
