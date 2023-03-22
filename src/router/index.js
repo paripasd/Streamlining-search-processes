@@ -1,25 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import dashboard from '../pages/master/dashboard.vue'
 
 import home from '../pages/home'
 import crud from '../pages/crud'
 
 const routes = [
   {
-    name:'Dashboard',
-    path:'/',
-    component: dashboard
-  },
-  {
     name:'Home',
-    path:'/home',
+    path:'/',
     component:home
   },
   {
     name:'Crud',
     path:'/crud',
     component:crud
-  }
+  },
  
 ];
 

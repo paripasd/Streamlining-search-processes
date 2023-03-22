@@ -1,11 +1,13 @@
 <template>
     <div>
-        This is my Home
+        <Sidebar/>
     </div>
   </template>
   
   <script>
+import CrudTable from '@/components/crudTable.vue';
+import Sidebar from '@/components/sidebar.vue';
     export default {
-      // Your component's logic here
-    }
+    components: { Sidebar, CrudTable }
+}
   </script>
