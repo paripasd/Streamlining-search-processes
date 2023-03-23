@@ -2,7 +2,7 @@
     <div class="px-4 sm:px-6 lg:px-8 flow-root">
         <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
           <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <table class="min-w-full border-separate">
+            <table class="min-w-full border-separate highlight-selected-row">
               <thead>
                 <tr class="divide-x sticky">
                   <th class="sticky overflow-y-hidden top-0 z-10 py-3.5 pl-4 pr-4 text-left rounded-md text-sm font-semibold text-gray-900 bg-gray-100">Question</th>
@@ -20,6 +20,12 @@
         </div>
       </div>
   </template>
+
+<style>
+  .selected-row {
+    @apply bg-slate-400 border border-slate-500
+  }
+</style>
   
   <script setup>
   const people = [

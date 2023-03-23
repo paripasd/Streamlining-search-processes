@@ -7,7 +7,7 @@
         <div class="col-span-1 row-span-4 w-full m-2 pr-2">
           <Tree class=""/>
         </div>
-        <div class=" bg-white col-span-3 row-span-4 grid grid-rows-5">
+        <div class=" bg-white col-span-3 row-span-4 grid grid-rows-[80px,auto,auto,auto,auto]">
           <div class="row-span-1 max-h-min">
             <TableHeader/>
           </div>
