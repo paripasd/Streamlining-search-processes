@@ -51,5 +51,11 @@ import Tree from '@/components/tree.vue';
     },
     components: { Sidebar, CrudEditForm, Crudtable, TableHeader, Tree }
 }
-  
+
+
+let dataEntry = []
+fetch('https://localhost:7018/api/Read')
+  .then(response => response.json())
+  .then(data => console.log(data));
+console.log(dataEntry);
   </script>
