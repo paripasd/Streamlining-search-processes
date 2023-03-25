@@ -5,7 +5,7 @@
           <CrudPathBar/>
         </div>
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-          <button class="block">Add New</button>
+          <!--<button class="block">Add New</button> -->
         </div>
       </div>
 </template>

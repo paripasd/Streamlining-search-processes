@@ -9,10 +9,13 @@
         </div>
         <div class=" bg-white col-span-3 row-span-4 grid grid-rows-[80px,auto,auto,auto,auto]">
           <div class="row-span-1 max-h-min">
+            <CreateMenu/>
             <TableHeader/>
+            
           </div>
           <div class="row-span-4 overflow-x-scroll">
             <Crudtable/>
+            
           </div>
         </div>
         <div class="col-span-4 row-span-1 h-min">
@@ -28,6 +31,7 @@ import CrudEditForm from '../components/crudEditForm.vue'
 import Crudtable from '@/components/crudTable.vue';
 import TableHeader from '@/components/tableHeader.vue';
 import Tree from '@/components/tree.vue';
+import CreateMenu from '@/components/createMenu.vue';
     export default {
     data() {
         return {
@@ -49,7 +53,7 @@ import Tree from '@/components/tree.vue';
             this.outputText = "";
         }
     },
-    components: { Sidebar, CrudEditForm, Crudtable, TableHeader, Tree }
+    components: { Sidebar, CrudEditForm, Crudtable, TableHeader, Tree, CreateMenu }
 }
 
 
