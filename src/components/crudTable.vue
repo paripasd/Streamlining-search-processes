@@ -10,9 +10,9 @@
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 bg-white">
-                <tr v-for="person in people" :key="person.email" class="divide-x divide-gray-200">
-                  <td class="whitespace-nowrap w-1/3 overflow-y-hidden max-w-[80px] py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-0">{{ person.name }}</td>
-                  <td class="whitespace-nowrap w-2/3 overflow-y-hidden max-w-screen-sm py-4 pl-4 pr-4 text-sm text-gray-500 sm:pr-0">{{ person.role }}</td>
+                <tr v-for="qna in qnas" :key="qna.question" class="divide-x divide-gray-200">
+                  <td class="whitespace-nowrap w-1/3 overflow-y-hidden max-w-[80px] py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-0">{{ qna.question }}</td>
+                  <td class="whitespace-nowrap w-2/3 overflow-y-hidden max-w-screen-sm py-4 pl-4 pr-4 text-sm text-gray-500 sm:pr-0">{{ qna.answer }}</td>
                 </tr>
               </tbody>
             </table>
@@ -28,27 +28,12 @@
 </style>
   
   <script setup>
-  const people = [
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'MemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMemberMember' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    // More people...
+  const qnas = [
+    {question:"Link til uddannelsen", answer:"https://www.rts.dk/eud-erhvervsuddannelser/fagretninger/902-bygge-og-anlaeg"},
+    {question:"Økonomi", answer:"Du kan få SU, hvis du opfylder betingelserne herfor. Når du har en uddannelsesaftale, kan du få elevløn"},
+    {question:"Lokale undervisningsplaner", answer:"Via linket her kan du finde de lokale undervisningsplaner. Her finder du de formelle krav til uddannelsen (undervisning, opbygning, prøver og eksamen):https://www.rts.dk/om-skolen/kvalitet/916-lokale-undervisningsplaner-lup"},
+    {question:"Læreplads", answer:"Du skal selv finde en læreplads, men skolens vejledere kan hjælpe dig på vej"},
+    {question:"Ansøgningsfrist", answer:"Søg ind via optagelse.dk senest 1. marts"},
   ]
   </script>
+

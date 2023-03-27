@@ -24,44 +24,20 @@
     setup() {
       const data = ref([
         {
-          id: 1,
-          label: "Animal",
+          label: "609 Roskilde Tekniske Skole",
+          path: ["609 Roskilde Tekniske Skole"],
           nodes: [
             {
-              id: 2,
-              label: "Dog",
-            },
-            {
-              id: 3,
-              label: "Cat",
+              label: "Generelt",
+              path: ["609 Roskilde Tekniske Skole","Generelt"],
               nodes: [
                 {
-                  id: 4,
-                  label: "Egyptian Mau Cat",
-                },
-                {
-                  id: 5,
-                  label: "Japanese Bobtail Cat placeholder placeholder placeholder placeholder placeholder",
-                  nodes: [
-                    {
-                        id: 7,
-                        label: "placeholder",
-                        nodes: [
-                            {
-                                id: 8,
-                                label: "placeholder"
-                            }
-                        ]
-                    }
-                  ]
+                  label: "KPI'er",
+                  path: ["609 Roskilde Tekniske Skole", "Generelt", "KPI'er"],
                 },
               ],
             },
           ],
-        },
-        {
-          id: 6,
-          label: "People",
         },
       ]);
       const searchText = ref("");
@@ -75,7 +51,16 @@
       };
   
       const onNodeClick = (node) => {
-        console.log(node);
+        fetch('https://localhost:7018/api/Read/', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(node.path)
+        })
+        .then(response => response.json())
+        .then(data => console.log(data));
       };
   
       return {
@@ -87,4 +72,6 @@
       };
     },
   };
+
+  
   </script>

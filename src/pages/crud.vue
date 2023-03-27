@@ -32,7 +32,9 @@ import Crudtable from '@/components/crudTable.vue';
 import TableHeader from '@/components/tableHeader.vue';
 import Tree from '@/components/tree.vue';
 import CreateMenu from '@/components/createMenu.vue';
-    export default {
+import { defineStore } from 'pinia';
+   
+export default {
     data() {
         return {
             inputText: "",
@@ -55,11 +57,4 @@ import CreateMenu from '@/components/createMenu.vue';
     },
     components: { Sidebar, CrudEditForm, Crudtable, TableHeader, Tree, CreateMenu }
 }
-
-
-let dataEntry = []
-fetch('https://localhost:7018/api/Read')
-  .then(response => response.json())
-  .then(data => console.log(data));
-console.log(dataEntry);
   </script>
