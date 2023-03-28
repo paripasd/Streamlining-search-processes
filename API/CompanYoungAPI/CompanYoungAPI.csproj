@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <None Remove="Model\" />
-    <None Remove="Controller\" />
     <None Remove="DataAccess\" />
     <None Remove="RestSharp" />
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
@@ -26,7 +25,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
-    <Folder Include="Controller\" />
     <Folder Include="DataAccess\" />
   </ItemGroup>
 </Project>

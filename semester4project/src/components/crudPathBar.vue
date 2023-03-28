@@ -25,7 +25,7 @@
   import { HomeIcon } from '@heroicons/vue/20/solid'
   
   const pages = [
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Project Nero', href: '#', current: true },
+    { name: '609 Roskilde Tekniske Skole', href: '#', current: false },
+    { name: 'Generelt', href: '#', current: true },
   ]
   </script>

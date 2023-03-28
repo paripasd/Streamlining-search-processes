@@ -15,41 +15,28 @@ namespace CompanYoungAPI.Controllers
     {
         private ReadDataAccess _readDataAccess;
 
-		public ReadController()
-		{
+        public ReadController()
+        {
             _readDataAccess = new();
-		}
+        }
 
         // GET: api/Read
         [HttpGet]
-        public ActionResult<DataEntry> Get()
+        public ActionResult<IEnumerable<DataEntry>> GetAll()
         {
-            return Ok(_readDataAccess.Get());
+            return Ok(_readDataAccess.GetAll());
         }
 
-		// GET: api/Read/5
-		[HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Read
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<IEnumerable<DataEntry>> GetAllByPath([FromBody] string[] path)
         {
+            return Ok(_readDataAccess.GetAllByPath(path));
         }
 
-        // PUT: api/Read/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/Read/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
-    }
+        [HttpGet("tree")]
+        public ActionResult<string[]> GetTreeStructure()
+		{
+            return null;
+		}
+	}
 }

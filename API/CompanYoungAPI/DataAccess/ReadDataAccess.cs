@@ -1,31 +1,37 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
-using RestSharp;
 using CompanYoungAPI.Model;
 using CommonServiceLocator;
 using SolrNet;
+using SolrNet.Impl;
+using System.Collections;
 
 namespace CompanYoungAPI.DataAccess
 {
 	public class ReadDataAccess
 	{
+		ISolrOperations<DataEntry> solr;
 
 		public ReadDataAccess()
 		{
+			solr = ServiceLocator.Current.GetInstance<ISolrOperations<DataEntry>>();
 		}
 
-		/*public IEnumerable<DataEntry> GetAll()
+		public IEnumerable<DataEntry> GetAll()
 		{
-			var response = RestClient.Execute<IEnumerable<DataEntry>>(new RestRequest("http://localhost:8983/solr/testing/query?q=*:*"));
-			return response.Data;
-		}*/
+			var result = solr.Query(new SolrQuery("*:*"));
+			return result;
+		}
 
-		public DataEntry Get()
+		public IEnumerable<DataEntry> GetAllByPath(string[] path)
 		{
-			var solr = ServiceLocator.Current.GetInstance<ISolrOperations<DataEntry>>();
-			var result = solr.Query(new SolrQuery("comment:KPI"));
-			Console.WriteLine(result);
-			return result.First();
+			List<SolrQuery> queryParams = new List<SolrQuery>();
+			foreach(string s in path)
+			{
+				queryParams.Add(new SolrQuery("path:\"" + s + "\""));
+			}
+			var result = solr.Query(new SolrMultipleCriteriaQuery(queryParams, "AND"));
+			return result;
 		}
 	}
 	
