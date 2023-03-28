@@ -1,30 +1,36 @@
 <template>
     <input v-model="searchText" type="text" class="shortinput m-0"/>
-    <Tree
-      :nodes="data"
-      :search-text="searchText"
-      :use-checkbox="false"
-      :use-icon="false"
-      show-child-count
-      @nodeExpanded="onNodeExpanded"
-      @update:nodes="onUpdate"
-      @nodeClick="onNodeClick"
-    />
+    <div class="h-full w-full overflow-y-auto">
+      <Tree
+        v-if="data"
+        :nodes="data"
+        :search-text="searchText"
+        :use-checkbox="false"
+        :use-icon="false"
+        show-child-count
+        @nodeExpanded="onNodeExpanded"
+        @update:nodes="onUpdate"
+        @nodeClick="onNodeClick"
+      />
+    </div>
   </template>
   
   <script lang="js">
-  import { ref } from "vue";
+  import { ref, onMounted } from "vue";
   import Tree from "vue3-tree";
   import "vue3-tree/dist/style.css";
   import { useCrudPageStore } from '@/stores/CrudPageStore';
   
   export default {
-    components: {
-      Tree,
-    },
     setup() {
       const store = useCrudPageStore();
-      const data = ref([
+      const data = ref(null);
+      onMounted(async () => {
+        const response = await fetch("https://localhost:7018/api/Read/tree");
+        const fdata = await response.json();
+        data.value = fdata;
+      });
+      const olddata = ref([
         {
           label: "609 Roskilde Tekniske Skole",
           path: ["609 Roskilde Tekniske Skole"],
@@ -73,6 +79,9 @@
         onUpdate,
         onNodeClick,
       };
+    },
+    components: {
+      Tree,
     },
   };
 

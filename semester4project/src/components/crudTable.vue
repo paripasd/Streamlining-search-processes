@@ -11,8 +11,8 @@
               </thead>
               <tbody class="divide-y divide-gray-200 bg-white">
                 <tr v-for="q in qna" :key="q.question" class="divide-x divide-gray-200">
-                  <td class="whitespace-nowrap w-1/3 overflow-y-hidden max-w-[80px] py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-0">{{ q.question }}</td>
-                  <td class="whitespace-nowrap w-2/3 overflow-y-hidden max-w-screen-sm py-4 pl-4 pr-4 text-sm text-gray-500 sm:pr-0">{{ q.answer }}</td>
+                  <td class="whitespace-nowrap w-1/3 overflow-x-auto max-w-[80px] py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-0">{{ q.question }}</td>
+                  <td class="whitespace-nowrap w-2/3 overflow-x-auto max-w-screen-sm py-4 pl-4 pr-4 text-sm text-gray-500 sm:pr-0">{{ q.answer }}</td>
                 </tr>
               </tbody>
             </table>

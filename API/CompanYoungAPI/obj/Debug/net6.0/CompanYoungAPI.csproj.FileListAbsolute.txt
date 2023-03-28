@@ -512,3 +512,4 @@
 /Users/gaborkiss/Documents/GitHub/semester4project/API/CompanYoungAPI/obj/Debug/net6.0/CompanYoungAPI.pdb
 /Users/gaborkiss/Documents/GitHub/semester4project/API/CompanYoungAPI/obj/Debug/net6.0/CompanYoungAPI.genruntimeconfig.cache
 /Users/gaborkiss/Documents/GitHub/semester4project/API/CompanYoungAPI/obj/Debug/net6.0/ref/CompanYoungAPI.dll
+/Users/gaborkiss/Documents/GitHub/semester4project/API/CompanYoungAPI/bin/Debug/net6.0/Python.Runtime.dll

@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
     <PackageReference Include="SolrNet" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="pythonnet" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +23,7 @@
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
     <None Remove="SolrNet" />
     <None Remove="Microsoft.Extensions.DependencyInjection" />
+    <None Remove="pythonnet" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />

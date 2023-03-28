@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LQwxSghttROh23yLpv2Aop3du3591B4Ifgz2IiaNx/P3LQDm23XXm/QjJdv0i3xDHP80Q4UV9F7DqxXZOvKlZA==",
+  "dgSpecHash": "FamCw/clhENrFHA6l9DCAmHYnCrRiDHLIf9R4mf89PC811v3RgRrwv9rQ89FFgDWrNTyeVY0UGkpKycUUE9lFQ==",
   "success": true,
   "projectFilePath": "/Users/gaborkiss/Documents/GitHub/semester4project/API/CompanYoungAPI/CompanYoungAPI.csproj",
   "expectedPackageFiles": [
@@ -33,7 +33,7 @@
     "/Users/gaborkiss/.nuget/packages/microsoft.codeanalysis.visualbasic.workspaces/4.0.0/microsoft.codeanalysis.visualbasic.workspaces.4.0.0.nupkg.sha512",
     "/Users/gaborkiss/.nuget/packages/microsoft.codeanalysis.workspaces.common/4.0.0/microsoft.codeanalysis.workspaces.common.4.0.0.nupkg.sha512",
     "/Users/gaborkiss/.nuget/packages/microsoft.codeanalysis.workspaces.msbuild/4.0.0/microsoft.codeanalysis.workspaces.msbuild.4.0.0.nupkg.sha512",
-    "/Users/gaborkiss/.nuget/packages/microsoft.csharp/4.3.0/microsoft.csharp.4.3.0.nupkg.sha512",
+    "/Users/gaborkiss/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/Users/gaborkiss/.nuget/packages/microsoft.diasymreader/1.3.0/microsoft.diasymreader.1.3.0.nupkg.sha512",
     "/Users/gaborkiss/.nuget/packages/microsoft.dotnet.scaffolding.shared/6.0.13/microsoft.dotnet.scaffolding.shared.6.0.13.nupkg.sha512",
     "/Users/gaborkiss/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
@@ -79,6 +79,7 @@
     "/Users/gaborkiss/.nuget/packages/nuget.projectmodel/6.3.1/nuget.projectmodel.6.3.1.nupkg.sha512",
     "/Users/gaborkiss/.nuget/packages/nuget.protocol/6.3.1/nuget.protocol.6.3.1.nupkg.sha512",
     "/Users/gaborkiss/.nuget/packages/nuget.versioning/6.3.1/nuget.versioning.6.3.1.nupkg.sha512",
+    "/Users/gaborkiss/.nuget/packages/pythonnet/3.0.1/pythonnet.3.0.1.nupkg.sha512",
     "/Users/gaborkiss/.nuget/packages/restsharp/109.0.1/restsharp.109.0.1.nupkg.sha512",
     "/Users/gaborkiss/.nuget/packages/runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl/4.3.0/runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "/Users/gaborkiss/.nuget/packages/runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl/4.3.0/runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -125,7 +126,7 @@
     "/Users/gaborkiss/.nuget/packages/system.diagnostics.tools/4.3.0/system.diagnostics.tools.4.3.0.nupkg.sha512",
     "/Users/gaborkiss/.nuget/packages/system.diagnostics.tracing/4.3.0/system.diagnostics.tracing.4.3.0.nupkg.sha512",
     "/Users/gaborkiss/.nuget/packages/system.drawing.common/6.0.0/system.drawing.common.6.0.0.nupkg.sha512",
-    "/Users/gaborkiss/.nuget/packages/system.dynamic.runtime/4.3.0/system.dynamic.runtime.4.3.0.nupkg.sha512",
+    "/Users/gaborkiss/.nuget/packages/system.dynamic.runtime/4.0.11/system.dynamic.runtime.4.0.11.nupkg.sha512",
     "/Users/gaborkiss/.nuget/packages/system.formats.asn1/5.0.0/system.formats.asn1.5.0.0.nupkg.sha512",
     "/Users/gaborkiss/.nuget/packages/system.globalization/4.3.0/system.globalization.4.3.0.nupkg.sha512",
     "/Users/gaborkiss/.nuget/packages/system.globalization.calendars/4.3.0/system.globalization.calendars.4.3.0.nupkg.sha512",
