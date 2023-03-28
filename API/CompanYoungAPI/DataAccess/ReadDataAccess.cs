@@ -5,6 +5,8 @@ using CommonServiceLocator;
 using SolrNet;
 using SolrNet.Impl;
 using System.Collections;
+using SolrNet.Commands.Parameters;
+using System.Linq;
 
 namespace CompanYoungAPI.DataAccess
 {
@@ -32,6 +34,22 @@ namespace CompanYoungAPI.DataAccess
 			}
 			var result = solr.Query(new SolrMultipleCriteriaQuery(queryParams, "AND"));
 			return result;
+		}
+
+		public string[] GetUniquePaths()
+		{
+			var queryOptions = new QueryOptions
+			{
+				Facet = new FacetParameters
+				{
+					Queries = new ISolrFacetQuery[] { new SolrFacetFieldQuery("path") },
+					Limit = int.MaxValue
+				},
+				Rows = 0
+			};
+			var result = solr.Query(new SolrQuery("*:*"), queryOptions);
+			var paths = result.FacetFields["path"].Select(x => x.Key).ToArray();
+			return paths;
 		}
 	}
 	

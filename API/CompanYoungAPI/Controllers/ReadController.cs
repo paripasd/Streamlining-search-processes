@@ -36,7 +36,7 @@ namespace CompanYoungAPI.Controllers
         [HttpGet("tree")]
         public ActionResult<string[]> GetTreeStructure()
 		{
-            return null;
+            return Ok(_readDataAccess.GetUniquePaths());
 		}
 	}
 }

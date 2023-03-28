@@ -3,8 +3,8 @@ import {defineStore} from "pinia";
 export const useCrudPageStore = defineStore("CrudPageStore", {
     state: () => {
         return {
-            path:"fos",
-            data:{"default":"data"},
+            path:[],
+            data:[],
         };
     },
 

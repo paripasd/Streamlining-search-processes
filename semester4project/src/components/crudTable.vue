@@ -10,9 +10,9 @@
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 bg-white">
-                <tr v-for="qna in qnas" :key="qna.question" class="divide-x divide-gray-200">
-                  <td class="whitespace-nowrap w-1/3 overflow-y-hidden max-w-[80px] py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-0">{{ qna.question }}</td>
-                  <td class="whitespace-nowrap w-2/3 overflow-y-hidden max-w-screen-sm py-4 pl-4 pr-4 text-sm text-gray-500 sm:pr-0">{{ qna.answer }}</td>
+                <tr v-for="q in qna" :key="q.question" class="divide-x divide-gray-200">
+                  <td class="whitespace-nowrap w-1/3 overflow-y-hidden max-w-[80px] py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-0">{{ q.question }}</td>
+                  <td class="whitespace-nowrap w-2/3 overflow-y-hidden max-w-screen-sm py-4 pl-4 pr-4 text-sm text-gray-500 sm:pr-0">{{ q.answer }}</td>
                 </tr>
               </tbody>
             </table>
@@ -26,7 +26,12 @@
   
   <script setup>
   import { useCrudPageStore } from '@/stores/CrudPageStore';
+  import {computed, watchEffect} from 'vue';
   const store = useCrudPageStore();
+  const qna = computed(() => store.data);
+  watchEffect(() => {
+    console.log("data updated:", store.data)
+  });
   const qnas = [
     {question:"Link til uddannelsen", answer:"https://www.rts.dk/eud-erhvervsuddannelser/fagretninger/902-bygge-og-anlaeg"},
     {question:"Økonomi", answer:"Du kan få SU, hvis du opfylder betingelserne herfor. Når du har en uddannelsesaftale, kan du få elevløn"},
