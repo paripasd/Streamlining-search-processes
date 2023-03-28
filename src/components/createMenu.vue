@@ -27,10 +27,35 @@
                 </TransitionChild>
                 <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                   <div class="px-4 sm:px-6">
-                    <DialogTitle class="text-base font-semibold leading-6 text-gray-900">Panel title</DialogTitle>
+                    <DialogTitle class="text-base font-semibold leading-6 text-gray-900">Add New</DialogTitle>
                   </div>
                   <div class="relative mt-6 flex-1 px-4 sm:px-6">
-                    <!-- Your content -->
+                    <form id="data-entry-form">
+                      <div class="flex flex-col">
+                        <label for="question-input">Question:</label>
+                        <textarea class="longtextinput" id="question-input"></textarea>
+                      </div>
+                      <div class="flex flex-col">
+                        <label for="question-input">Answer:</label>
+                        <textarea class="longtextinput" id="question-input"></textarea>
+                      </div>
+                      <div class="flex flex-col">
+                        <label for="question-input">Comment:</label>
+                        <textarea class="longtextinput" id="question-input"></textarea>
+                      </div>
+                      <div class="flex flex-row">
+                        <label for="expiry-input">Expiry:</label>
+                        <input type="date" id="expiry-input" class="shortinput">
+                      </div>
+                      <div class="flex flex-row">
+                        <label for="editedby-input">Edited&nbsp;by:</label>
+                        <input type="text" id="editedby-input" class="shortinput" disabled>
+                      </div>
+                      <div class="flex flex-row">
+                        <label for="custompath-checkbox">Use custom path</label>
+                        <input type="checkbox" id="custompath-checkbox">
+                      </div>
+                    </form>
                   </div>
                 </div>
               </DialogPanel>

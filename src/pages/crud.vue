@@ -32,9 +32,12 @@ import Crudtable from '@/components/crudTable.vue';
 import TableHeader from '@/components/tableHeader.vue';
 import Tree from '@/components/tree.vue';
 import CreateMenu from '@/components/createMenu.vue';
-import { defineStore } from 'pinia';
-   
+import { useCrudPageStore } from '@/stores/CrudPageStore';
+
 export default {
+    setup(){
+      const store = useCrudPageStore();
+    },
     data() {
         return {
             inputText: "",
