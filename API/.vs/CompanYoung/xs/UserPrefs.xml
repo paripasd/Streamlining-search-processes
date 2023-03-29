@@ -1,17 +1,14 @@
 ﻿<Properties StartupConfiguration="{3CDF67F0-20FD-4B49-BB47-A588A0616FEB}|Default">
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/gaborkiss/Documents/GitHub/semester4project/API/CompanYoungAPI/DataAccess/ReadDataAccess.cs" relfile="CompanYoungAPI/DataAccess/ReadDataAccess.cs" line="26" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench ActiveDocument="CompanYoungAPI/Controllers/ReadController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="CompanYoungAPI/DataAccess/ReadDataAccess.cs">
     <Files>
-      <File FileName="CompanYoungAPI/Model/DataEntry.cs" Line="1" Column="1" />
-      <File FileName="CompanYoungAPI/DataAccess/ReadDataAccess.cs" Line="26" Column="1" />
-      <File FileName="CompanYoungAPI/Controllers/ReadController.cs" Line="38" Column="1" />
+      <File FileName="CompanYoungAPI/DataAccess/ReadDataAccess.cs" Line="59" Column="4" />
+      <File FileName="CompanYoungAPI/Controllers/ReadController.cs" Line="37" Column="37" />
       <File FileName="CompanYoungAPI/Program.cs" Line="1" Column="1" />
     </Files>
     <Pads>
