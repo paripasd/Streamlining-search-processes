@@ -5,6 +5,7 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
         return {
             path:[],
             data:[],
+            unit:{question:"",answer:"",comment:"",expiryDate:"",modifiedBy:"",path:[]},
         };
     },
 
@@ -16,10 +17,15 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
         updateData(data) {
             this.data = data
         },
+
+        updateUnit(unit) {
+            this.unit = unit
+        },
     },
 
     getters: {
         getData: (state) => state.data,
         getPath: (state) => state.path,
+        getUnit: (state) => state.path,
     },
 });
