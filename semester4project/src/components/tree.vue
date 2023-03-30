@@ -30,24 +30,7 @@
         const fdata = await response.json();
         data.value = fdata;
       });
-      const olddata = ref([
-        {
-          label: "609 Roskilde Tekniske Skole",
-          path: ["609 Roskilde Tekniske Skole"],
-          nodes: [
-            {
-              label: "Generelt",
-              path: ["609 Roskilde Tekniske Skole","Generelt"],
-              nodes: [
-                {
-                  label: "KPI'er",
-                  path: ["609 Roskilde Tekniske Skole", "Generelt", "KPI'er"],
-                },
-              ],
-            },
-          ],
-        },
-      ]);
+
       const searchText = ref("");
       const onNodeExpanded = (node, state) => {
         console.log("state: ", state);
@@ -59,6 +42,7 @@
       };
   
       const onNodeClick = (node) => {
+        store.updatePath(node.path);
         fetch('https://localhost:7018/api/Read/', {
           method: 'POST',
           headers: {

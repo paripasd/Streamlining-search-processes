@@ -11,7 +11,12 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
 
     actions: {
         updatePath(path) {
-            this.path = path
+            this.path = [];
+            let i = 0;
+            while (i<path.length){
+                this.path.push({label:path[i],href:"#",current:false});
+                i++;
+            }
         },
 
         updateData(data) {
