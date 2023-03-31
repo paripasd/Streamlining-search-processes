@@ -3,7 +3,7 @@
 <template>
   <div class="flex">
     <Sidebar/>
-      <div class="grid grid-cols-[200px,auto,auto,auto] grid-rows-4 h-screen w-10/12 gap-2 bg-gray-100">
+      <div class="grid grid-cols-[300px,auto,auto,auto] grid-rows-4 h-screen w-[90%] gap-2 bg-gray-100">
         <div class="col-span-1 row-span-4 w-full m-2 pr-2">
           <Tree class=""/>
         </div>

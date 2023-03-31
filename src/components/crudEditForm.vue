@@ -28,3 +28,22 @@
           </div>
     </form>
 </template>
+
+<script setup>
+import { useCrudPageStore } from '@/stores/CrudPageStore';
+import {computed, watchEffect} from 'vue';
+const store = useCrudPageStore();
+computed(() => store.unit);
+window.addEventListener('DOMContentLoaded', function() {
+    watchEffect(() => {
+      const questionField = document.getElementById("question-input");
+      questionField.innerHTML = store.unit.question;
+
+      const answerField = document.getElementById("answer-input");
+      answerField.innerHTML = store.unit.answer;
+
+      const commentField = document.getElementById("comment-input");
+      commentField.innerHTML = store.unit.comment;
+    });
+  });
+</script>
