@@ -4,6 +4,7 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
     state: () => {
         return {
             path:[],
+            createPath:[],
             data:[],
             unit:{question:"",answer:"",comment:"",expiryDate:"",modifiedBy:"",path:[]},
         };
@@ -11,12 +12,11 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
 
     actions: {
         updatePath(path) {
-            this.path = [];
-            let i = 0;
-            while (i<path.length){
-                this.path.push({label:path[i],href:"#",current:false});
-                i++;
-            }
+            this.path = path;
+        },
+
+        updateCreatePath(path) {
+            this.createPath = path
         },
 
         updateData(data) {
@@ -30,7 +30,24 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
 
     getters: {
         getData: (state) => state.data,
-        getPath: (state) => state.path,
+        getPath() {
+            let objectifiedPath = [];
+            let i = 0;
+            while (i<this.path.length){
+                objectifiedPath.push({label:this.path[i],href:"#",current:false});
+                i++;
+            }
+            return objectifiedPath;
+        },
         getUnit: (state) => state.path,
+        getCreatePath() {
+            var stringifiedPath = "";
+            let i = 0;
+            while (i<this.createPath.length){
+                stringifiedPath += this.createPath[i] + '/';
+                i++;
+            }
+            return stringifiedPath;
+        },
     },
 });

@@ -6,7 +6,7 @@
         :nodes="data"
         :search-text="searchText"
         :use-checkbox="false"
-        :use-icon="false"
+        :use-icon="true"
         show-child-count
         @nodeExpanded="onNodeExpanded"
         @update:nodes="onUpdate"
@@ -33,12 +33,11 @@
 
       const searchText = ref("");
       const onNodeExpanded = (node, state) => {
-        console.log("state: ", state);
-        console.log("node: ", node);
+
       };
   
       const onUpdate = (nodes) => {
-        console.log("nodes:", nodes);
+
       };
   
       const onNodeClick = (node) => {
@@ -53,7 +52,7 @@
         })
         .then(response => response.json())
         .then(data => store.updateData(data));
-        console.log(store.getData);
+        console.log(store.data);
       };
   
       return {

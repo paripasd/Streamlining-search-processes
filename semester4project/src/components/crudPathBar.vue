@@ -28,10 +28,7 @@
   import { useCrudPageStore } from '@/stores/CrudPageStore';
 
   const store = useCrudPageStore();
-      const pages = computed(() => store.path);
-      watchEffect(() => {
-        console.log(store.path);
-      });
+      const pages = computed(() => store.getPath);
   
   /*const pages = [
     { name: '609 Roskilde Tekniske Skole', href: '#', current: false },

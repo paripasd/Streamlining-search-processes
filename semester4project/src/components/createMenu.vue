@@ -57,8 +57,12 @@
                       </div>
                       <div class="flex flex-row">
                         <label for="custompath-checkbox">Use custom path</label>
-                        <input type="checkbox" id="custompath-checkbox">
+                        <input type="checkbox" id="custompath-checkbox" v-model="customPathEnabled">
                       </div>
+                      <div class="flex flex-row">
+                        <input type="text" id="custompath-input" class="shortinput" :disabled="!customPathEnabled" v-model="store.createPath">
+                      </div>
+                      <input type="submit">
                     </form>
                     </div>
                     
@@ -77,10 +81,14 @@
   </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, watchEffect} from 'vue'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import  CreateTree  from '@/components/createTree.vue'
+import { useCrudPageStore } from '@/stores/CrudPageStore'
+
+const store = useCrudPageStore();
+const customPathEnabled = ref(false);
 
 const open = ref(false)
 </script>
