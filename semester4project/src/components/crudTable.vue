@@ -10,9 +10,9 @@
                 </tr>
               </thead>
                 <tbody class="divide-y divide-gray-200 bg-white">
-                  <tr v-on:click= " getRow(q)" v-for="q in qna" :key="q.id" class="divide-x hover:bg-gray-200">
-                    <td class="rounded-lg whitespace-nowrap w-1/3 overflow-y-hidden hover:overflow-y-hidden max-w-[80px] py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-0">{{ q.question }}</td>
-                    <td class="rounded-lg whitespace-nowrap w-2/3 hover:overflow-y-hidden max-w-screen-sm py-4 pl-4 pr-4 text-sm text-gray-500 sm:pr-0">{{ q.answer }}</td>
+                  <tr v-on:click= " getRow(q)" v-for="q in qna" :key="q.comment" class="divide-x hover:bg-gray-200">
+                    <td class="rounded-lg whitespace-normal w-1/3 max-w-[80px] py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-0">{{ q.question }}</td>
+                    <td class="rounded-lg whitespace-normal w-2/3 max-w-screen-sm py-4 pl-4 pr-4 text-sm text-gray-500 sm:pr-0">{{ q.answer }}</td>
                   </tr>
                 </tbody>
             </table>
@@ -38,7 +38,7 @@
   });
 
   function getRow(q) {
-    const unit = {question:q.question, answer:q.answer, comment:q.comment, path:q.path}
+    const unit = {question:q.question, answer:q.answer, comment:q.comment, id:q.id, path:q.path}
     store.updateUnit(unit);
   }
 

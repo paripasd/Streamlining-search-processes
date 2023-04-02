@@ -25,13 +25,13 @@
                     </button>
                   </div>
                 </TransitionChild>
-                <div class="h-full overflow-y-scroll bg-white py-6 shadow-xl">
+                <div class="h-full bg-white py-6 shadow-xl">
                   <div>
                     <DialogTitle class="text-center text-base font-semibold leading-6 text-gray-900">Add New</DialogTitle>
                   </div>
                   <div class="space-x-96 relative mt-6 flex-1 px-4 sm:px-6 flex flex-row">
-                    <div class="basis-1/2">
-                      <CreateTree/>
+                    <div class="h-screen basis-1/2">
+                      <CreateTree />
                     </div>
                     <div class="flex-auto basis-1/2">
                       <form id="data-entry-form" class="space-y-10">
@@ -65,7 +65,6 @@
                       <input type="submit">
                     </form>
                     </div>
-                    
                   </div>
                 </div>
               </DialogPanel>

@@ -22,8 +22,8 @@
                 <input type="text" id="editedby-input" class="shortinput" disabled>
               </div>
               <div class="flex flex-row justify-evenly">
-                <button>Update</button>
-                <button class="hover:text-red-500">Delete</button>
+                <button @click="updateUnit()">Update</button>
+                <button @click="deleteUnit()" class="hover:text-red-500">Delete</button>
               </div>
           </div>
     </form>
@@ -46,4 +46,35 @@ window.addEventListener('DOMContentLoaded', function() {
       commentField.innerHTML = store.unit.comment;
     });
   });
+
+function updateUnit(){
+  const unit = { question:"", answer:"", comment:"", id:store.unit.id, path: store.unit.path };
+
+      const questionField = document.getElementById("question-input");
+      unit.question = questionField.value;
+
+      const answerField = document.getElementById("answer-input");
+      unit.answer = answerField.value;
+
+      const commentField = document.getElementById("comment-input");
+      unit.comment = commentField.value;
+
+  fetch('https://localhost:7018/api/Update', {
+      method: 'PUT',
+      headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+      body: JSON.stringify(unit)
+  })
+  .then(response => response.json())
+}
+
+function deleteUnit(){
+  fetch('https://localhost:7018/api/Delete/'+store.unit.id, {
+    method: 'DELETE',
+    })
+    .then(response => response.json())
+}
+
 </script>
