@@ -49,16 +49,17 @@ window.addEventListener('DOMContentLoaded', function() {
 
 function updateUnit(){
   const unit = { question:"", answer:"", comment:"", id:store.unit.id, path: store.unit.path };
-
-      const questionField = document.getElementById("question-input");
-      unit.question = questionField.value;
-
-      const answerField = document.getElementById("answer-input");
-      unit.answer = answerField.value;
-
-      const commentField = document.getElementById("comment-input");
-      unit.comment = commentField.value;
-
+  
+  const questionField = document.getElementById("question-input");
+  unit.question = questionField.value;
+  
+  const answerField = document.getElementById("answer-input");
+  unit.answer = answerField.value;
+  
+  const commentField = document.getElementById("comment-input");
+  unit.comment = commentField.value;
+  
+  console.log(unit);
   fetch('https://localhost:7018/api/Update', {
       method: 'PUT',
       headers: {

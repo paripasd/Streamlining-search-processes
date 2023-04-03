@@ -25,7 +25,6 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
 
         updateUnit(unit) {
             this.unit = unit
-            console.log(unit)
         },
     },
 
@@ -41,14 +40,6 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
             return objectifiedPath;
         },
         getUnit: (state) => state.path,
-        getCreatePath() {
-            var stringifiedPath = "";
-            let i = 0;
-            while (i<this.createPath.length){
-                stringifiedPath += this.createPath[i] + '/';
-                i++;
-            }
-            return stringifiedPath;
-        },
+        getCreatePath: (state) => state.createPath,
     },
 });

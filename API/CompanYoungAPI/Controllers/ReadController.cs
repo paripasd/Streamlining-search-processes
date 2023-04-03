@@ -33,6 +33,12 @@ namespace CompanYoungAPI.Controllers
             return Ok(_readDataAccess.GetAllByPath(path));
         }
 
+		[HttpGet("{id}")]
+        public ActionResult<DataEntry> GetById(string id)
+		{
+            return Ok(_readDataAccess.GetById(id));
+		}
+
         [HttpGet("tree")]
         public ActionResult<IEnumerable<ReadDataAccess.Node>> GetTreeStructure()
 		{

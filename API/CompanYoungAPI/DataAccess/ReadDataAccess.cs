@@ -38,6 +38,12 @@ namespace CompanYoungAPI.DataAccess
 			return result;
 		}
 
+		public DataEntry GetById(string id)
+		{
+			var result = solr.Query(new SolrQuery($"id:{id}"));
+			return result.First();
+		}
+
 		private IEnumerable<string[]> GetUniquePaths()
 		{
 			var queryOptions = new QueryOptions
