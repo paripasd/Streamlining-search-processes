@@ -114,7 +114,7 @@ function createNew(){
     })
     .then(response => {});
   }
-  console.log(success);
+
 
 const open = ref(false)
 </script>

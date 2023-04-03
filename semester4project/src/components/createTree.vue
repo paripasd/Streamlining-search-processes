@@ -20,7 +20,6 @@ import { ref, onMounted } from "vue";
 import Tree from "vue3-tree";
 import "vue3-tree/dist/style.css";
 import { useCrudPageStore } from '@/stores/CrudPageStore';
-import Button from "@/components/button.vue";
 
 export default {
   setup() {
@@ -55,7 +54,6 @@ export default {
   },
   components: {
     Tree,
-    Button
   },
 };
 
