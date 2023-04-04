@@ -21,6 +21,7 @@
                 <label for="editedby-input">Edited&nbsp;by:</label>
                 <input type="text" id="editedby-input" class="shortinput" disabled>
               </div>
+              <TagSelector></TagSelector>
               <div class="flex flex-row justify-evenly">
                 <button @click="updateUnit()" class="uniform-button">Update</button>
                 <button @click="deleteUnit()" class="uniform-button hover:text-red-500">Delete</button>
@@ -32,6 +33,7 @@
 <script setup>
 import { useCrudPageStore } from '@/stores/CrudPageStore';
 import {computed, watchEffect} from 'vue';
+import TagSelector from './tagSelector.vue';
 const store = useCrudPageStore();
 computed(() => store.unit);
 window.addEventListener('DOMContentLoaded', function() {

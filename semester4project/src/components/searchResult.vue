@@ -1,6 +1,6 @@
 <template>
     <div class="h-fit px-2">
-      <div v-for="s in sample" :key="s.id" class="h-fit my-4 relative space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
+      <div v-for="s in store.searchResult" :key="s.id" class="h-fit my-4 relative space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
         <div class="pb-16">
           <a href="#" class="focus:outline-none">
             <p class="text-xl pt-2 pb-8 font-medium text-gray-900">{{ s.question }}</p>
@@ -20,11 +20,10 @@
   </template>
   
   <script setup>
-  import { useCrudPageStore } from '@/stores/CrudPageStore';
-  import {computed, watchEffect} from 'vue';
+import { useSearchPageStore } from '@/stores/SearchPageStore';
+  import { ref, onMounted } from 'vue';
+  const store = useSearchPageStore();
 
-  const store = useCrudPageStore();
-  const results = computed(() => store.results);
   const sample = [
   {
     question: "Besøg skolen - udover åbent hus",

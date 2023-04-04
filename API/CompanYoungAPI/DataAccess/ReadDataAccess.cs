@@ -44,7 +44,35 @@ namespace CompanYoungAPI.DataAccess
 			return result.First();
 		}
 
-		private IEnumerable<string[]> GetUniquePaths()
+		public IEnumerable<DataEntry> GetBySearch(string searchText, string[] path)
+		{
+			List<SolrQuery> textParams = new List<SolrQuery>();
+			if(searchText != "null")
+			{
+				textParams.Add(new SolrQuery($"question:{searchText}"));
+				textParams.Add(new SolrQuery($"answer:{searchText}"));
+				textParams.Add(new SolrQuery($"comment:{searchText}"));
+			} else
+			{
+				textParams.Add(new SolrQuery("*:*"));
+			}
+			List<SolrQuery> pathParams = new List<SolrQuery>();
+			foreach (string s in path)
+			{
+				pathParams.Add(new SolrQuery($"path:\"{s}\""));
+			}
+			List<ISolrQuery> queryParams = new List<ISolrQuery>();
+			queryParams.Add(new SolrMultipleCriteriaQuery(textParams, "OR"));
+			if(path.Length != 0)
+			{
+			queryParams.Add(new SolrMultipleCriteriaQuery(pathParams, "AND"));
+			}
+
+			var result = solr.Query(new SolrMultipleCriteriaQuery(queryParams, "AND"));
+			return result;
+		}
+
+		public IEnumerable<string[]> GetUniquePaths()
 		{
 			var queryOptions = new QueryOptions
 			{
@@ -57,6 +85,20 @@ namespace CompanYoungAPI.DataAccess
 				.Select(group => group.First())
 				.ToList();
 			return uniquePaths;
+		}
+
+		public IEnumerable<string> GetInstitutes()
+		{
+			IEnumerable<string[]> paths = GetUniquePaths();
+			var institutes = paths.Select(p => p[0]).Distinct();
+			return institutes;
+		}
+
+		public IEnumerable<string[]> GetInstituteSubPaths(string institute)
+		{
+			IEnumerable<string[]> paths = GetUniquePaths();
+			var subpaths = paths.Where(p => p[0] == institute).Select(p => p[1..]);
+			return subpaths;
 		}
 
 		public class Node

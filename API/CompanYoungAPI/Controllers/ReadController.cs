@@ -44,5 +44,29 @@ namespace CompanYoungAPI.Controllers
 		{
             return Ok(_readDataAccess.GetTreeStructure());
 		}
+
+		[HttpPost("search/{searchText}")]
+        public ActionResult<IEnumerable<DataEntry>> GetBySearch(string searchText, [FromBody] string[] path)
+		{
+            return Ok(_readDataAccess.GetBySearch(searchText, path));
+		}
+
+		[HttpGet("uniquePaths")]
+        public ActionResult<IEnumerable<string[]>> GetUniquePaths()
+		{
+            return Ok(_readDataAccess.GetUniquePaths());
+		}
+
+		[HttpGet("institutes")]
+        public ActionResult<string> GetInstitutes()
+		{
+            return Ok(_readDataAccess.GetInstitutes());
+		}
+
+		[HttpGet("subpaths/{institute}")]
+        public ActionResult<string[]> GetInstituteSubPaths(string institute)
+		{
+            return Ok(_readDataAccess.GetInstituteSubPaths(institute));
+		}
 	}
 }
