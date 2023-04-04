@@ -3,10 +3,9 @@
       <Sidebar/>
         <div class="max-h-screen w-10/12 px-8 py-8 bg-gray-100">
             <SearchParameters/>
-            <div class="max-h-screen pb-96">
+            <div class="h-[90%] overflow-y-scroll">
                 <SearchResult/>
-            </div>>
-            
+            </div>
         </div>
     </div>
   </template>
