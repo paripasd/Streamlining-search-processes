@@ -9,7 +9,6 @@
         </div>
         <div class=" bg-white col-span-3 row-span-4 grid grid-rows-[80px,auto,auto,auto,auto]">
           <div class="row-span-1 max-h-min">
-            <CreateMenu/>
             <TableHeader/>
             
           </div>

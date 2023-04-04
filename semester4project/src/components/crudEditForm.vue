@@ -22,8 +22,8 @@
                 <input type="text" id="editedby-input" class="shortinput" disabled>
               </div>
               <div class="flex flex-row justify-evenly">
-                <button @click="updateUnit()">Update</button>
-                <button @click="deleteUnit()" class="hover:text-red-500">Delete</button>
+                <button @click="updateUnit()" class="uniform-button">Update</button>
+                <button @click="deleteUnit()" class="uniform-button hover:text-red-500">Delete</button>
               </div>
           </div>
     </form>

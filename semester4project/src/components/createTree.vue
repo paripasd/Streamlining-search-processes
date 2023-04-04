@@ -6,7 +6,7 @@
       :nodes="data"
       :search-text="searchText"
       :use-checkbox="false"
-      :use-icon="false"
+      :use-icon="true"
       show-child-count
       @nodeExpanded="onNodeExpanded"
       @update:nodes="onUpdate"

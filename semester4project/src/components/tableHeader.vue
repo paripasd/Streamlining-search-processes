@@ -5,13 +5,14 @@
           <CrudPathBar/>
         </div>
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-          <!--<button class="block">Add New</button> -->
+          <CreateMenu/>
         </div>
       </div>
 </template>
 
 <script setup>
 import CrudPathBar from './crudPathBar.vue';
+import CreateMenu from './createMenu.vue';
 
 
 

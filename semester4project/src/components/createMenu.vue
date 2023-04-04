@@ -1,6 +1,6 @@
 <template>
   <div class="text-right">
-      <button  @click="open = true">Open Panel</button>
+      <button class="uniform-button" @click="open = true">Create</button>
   </div>
   <TransitionRoot as="template" :show="open">
     <Dialog as="div" class="relative z-10" @close="open = false">
@@ -27,45 +27,52 @@
               </TransitionChild>
               <div class="h-full overflow-y-scroll bg-white py-6 shadow-xl">
                 <div>
-                  <DialogTitle class="text-center text-base font-semibold leading-6 text-gray-900">Add New</DialogTitle>
+                  <DialogTitle class="text-center text-base font-semibold leading-6 text-gray-900">Create New</DialogTitle>
                 </div>
-                <div class="space-x-96 relative mt-6 flex-1 px-4 sm:px-6 flex flex-row">
+                <div class="space-x-12 relative mt-6 flex-1 px-4 sm:px-6 flex flex-row">
                   <div class="basis-1/2">
                     <CreateTree/>
                   </div>
                   <div class="flex-auto basis-1/2">
                     <form @submit.prevent="createNew()" id="data-entry-form" class="space-y-5">
+                      <div>
+                        <div class="flex flex-row">
+                          <input type="text" id="custompath-input" class="shortinput m-0 mb-4 transition duration-200 disabled:bg-slate-200 disabled:text-black disabled:border-slate-400" :disabled="!customPathEnabled" v-model="store.createPath">
+                        </div>
+                        <div class="flex flex-row">
+                          <SwitchGroup as="div" class="flex items-center">
+                            <Switch v-model="customPathEnabled" :class="[customPathEnabled ? 'bg-indigo-600' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2']">
+                              <span aria-hidden="true" :class="[customPathEnabled ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
+                            </Switch>
+                            <SwitchLabel as="span" class="ml-3 text-sm">
+                              <span class="font-medium text-gray-900">Use custom path</span>
+                            </SwitchLabel>
+                          </SwitchGroup>
+                        </div>
+                        <p class="text-red-500" :hidden="!customPathEnabled">Category names are separated by commas (,) - do not use commas in category names!</p>
+                      </div>
                     <div class="flex flex-col">
-                      <label for="question-input">Question:</label>
+                      <label for="question-input" class="ml-1">Question:</label>
                       <textarea class="longtextinput h-32" id="question-input" v-model="formQuestion"></textarea>
                     </div>
                     <div class="flex flex-col">
-                      <label for="question-input">Answer:</label>
+                      <label for="question-input" class="ml-1">Answer:</label>
                       <textarea class="longtextinput h-32" id="question-input" v-model="formAnswer"></textarea>
                     </div>
                     <div class="flex flex-col">
-                      <label for="question-input">Comment:</label>
+                      <label for="question-input" class="ml-1">Comment:</label>
                       <textarea class="longtextinput h-32" id="question-input" v-model="formComment"></textarea>
                     </div>
                     <div class="flex flex-row">
-                      <label for="expiry-input">Expiry:</label>
+                      <label for="expiry-input" class="ml-1">Expiry:</label>
                       <input type="date" id="expiry-input" class="shortinput">
                     </div>
                     <div class="flex flex-row">
-                      <label for="editedby-input">Edited&nbsp;by:</label>
+                      <label for="editedby-input" class="ml-1">Edited&nbsp;by:</label>
                       <input type="text" id="editedby-input" class="shortinput" disabled>
                     </div>
-                    <div>
-                      <div class="flex flex-row">
-                        <label for="custompath-checkbox">Use custom path</label>
-                        <input type="checkbox" id="custompath-checkbox" v-model="customPathEnabled">
-                      </div>
-                      <p class="text-red-500" :hidden="!customPathEnabled">Category names are separated by commas (,) - do not use commas in category names!</p>
-                    </div>
-                    <div class="flex flex-row">
-                      <input type="text" id="custompath-input" class="shortinput" :disabled="!customPathEnabled" v-model="store.createPath">
-                    </div>
-                    <button type="submit">Create</button>
+                    <button type="submit" class="uniform-button">Create</button>
+                    <p>{{ feedback }}</p>
                   </form>
                   </div>
                   
@@ -89,32 +96,41 @@ import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } fro
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import  CreateTree  from '@/components/createTree.vue'
 import { useCrudPageStore } from '@/stores/CrudPageStore'
+import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
 
 const store = useCrudPageStore();
 const customPathEnabled = ref(false);
 const formQuestion = ref("");
 const formAnswer = ref("");
 const formComment = ref("");
-//const formPath = computed(() => store.createPath);
+const feedback = ref("");
 
-function createNew(){
+async function createNew(){
   //id is generated at API, but can't be null
   const newQna = {question: formQuestion.value, answer: formAnswer.value, comment: formComment.value, id: "", path: store.getCreatePath};
   if(typeof newQna.path === 'string'){ //by default it's an array, if it's a string it means that it was modified using the custom path field
     newQna.path = newQna.path.split(',');
   }
-  let success = false;
-  fetch('https://localhost:7018/api/Create', {
-        method: 'POST',
+  try{
+    const response = await fetch('https://localhost:7018/api/Create',{
+      method: 'POST',
         headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
         body: JSON.stringify(newQna)
-    })
-    .then(response => {});
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error ${response.status}`);
+    }
+    const responseData = await response.json();
+    feedback.value = "Successfully created new entry with ID: " + responseData.id;
+  } catch(error) {
+    feedback.value = "There was an error performing this action. See the console for details."
+    console.error('Error:', error);
   }
-  console.log(success);
+}
 
 const open = ref(false)
 </script>

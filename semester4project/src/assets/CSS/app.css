@@ -18,7 +18,7 @@
     @apply text-base text-gray-900 ml-1 inline-block align-middle
   }
 
-  button {
+  .uniform-button {
     @apply font-bold text-slate-300 bg-slate-800 rounded-md w-24 hover:text-white hover:bg-gray-700 hover:scale-110 transition
   }
 
