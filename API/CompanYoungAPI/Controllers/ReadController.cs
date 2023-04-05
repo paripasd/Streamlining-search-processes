@@ -68,5 +68,11 @@ namespace CompanYoungAPI.Controllers
 		{
             return Ok(_readDataAccess.GetInstituteSubPaths(institute));
 		}
-	}
+
+        [HttpGet("cydata")]
+        public ActionResult<int> CallServer() 
+        {
+            return Ok(609);
+        }
+    }
 }

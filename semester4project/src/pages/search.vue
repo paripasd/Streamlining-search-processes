@@ -10,11 +10,19 @@
     </div>
   </template>
   
-<script>
+<script setup>
 import Sidebar from '@/components/sidebar.vue';
 import SearchResult from '@/components/searchResult.vue';
 import SearchParameters from '@/components/searchParameters.vue';
-export default {
-    components: { Sidebar, SearchResult, SearchParameters }
-}
+import { useSearchPageStore } from '@/stores/SearchPageStore';
+import { onMounted } from 'vue';
+
+const store = useSearchPageStore();
+onMounted(async () => {
+    const response = await fetch(`https://localhost:7018/api/Read/cydata`);
+    const data = await response.json();
+    store.defaultNumber = data;
+});
+
+
 </script>

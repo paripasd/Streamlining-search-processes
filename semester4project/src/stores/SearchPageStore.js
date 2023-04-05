@@ -5,6 +5,7 @@ export const useSearchPageStore = defineStore("SearchPageStore", {
         return {
             searchText: "",
             searchResult: [],
+            defaultNumber: 0
         };
     },
 });
