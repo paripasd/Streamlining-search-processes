@@ -8,11 +8,11 @@
           <Tree class=""/>
         </div>
         <div class=" bg-white col-span-3 row-span-4 grid grid-rows-[80px,auto,auto,auto,auto]">
-          <div class="row-span-1 max-h-min">
+          <div class="row-span-1 w-full">
             <TableHeader/>
             
           </div>
-          <div id="tableContainer" class="row-span-4 col-span-3 overflow-scroll">
+          <div id="tableContainer" class="row-span-4 overflow-scroll">
             <Crudtable/>
             
           </div>
@@ -38,22 +38,25 @@ export default {
     setup(props){
       const store = useCrudPageStore();
 
-      const fetchData = async () => {
-        const response = await fetch(`https://localhost:7018/api/Read/${props.id}`, {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        });
+      if(props.id){
+        const fetchData = async () => {
+          const response = await fetch(`https://localhost:7018/api/Read/${props.id}`, {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+          });
+  
+          const data = await response.json();
+          store.updateUnit(data);
+          store.updateDataByPath(data.path);
+          console.log(store.data);
+        };
+  
+        onMounted(fetchData);
 
-        const data = await response.json();
-        store.updateUnit(data);
-        store.updateDataByPath(data.path);
-        console.log(store.data);
-      };
-
-      onMounted(fetchData);
+      }
 
       watch(() => store.selectedRow, (newValue) => {
         if(newValue !== null){
