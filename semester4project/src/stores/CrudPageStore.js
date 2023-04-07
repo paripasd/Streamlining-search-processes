@@ -7,7 +7,8 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
             createPath:[],
             data:[],
             unit:{question:"",answer:"",comment:"", id:"", expiryDate:"", modifiedBy:"", path:[]},
-            results:[]
+            results:[],
+            selectedRow: null,
         };
     },
 
@@ -30,7 +31,22 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
 
         updateResults(results){
             this.results = results
-        }
+        },
+
+        updateDataByPath(path) {
+            this.updatePath(path);
+            fetch('https://localhost:7018/api/Read/', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(path)
+            })
+            .then(response => response.json())
+            .then(data => this.updateData(data));
+            console.log(this.data);
+          },
     },
 
     getters: {

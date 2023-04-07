@@ -12,11 +12,13 @@
             </div>
             <div class="relative flex justify-end">
               <span class="isolate inline-flex -space-x-px rounded-md shadow-sm">
-                <button type="button"
-                  class="mr-4 relative inline-flex items-center rounded-md bg-white px-3 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">
-                  <span class="sr-only">Edit</span>
-                  <PencilIcon class="h-5 w-5" aria-hidden="true" />
-                </button>
+                <RouterLink :to="{name: 'CrudWithId', params: {id: s.id}}"> 
+                  <button type="button"
+                    class="mr-4 relative inline-flex items-center rounded-md bg-white px-3 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">
+                    <span class="sr-only">Edit</span>
+                    <PencilIcon class="h-5 w-5" aria-hidden="true" />
+                  </button>
+                </RouterLink>
               </span>
             </div>
           </div>

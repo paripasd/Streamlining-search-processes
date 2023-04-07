@@ -12,7 +12,7 @@
             <TableHeader/>
             
           </div>
-          <div class="row-span-4 overflow-x-scroll">
+          <div id="tableContainer" class="row-span-4 col-span-3 overflow-scroll">
             <Crudtable/>
             
           </div>
@@ -32,31 +32,41 @@ import TableHeader from '@/components/tableHeader.vue';
 import Tree from '@/components/tree.vue';
 import CreateMenu from '@/components/createMenu.vue';
 import { useCrudPageStore } from '@/stores/CrudPageStore';
+import { onMounted, ref, watch } from 'vue';
 
 export default {
-    setup(){
+    setup(props){
       const store = useCrudPageStore();
-    },
-    data() {
-        return {
-            inputText: "",
-            outputText: ""
-        };
-    },
-    methods: {
-        addItem() {
-            this.outputText += this.inputText + "\n";
-            this.inputText = "";
-        },
-        updateItem() {
-            // implement update logic here
-            this.outputText = this.inputText;
-            this.inputText = "";
-        },
-        deleteItem() {
-            this.outputText = "";
+
+      const fetchData = async () => {
+        const response = await fetch(`https://localhost:7018/api/Read/${props.id}`, {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const data = await response.json();
+        store.updateUnit(data);
+        store.updateDataByPath(data.path);
+        console.log(store.data);
+      };
+
+      onMounted(fetchData);
+
+      watch(() => store.selectedRow, (newValue) => {
+        if(newValue !== null){
+
+          document.getElementById("tableContainer").scrollTo({
+              top: store.selectedRow.offsetTop,
+              behavior: "smooth",
+          });
         }
+      });
+
     },
+    props: ['id'],
     components: { Sidebar, CrudEditForm, Crudtable, TableHeader, Tree, CreateMenu }
 }
   </script>

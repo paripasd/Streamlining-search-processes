@@ -40,7 +40,7 @@
 
       };
   
-      const onNodeClick = (node) => {
+      const onNodeClick2 = (node) => {
         store.updatePath(node.path);
         fetch('https://localhost:7018/api/Read/', {
           method: 'POST',
@@ -54,10 +54,15 @@
         .then(data => store.updateData(data));
         console.log(store.data);
       };
+
+      const onNodeClick = (node) => {
+        store.updateDataByPath(node.path);
+      }
   
       return {
         data,
         searchText,
+        store,
         onNodeExpanded,
         onUpdate,
         onNodeClick,

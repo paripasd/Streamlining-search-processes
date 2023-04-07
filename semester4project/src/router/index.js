@@ -20,6 +20,12 @@ const routes = [
     path:'/crud',
     component:crud
   },
+  {
+    name:'CrudWithId',
+    path:'/crud/:id',
+    component: crud,
+    props: true,
+  },
  
 ];
 
