@@ -7,7 +7,6 @@
         :search-text="searchText"
         :use-checkbox="false"
         :use-icon="true"
-        show-child-count
         @nodeExpanded="onNodeExpanded"
         @update:nodes="onUpdate"
         @nodeClick="onNodeClick"

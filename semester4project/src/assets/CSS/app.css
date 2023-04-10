@@ -7,11 +7,11 @@
 @layer components {
 
   .longtextinput {
-    @apply rounded-md border border-solid border-slate-300 p-1 m-1 block w-full h-full text-gray-900 text-sm resize-none 
+    @apply rounded-md border border-solid border-slate-300 p-1 m-1 block w-full h-full text-gray-900 text-sm resize-none focus:border-cyorange outline-none
   }
 
   .shortinput {
-    @apply rounded-md border border-solid border-slate-300 p-1 m-1 block w-full text-gray-900 text-sm
+    @apply rounded-md border border-solid border-slate-300 p-1 m-1 block w-full text-gray-900 text-sm focus:border-cyorange outline-none
   }
 
   #data-edit-form label {
@@ -19,7 +19,7 @@
   }
 
   .uniform-button {
-    @apply font-bold text-slate-300 bg-slate-800 rounded-md w-24 hover:text-white hover:bg-gray-700 hover:scale-110 transition
+    @apply font-bold text-gray-100 bg-stone-800 rounded-md w-24 hover:text-white hover:bg-cyorange hover:scale-110 transition
   }
 
   .folder img{
@@ -28,5 +28,9 @@
 
   .folder {
     @apply odd:bg-gray-200 even:bg-gray-400
+  }
+
+  .dropdown {
+    @apply appearance-none bg-white border border-slate-300 outline-none p-2 focus:border-cyorange cursor-pointer transition
   }
 }

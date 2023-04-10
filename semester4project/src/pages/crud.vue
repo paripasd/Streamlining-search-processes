@@ -3,21 +3,21 @@
 <template>
   <div class="flex">
     <Sidebar/>
-      <div class="grid grid-cols-[300px,auto,auto,auto] grid-rows-4 h-screen w-[90%] gap-2 bg-gray-100">
+      <div class="grid grid-cols-[300px,auto,auto,auto] grid-rows-4 h-screen w-[90%] gap-2 bg-white">
         <div class="col-span-1 row-span-4 w-full m-2 pr-2">
           <Tree class=""/>
         </div>
-        <div class=" bg-white col-span-3 row-span-4 grid grid-rows-[80px,auto,auto,auto,auto]">
+        <div class="col-span-3 row-span-4 grid grid-rows-[80px,auto,auto,auto,auto] bg-stone-100">
           <div class="row-span-1 w-full">
             <TableHeader/>
             
           </div>
-          <div id="tableContainer" class="row-span-4 overflow-scroll">
+          <div id="tableContainer" class="row-span-4 h-auto min-h-[0px]">
             <Crudtable/>
             
           </div>
         </div>
-        <div class="col-span-4 row-span-1 h-min">
+        <div class="col-span-4 row-span-1 h-min bg-white">
           <CrudEditForm/>
         </div>
       </div>

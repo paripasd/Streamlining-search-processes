@@ -13,21 +13,27 @@
                 <label for="comment-input">Comment:</label>
                 <textarea class="longtextinput" id="comment-input" v-model="store.unit.comment"></textarea>
               </div>
-              <div class="flex flex-row">
+              <div class="flex flex-row items-center">
                 <label for="expiry-input">Expiry:</label>
                 <input type="date" id="expiry-input" class="shortinput">
               </div>
-              <div class="flex flex-row">
+              <div class="flex flex-row items-center">
                 <label for="editedby-input">Edited&nbsp;by:</label>
                 <input type="text" id="editedby-input" class="shortinput" disabled>
               </div>
               <div class="flex flex-row justify-evenly">
                 <button @click="updateUnit()" class="uniform-button">Update</button>
-                <button @click="deleteUnit()" class="uniform-button hover:text-red-500">Delete</button>
+                <button @click="deleteUnit()" class="uniform-button hover:bg-red-600">Delete</button>
               </div>
           </div>
     </form>
 </template>
+
+<style>
+#data-edit-form label {
+  @apply font-semibold
+}
+</style>
 
 <script setup>
 import { useCrudPageStore } from '@/stores/CrudPageStore';

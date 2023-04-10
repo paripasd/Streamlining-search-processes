@@ -17,12 +17,12 @@ const routes = [
   },
   {
     name:'Crud',
-    path:'/crud',
+    path:'/datamanager',
     component:crud
   },
   {
     name:'CrudWithId',
-    path:'/crud/:id',
+    path:'/datamanager/:id',
     component: crud,
     props: true,
   },

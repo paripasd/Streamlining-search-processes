@@ -1,6 +1,6 @@
 <template>
-  <div class="text-right">
-      <button class="uniform-button" @click="open = true">Create</button>
+  <div class="text-right flex items-center">
+      <button class="uniform-button w-10 h-10" @click="open = true"><PlusIcon/></button>
   </div>
   <TransitionRoot as="template" :show="open">
     <Dialog as="div" class="relative z-10" @close="open = false">
@@ -25,9 +25,9 @@
                   </button>
                 </div>
               </TransitionChild>
-              <div class="h-full overflow-y-scroll bg-white py-6 shadow-xl">
+              <div class="h-full overflow-y-scroll bg-stone-50 py-6 shadow-xl">
                 <div>
-                  <DialogTitle class="text-center text-base font-semibold leading-6 text-gray-900">Create New</DialogTitle>
+                  <DialogTitle class="text-center text-base font-semibold leading-6 text-gray-900">Add New</DialogTitle>
                 </div>
                 <div class="space-x-12 relative mt-6 flex-1 px-4 sm:px-6 flex flex-row">
                   <div class="basis-1/2">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="flex flex-row">
                           <SwitchGroup as="div" class="flex items-center">
-                            <Switch v-model="customPathEnabled" :class="[customPathEnabled ? 'bg-indigo-600' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2']">
+                            <Switch v-model="customPathEnabled" :class="[customPathEnabled ? 'bg-cyorange' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyorange focus:ring-offset-2']">
                               <span aria-hidden="true" :class="[customPathEnabled ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
                             </Switch>
                             <SwitchLabel as="span" class="ml-3 text-sm">
@@ -63,15 +63,17 @@
                       <label for="question-input" class="ml-1">Comment:</label>
                       <textarea class="longtextinput h-32" id="question-input" v-model="formComment"></textarea>
                     </div>
-                    <div class="flex flex-row">
+                    <div class="flex flex-row items-center">
                       <label for="expiry-input" class="ml-1">Expiry:</label>
                       <input type="date" id="expiry-input" class="shortinput">
                     </div>
-                    <div class="flex flex-row">
+                    <div class="flex flex-row items-center">
                       <label for="editedby-input" class="ml-1">Edited&nbsp;by:</label>
                       <input type="text" id="editedby-input" class="shortinput" disabled>
                     </div>
-                    <button type="submit" class="uniform-button">Create</button>
+                    <div class="flex justify-end items-end h-full">
+                      <button type="submit" class="uniform-button py-4 mr-4">Done</button>
+                    </div>
                     <p>{{ feedback }}</p>
                   </form>
                   </div>
@@ -97,6 +99,7 @@ import { XMarkIcon } from '@heroicons/vue/24/outline'
 import  CreateTree  from '@/components/createTree.vue'
 import { useCrudPageStore } from '@/stores/CrudPageStore'
 import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
+import { PlusIcon } from '@heroicons/vue/20/solid';
 
 const store = useCrudPageStore();
 const customPathEnabled = ref(false);
