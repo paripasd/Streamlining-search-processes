@@ -12,8 +12,14 @@ namespace CompanYoungAPI.Model
 		public string Comment { get; set; }
 		[SolrField("id")]
 		public string Id { get; set; }
-		[SolrField("path")]
-		public string[] Path { get; set; }
+
+        [SolrField("tags")]
+        public string[] Tags { get; set; }
+
+        [SolrField("path")]
+
+        
+        public string[] Path { get; set; }
 		/*[SolrField("_version_")]
 		public double Version { get; set; }*/
         //public DateTime Expiry { get; set; } to be added later
