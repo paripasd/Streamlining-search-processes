@@ -15,8 +15,8 @@ namespace CompanYoungAPI.Model
 		[SolrField("id")]
 		public string Id { get; set; }
 
-        /*[SolrField("tags")]
-        public string[] Tags { get; set; }*/
+        [SolrField("tags")]
+        public string[] Tags { get; set; }
 
         [SolrField("path")]
         public string[] Path { get; set; }

@@ -71,7 +71,6 @@
 <script setup>
 import { useCrudPageStore } from '@/stores/CrudPageStore';
 import { computed, watchEffect } from 'vue';
-import TagSelector from './tagSelector.vue';
 import { ref } from 'vue'
 import { CheckCircleIcon } from '@heroicons/vue/24/outline'
 import { XMarkIcon } from '@heroicons/vue/20/solid'
@@ -114,9 +113,6 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 async function updateUnit() {
-  const unit = { question: "", answer: "", comment: "", id: store.unit.id, path: store.unit.path };
-
-function updateUnit(){
   const unit = { question:"", answer:"", comment:"", id:store.unit.id, path: store.unit.path, tags: store.unit.tags};
   
   const questionField = document.getElementById("question-input");

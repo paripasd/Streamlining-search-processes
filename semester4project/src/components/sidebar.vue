@@ -29,16 +29,12 @@
 
 <script setup>
   import { ref } from 'vue'
-  import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
   import {
     Bars3Icon,
     CalendarIcon,
     ChartBarIcon,
     FolderIcon,
     HomeIcon,
-    InboxIcon,
-    UsersIcon,
-    XMarkIcon,
     DocumentIcon
   } from '@heroicons/vue/24/outline'
   
