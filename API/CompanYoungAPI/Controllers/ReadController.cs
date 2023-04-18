@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CompanYoungAPI.Model;
 using CompanYoungAPI.DataAccess;
+using System.IO;
+using SolrNet;
 
 namespace CompanYoungAPI.Controllers
 {
@@ -33,7 +35,13 @@ namespace CompanYoungAPI.Controllers
             return Ok(_readDataAccess.GetAllByPath(path));
         }
 
-		[HttpGet("{id}")]
+        [HttpPost("livesuggest")]
+        public ActionResult<string[]> GetAllQuestionByPathForSuggestion([FromBody] string[] path)
+        {
+            return Ok(_readDataAccess.GetAllQuestionByPathForSuggestion(path));
+        }
+
+        [HttpGet("{id}")]
         public ActionResult<DataEntry> GetById(string id)
 		{
             return Ok(_readDataAccess.GetById(id));
@@ -51,7 +59,7 @@ namespace CompanYoungAPI.Controllers
             return Ok(_readDataAccess.GetBySearch(searchText, path));
 		}
 
-		[HttpGet("uniquePaths")]
+        [HttpGet("uniquePaths")]
         public ActionResult<IEnumerable<string[]>> GetUniquePaths()
 		{
             return Ok(_readDataAccess.GetUniquePaths());

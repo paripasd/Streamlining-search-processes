@@ -6,24 +6,42 @@ using SolrNet;
 using SolrNet.Impl;
 using System.Collections;
 using SolrNet.Commands.Parameters;
-using System.Linq;
+using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using NuGet.Protocol;
+using SolrNet.Schema;
+using System.Linq;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.AspNetCore.Mvc;
+using static System.Net.WebRequestMethods;
+using SolrNet;
+using SolrNet.Commands.Parameters;
+using SolrNet.Exceptions;
+using SolrNet.Impl;
+
+using System;
 
 namespace CompanYoungAPI.DataAccess
 {
 	public class ReadDataAccess
-	{
+    {
 		ISolrOperations<DataEntry> solr;
 
-		public ReadDataAccess()
+        public ReadDataAccess()
 		{
 			solr = ServiceLocator.Current.GetInstance<ISolrOperations<DataEntry>>();
 		}
 
 		public IEnumerable<DataEntry> GetAll()
 		{
-			var result = solr.Query(new SolrQuery("*:*"));
+            var options = new QueryOptions
+            {
+                // set the sort order
+                OrderBy = new[] { new SortOrder("id", Order.DESC) }
+            };
+            var result = solr.Query(new SolrQuery("*:*"),options);
 			return result;
 		}
 
@@ -34,45 +52,69 @@ namespace CompanYoungAPI.DataAccess
 			{
 				queryParams.Add(new SolrQuery("path:\"" + s + "\""));
 			}
-			var result = solr.Query(new SolrMultipleCriteriaQuery(queryParams, "AND"));
+            var options = new QueryOptions
+            {
+                // set the sort order
+                OrderBy = new[] { new SortOrder("id", Order.DESC) }
+            };
+            var result = solr.Query(new SolrMultipleCriteriaQuery(queryParams, "AND"),options);
 			return result;
 		}
 
-		public DataEntry GetById(string id)
+        public string[] GetAllQuestionByPathForSuggestion(string[] path)
+        {
+			var result = GetAllByPath(path);
+            string[] questions = result.Select(x => x.Question).ToArray();
+            HashSet<string> questionSet = new HashSet<string>(questions);
+            return questionSet.ToArray();
+        }
+
+        public DataEntry GetById(string id)
 		{
 			var result = solr.Query(new SolrQuery($"id:{id}"));
 			return result.First();
 		}
 
-		public IEnumerable<DataEntry> GetBySearch(string searchText, string[] path)
-		{
-			List<SolrQuery> textParams = new List<SolrQuery>();
-			if(searchText != "null")
-			{
-				textParams.Add(new SolrQuery($"question:{searchText}"));
-				textParams.Add(new SolrQuery($"answer:{searchText}"));
-				textParams.Add(new SolrQuery($"comment:{searchText}"));
-			} else
-			{
-				textParams.Add(new SolrQuery("*:*"));
-			}
-			List<SolrQuery> pathParams = new List<SolrQuery>();
-			foreach (string s in path)
-			{
-				pathParams.Add(new SolrQuery($"path:\"{s}\""));
-			}
-			List<ISolrQuery> queryParams = new List<ISolrQuery>();
-			queryParams.Add(new SolrMultipleCriteriaQuery(textParams, "OR"));
-			if(path.Length != 0)
-			{
-			queryParams.Add(new SolrMultipleCriteriaQuery(pathParams, "AND"));
-			}
+        public IEnumerable<DataEntry> GetBySearch(string searchText, string[] path)
+        {
+            List<SolrQuery> textParams = new List<SolrQuery>();
+            if (searchText != "null")
+            {
+                textParams.Add(new SolrQuery($"question:{searchText}"));
+                textParams.Add(new SolrQuery($"answer:{searchText}"));
+                textParams.Add(new SolrQuery($"comment:{searchText}"));
+            }
+            else
+            {
+                textParams.Add(new SolrQuery("*:*"));
+            }
+            List<SolrQuery> pathParams = new List<SolrQuery>();
+            foreach (string s in path)
+            {
+                pathParams.Add(new SolrQuery($"path:\"{s}\""));
+            }
+            List<ISolrQuery> queryParams = new List<ISolrQuery>();
+            queryParams.Add(new SolrMultipleCriteriaQuery(textParams, "OR"));
+            if (path.Length != 0)
+            {
+                queryParams.Add(new SolrMultipleCriteriaQuery(pathParams, "AND"));
+            }
+            var options = new QueryOptions
+            {
+                // set the sort order
+                OrderBy = new[] { new SortOrder("id", Order.DESC) },
+                // set highlight
+                Highlight = new HighlightingParameters
+                {
+                    Fields = new[] { "answer" },
+                }
+			};
+            var solrResult = solr.Query(new SolrMultipleCriteriaQuery(queryParams, "AND"), options);
 
-			var result = solr.Query(new SolrMultipleCriteriaQuery(queryParams, "AND"));
-			return result;
-		}
+            return solrResult;
+        }
 
-		public IEnumerable<string[]> GetUniquePaths()
+        public IEnumerable<string[]> GetUniquePaths()
 		{
 			var queryOptions = new QueryOptions
 			{

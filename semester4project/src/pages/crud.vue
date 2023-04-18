@@ -10,7 +10,6 @@
         <div class="col-span-3 row-span-4 grid grid-rows-[80px,auto,auto,auto,auto] bg-stone-100">
           <div class="row-span-1 w-full">
             <TableHeader/>
-            
           </div>
           <div id="tableContainer" class="row-span-4 h-auto min-h-[0px]">
             <Crudtable/>
