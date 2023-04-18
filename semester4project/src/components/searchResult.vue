@@ -43,6 +43,7 @@
         <div class="w-full justify-end items-center flex flex-row">
           <PencilIconOutline v-if="s.modifiedBy" class="w-5 h-5 flex-none text-gray-500"/>
           <p class="ml-4 mr-8 text-clip text-sm text-gray-500">{{ s.modifiedBy }}</p>
+          <p class="ml-4 mr-8 text-clip text-sm text-gray-500">{{ new Date(s.modificationDate).toLocaleString().replace('T', ' ').replace('Z', '') }}</p>
         </div>
       </div>
     </div>

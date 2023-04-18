@@ -1,5 +1,7 @@
 ﻿using System;
 using SolrNet.Attributes;
+using SolrNet.Impl;
+
 namespace CompanYoungAPI.Model
 {
 	public class DataEntry
@@ -13,12 +15,18 @@ namespace CompanYoungAPI.Model
 		[SolrField("id")]
 		public string Id { get; set; }
 
-        [SolrField("tags")]
-        public string[] Tags { get; set; }
+        /*[SolrField("tags")]
+        public string[] Tags { get; set; }*/
 
         [SolrField("path")]
         public string[] Path { get; set; }
-		/*[SolrField("_version_")]
+
+        [SolrField("modification_date")]
+        public DateTime ModificationDate { get; set; }
+
+        //public ICollection<ICollection<string>> Snippets { get; set; }
+
+        /*[SolrField("_version_")]
 		public double Version { get; set; }*/
 		[SolrField("expiry")]
         public DateTime Expiry { get; set; }

@@ -10,7 +10,7 @@
                 </tr>
               </thead>
                 <tbody class="bg-white">
-                  <tr ref="tableRows" v-for="(q, qIndex) in store.data" :key="qIndex" :class="{ 'border-2 border-cyorange': selectedRowId === q.id } " @click="updateSelected(q, qIndex)" class="divide-x hover:bg-gray-200 cursor-pointer">
+                  <tr ref="tableRows" v-for="(q, qIndex) in store.data" :key="qIndex" :class="{ 'bg-orange-300 hover:bg-orange-300': selectedRowId === q.id } " @click="updateSelected(q, qIndex)" class="divide-x hover:bg-gray-200 cursor-pointer">
                     <td class="whitespace-normal break-words w-1/3 max-w-[80px] pl-4 pr-4 py-4 text-sm font-medium text-gray-900">
                       {{ q.question }}
                       <div class="flex space-x-1">
@@ -41,7 +41,6 @@
   function updateSelected(unit, index){
     store.updateUnit(unit);
     store.selectedRow = tableRows.value[index];
-    console.log(store.unit)
   }
 
 

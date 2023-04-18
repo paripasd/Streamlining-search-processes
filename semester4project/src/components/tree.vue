@@ -51,7 +51,6 @@
         })
         .then(response => response.json())
         .then(data => store.updateData(data));
-        console.log(store.data);
       };
 
       const onNodeClick = (node) => {

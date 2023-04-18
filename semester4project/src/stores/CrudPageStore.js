@@ -9,6 +9,7 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
             unit:{question:"",answer:"",comment:"", id:"", expiry:"", modifiedBy:"", path:[], tags:[]},
             results:[],
             selectedRow: null,
+            highlightedWords:[],
             tagList: [
                 {label:"Important",color:"bg-green-500"},
                 {label:"Draft",color:"bg-sky-500"},
@@ -19,6 +20,10 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
     },
 
     actions: {
+        updateHighlightedWords(highlightedWords){
+            this.highlightedWords = highlightedWords;
+        },
+        
         updatePath(path) {
             this.path = path;
         },
