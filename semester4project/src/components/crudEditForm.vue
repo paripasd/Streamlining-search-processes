@@ -1,27 +1,30 @@
 <template>
     <form id="data-edit-form">
-          <div class="grid grid-rows-4 w-full h-full p-2 gap-2">
-              <div class="col-span-1 row-span-3 flex flex-col">
+          <div class="grid grid-rows-4 grid-cols-6 w-full h-full p-2 gap-2">
+              <div class="col-span-2 row-span-3 flex flex-col">
                 <label for="question-input">Question:</label>
                 <textarea class="longtextinput" id="question-input" v-model="store.unit.question"></textarea>
               </div>
-              <div class="col-span-1 col-start-2 row-span-3 flex flex-col">
+              <div class="col-span-2 col-start-3 row-span-3 flex flex-col">
                 <label for="answer-input">Answer:</label>
                 <textarea class="longtextinput" id="answer-input" v-model="store.unit.answer"></textarea>
               </div>
-              <div class="col-span-1 col-start-3 row-span-3 flex flex-col">
+              <div class="col-span-2 col-start-5 row-span-3 flex flex-col">
                 <label for="comment-input">Comment:</label>
                 <textarea class="longtextinput" id="comment-input" v-model="store.unit.comment"></textarea>
               </div>
-              <div class="flex flex-row items-center">
+              <div class="col-span-1 col-start-1 flex flex-row items-center">
                 <label for="expiry-input">Expiry:</label>
-                <input type="date" id="expiry-input" class="shortinput">
+                <input type="date" id="expiry-input" class="shortinput" v-model="formattedExpiry">
               </div>
-              <div class="flex flex-row items-center">
+              <div class="col-span-2 col-start-2 flex flex-row items-center">
                 <label for="editedby-input">Edited&nbsp;by:</label>
                 <input type="text" id="editedby-input" class="shortinput" disabled>
               </div>
-              <div class="flex flex-row justify-evenly">
+              <div class="col-span-1 col-start-4">
+                <TagSelector></TagSelector>
+              </div>
+              <div class="col-span-2 col-start-5 flex flex-row justify-evenly">
                 <button @click="updateUnit()" class="uniform-button">Update</button>
                 <button @click="deleteUnit()" class="uniform-button hover:bg-red-600">Delete</button>
               </div>
@@ -40,6 +43,14 @@ import { useCrudPageStore } from '@/stores/CrudPageStore';
 import {computed, watchEffect} from 'vue';
 import TagSelector from './tagSelector.vue';
 const store = useCrudPageStore();
+const formattedExpiry = computed({
+  get(){
+    return store.getFormattedExpiry;
+  },
+  set(value){
+    store.updateFormattedExpiry(value);
+  }
+});
 computed(() => store.unit);
 window.addEventListener('DOMContentLoaded', function() {
     watchEffect(() => {
@@ -55,7 +66,7 @@ window.addEventListener('DOMContentLoaded', function() {
   });
 
 function updateUnit(){
-  const unit = { question:"", answer:"", comment:"", id:store.unit.id, path: store.unit.path };
+  const unit = { question:"", answer:"", comment:"", id:store.unit.id, path: store.unit.path, tags: store.unit.tags};
   
   const questionField = document.getElementById("question-input");
   unit.question = questionField.value;
@@ -66,7 +77,6 @@ function updateUnit(){
   const commentField = document.getElementById("comment-input");
   unit.comment = commentField.value;
   
-  console.log(unit);
   fetch('https://localhost:7018/api/Update', {
       method: 'PUT',
       headers: {
@@ -75,7 +85,7 @@ function updateUnit(){
           },
       body: JSON.stringify(unit)
   })
-  .then(response => response.json())
+  .then(response => console.log(response.json()))
 }
 
 function deleteUnit(){

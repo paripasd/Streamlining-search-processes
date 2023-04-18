@@ -22,5 +22,12 @@ namespace CompanYoungAPI.Controllers
         {
             _updateDataAccess.UpdateInstance(data);
         }
+
+		[HttpPut("expiry")]
+        public void UpdateTagsByExpiry()
+		{
+            _updateDataAccess.UpdateExpiressoonTagByDate();
+			_updateDataAccess.UpdateExpiredTagByDate();
+		}
     }
 }

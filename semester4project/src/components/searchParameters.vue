@@ -1,4 +1,7 @@
 <template>
+    <div class="w-full mb-2">
+        <TagFilter/>
+    </div>
     <div class="flex w-full">
       <input v-model="searchFieldText" placeholder="Search..." class="w-full h-10 p-2 block rounded-md text-gray-900 shadow-sm border border-solid border-slate-300 placeholder:text-gray-400 focus:border-cyorange outline-none sm:text-sm sm:leading-6"/>
       <button v-on:click="search()" class="uniform-button flex-1 h-10 ml-4 py-4 px-6 rounded-md flex items-center"><MagnifyingGlassIcon class="w-6 h-6"/></button>
@@ -18,6 +21,7 @@
 import { useSearchPageStore } from '@/stores/SearchPageStore';
 import { ref, onMounted } from 'vue';
 import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid';
+import TagFilter from './tagFilter.vue';
 
 const store = useSearchPageStore();
 const searchFieldText = ref(null);
@@ -58,4 +62,5 @@ onMounted(async () => {
         const data = await response.json();
         store.searchResult = data;
     }
+
 </script>

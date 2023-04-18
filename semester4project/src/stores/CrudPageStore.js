@@ -6,9 +6,15 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
             path:[],
             createPath:[],
             data:[],
-            unit:{question:"",answer:"",comment:"", id:"", expiryDate:"", modifiedBy:"", path:[]},
+            unit:{question:"",answer:"",comment:"", id:"", expiry:"", modifiedBy:"", path:[], tags:[]},
             results:[],
             selectedRow: null,
+            tagList: [
+                {label:"Important",color:"bg-green-500"},
+                {label:"Draft",color:"bg-sky-500"},
+                {label:"Expires soon",color:"bg-cyorange"},
+                {label:"Expired",color:"bg-red-600"},
+            ],
         };
     },
 
@@ -47,6 +53,11 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
             .then(data => this.updateData(data));
             console.log(this.data);
           },
+
+          updateFormattedExpiry(expiry){
+            let dateParts = expiry.split('-');
+            this.unit.expiry = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+          },
     },
 
     getters: {
@@ -62,6 +73,10 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
         },
         getUnit: (state) => state.path,
         getCreatePath: (state) => state.createPath,
-        getResults: (state) => state.results
+        getResults: (state) => state.results,
+        getFormattedExpiry() {
+            let expiry = this.unit.expiry;
+            return expiry.split('T')[0];
+        }
     },
 });

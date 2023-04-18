@@ -3,7 +3,7 @@
       <Sidebar/>
         <div class="h-screen w-[90%] px-8 py-8 bg-gray-100">
             <SearchParameters/>
-            <div class="h-[90%] overflow-y-scroll">
+            <div class="h-[85%] overflow-y-scroll">
                 <SearchResult/>
             </div>
         </div>

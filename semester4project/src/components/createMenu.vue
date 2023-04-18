@@ -65,7 +65,7 @@
                     </div>
                     <div class="flex flex-row items-center">
                       <label for="expiry-input" class="ml-1">Expiry:</label>
-                      <input type="date" id="expiry-input" class="shortinput">
+                      <input type="date" id="expiry-input" v-model="formExpiry" class="shortinput">
                     </div>
                     <div class="flex flex-row items-center">
                       <label for="editedby-input" class="ml-1">Edited&nbsp;by:</label>
@@ -106,14 +106,16 @@ const customPathEnabled = ref(false);
 const formQuestion = ref("");
 const formAnswer = ref("");
 const formComment = ref("");
+const formExpiry = ref("");
 const feedback = ref("");
 
 async function createNew(){
   //id is generated at API, but can't be null
-  const newQna = {question: formQuestion.value, answer: formAnswer.value, comment: formComment.value, id: "", path: store.getCreatePath};
+  const newQna = {question: formQuestion.value, answer: formAnswer.value, comment: formComment.value, id: "", tags: ["none"], expiry: formExpiry.value, path: store.getCreatePath};
   if(typeof newQna.path === 'string'){ //by default it's an array, if it's a string it means that it was modified using the custom path field
     newQna.path = newQna.path.split(',');
   }
+  console.log(JSON.stringify(newQna));
   try{
     const response = await fetch('https://localhost:7018/api/Create',{
       method: 'POST',

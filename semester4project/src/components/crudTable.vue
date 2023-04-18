@@ -10,8 +10,13 @@
                 </tr>
               </thead>
                 <tbody class="bg-white">
-                  <tr ref="tableRows" v-for="(q, qIndex) in store.data" :key="qIndex" :class="{ 'border-2 border-cyorange': selectedRowId === q.id }" @click="updateSelected(q, qIndex)" class="divide-x hover:bg-gray-200">
-                    <td class="whitespace-normal break-words w-1/3 max-w-[80px] pl-4 pr-4 py-4 text-sm font-medium text-gray-900">{{ q.question }}</td>
+                  <tr ref="tableRows" v-for="(q, qIndex) in store.data" :key="qIndex" :class="{ 'border-2 border-cyorange': selectedRowId === q.id } " @click="updateSelected(q, qIndex)" class="divide-x hover:bg-gray-200 cursor-pointer">
+                    <td class="whitespace-normal break-words w-1/3 max-w-[80px] pl-4 pr-4 py-4 text-sm font-medium text-gray-900">
+                      {{ q.question }}
+                      <div class="flex space-x-1">
+                        <p v-for="tag in store.tagList.filter(item => q.tags.includes(item.label))" class="tag-short" :class="tag.color" :title="tag.label"></p>
+                      </div>
+                    </td>
                     <td class="whitespace-normal break-words w-2/3 max-w-screen-sm py-4 pl-4 pr-4 text-sm text-gray-500">{{ q.answer }}</td>
                   </tr>
                 </tbody>
@@ -36,7 +41,7 @@
   function updateSelected(unit, index){
     store.updateUnit(unit);
     store.selectedRow = tableRows.value[index];
-    console.log(store.selectedRow)
+    console.log(store.unit)
   }
 
 

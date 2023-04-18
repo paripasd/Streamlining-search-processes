@@ -19,7 +19,7 @@
   }
 
   .uniform-button {
-    @apply font-bold text-gray-100 bg-stone-800 rounded-md w-24 hover:text-white hover:bg-cyorange hover:scale-110 transition
+    @apply font-bold text-gray-100 bg-stone-800 rounded-md w-24 hover:text-white hover:bg-cyorange hover:scale-110 transition unselectable
   }
 
   .folder img{
@@ -32,5 +32,20 @@
 
   .dropdown {
     @apply appearance-none bg-white border border-slate-300 outline-none p-2 focus:border-cyorange cursor-pointer transition
+  }
+
+  .tag-text {
+    @apply text-sm text-white font-semibold py-1 px-2 rounded-full unselectable
+  }
+
+  .tag-short {
+    @apply w-2 h-2 p-2 rounded-full
+  }
+
+  .unselectable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }

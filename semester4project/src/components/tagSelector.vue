@@ -1,38 +1,41 @@
 <template>
-    <Menu as="div" class="relative inline-block text-left">
+    <Menu as="div" class="relative inline-block text-left w-full">
       <div>
         <MenuButton class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-          Options
-          <ChevronDownIcon class="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+          Tags
+          <ChevronDownIcon class="-mr-1 h-5 w-5 text-gray-400 rotate-180" aria-hidden="true" />
         </MenuButton>
       </div>
   
       <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-        <MenuItems class="absolute right-0 -top-100 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div class="py-1">
-            <MenuItem v-slot="{ active }">
-              <a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Account settings</a>
-            </MenuItem>
-            <MenuItem v-slot="{ active }">
-              <a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Support</a>
-            </MenuItem>
-            <MenuItem v-slot="{ active }">
-              <a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">License</a>
-            </MenuItem>
-            <form method="POST" action="#">
-              <MenuItem v-slot="{ active }">
-                <button type="submit" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block w-full px-4 py-2 text-left text-sm']">Sign out</button>
-              </MenuItem>
-            </form>
+        <MenuItems class="absolute right-0 bottom-full z-10 mt-2 w-full origin-bottom-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div class="py-1 flex flex-col">
+            <div v-for="tag in store.tagList" class="flex justify-between items-center px-2 py-3 hover:bg-gray-300" @click="flipTag(tag.label)">
+                <p class="tag-text" :class="tag.color">{{ tag.label }}</p>
+                <CheckIcon v-show="store.unit.tags.includes(tag.label)" class="w-5 h-5 text-gray-900"/>
+            </div>
           </div>
         </MenuItems>
       </transition>
     </Menu>
   </template>
   
-  <script setup>
-  import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-  import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+<script setup>
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+import { CheckIcon } from '@heroicons/vue/24/outline';
+import { useCrudPageStore } from '@/stores/CrudPageStore';
 
-  
-  </script>
+const store = useCrudPageStore();
+
+function flipTag(tag){
+    if(store.unit.tags.includes(tag)){
+        store.unit.tags = store.unit.tags.filter(function(item){
+            return item !== tag;
+        });
+    } else {
+        store.unit.tags.push(tag);
+    }
+}
+
+</script>

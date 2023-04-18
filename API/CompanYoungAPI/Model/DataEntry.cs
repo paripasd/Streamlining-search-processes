@@ -17,16 +17,15 @@ namespace CompanYoungAPI.Model
         public string[] Tags { get; set; }
 
         [SolrField("path")]
-
-        
         public string[] Path { get; set; }
 		/*[SolrField("_version_")]
 		public double Version { get; set; }*/
-        //public DateTime Expiry { get; set; } to be added later
+		[SolrField("expiry")]
+        public DateTime Expiry { get; set; }
         //public string ModifiedBy { get; set; }
 
 
-        public DataEntry(string question, string answer, string comment, string id, string[] path)
+        public DataEntry(string question, string answer, string comment, string id, string[] path, string[] tags)
 		{
 			Question = question;
 			Answer = answer;

@@ -1,6 +1,6 @@
 <template>
   <div class="h-fit">
-    <div v-for="s in store.searchResult" :key="s.id"
+    <div v-for="s in store.getFilteredResult" :key="s.id"
       class="h-fit my-4 relative space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-cyorange">
       <div class="pb-8">
           <div class="flex flex-row space-x-3">
@@ -22,8 +22,11 @@
               </span>
             </div>
           </div>
-          <p class="text-xl pt-2 pb-4 font-medium text-gray-900">{{ s.question }}</p>
-          <div class="flex items-center justify-between bg-stone-100 rounded-lg p-4 py-2 w-full relative">
+          <div class="flex flex-row items-center space-x-1">
+            <p class="text-xl pt-2 pb-2 mr-4 font-medium text-gray-900">{{ s.question }}</p>
+            <p v-for="tag in tagList.filter(item => s.tags.includes(item.label))" class="tag-text" :class="tag.color" :title="tag.label">{{ tag.label }}</p>
+          </div>
+          <div class="flex items-center justify-between bg-stone-100 rounded-lg p-4 pb-2 w-full relative">
             <p id="answer-field" class="text-sm text-gray-900 flex-1 pr-10">{{ s.answer }}</p>
             <button class="transform hover:scale-110 transition duration-200 absolute right-0 my-1 mr-1"
               @click="animateButton(s.answer, $event)" title="Copy to clipboard">
@@ -48,11 +51,13 @@
   
 <script setup>
 import { useSearchPageStore } from '@/stores/SearchPageStore';
+import { useCrudPageStore } from '@/stores/CrudPageStore';
 import { ClipboardDocumentIcon } from '@heroicons/vue/24/outline';
 import { PencilIcon } from '@heroicons/vue/20/solid'
 import { PencilIcon as PencilIconOutline} from '@heroicons/vue/24/outline';
 import {ChatBubbleLeftIcon} from '@heroicons/vue/24/outline';
 const store = useSearchPageStore();
+const tagList = useCrudPageStore().tagList;
 
 function animateButton(answer, event) {
   navigator.clipboard.writeText(answer);
