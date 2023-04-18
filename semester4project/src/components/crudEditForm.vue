@@ -32,28 +32,31 @@
       </div>
     </div>
     <form id="data-edit-form">
-      <div class="grid grid-rows-4 w-full h-full p-2 gap-2">
-        <div class="col-span-1 row-span-3 flex flex-col">
+      <div class="grid grid-rows-4 grid-cols-6 w-full h-full p-2 gap-2">
+        <div class="col-span-2 row-span-3 flex flex-col">
           <label for="question-input">Question:</label>
           <textarea class="longtextinput" id="question-input" v-bind="store.unit.question"></textarea>
         </div>
-        <div class="col-span-1 col-start-2 row-span-3 flex flex-col">
+        <div class="col-span-2 col-start-3 row-span-3 flex flex-col">
           <label for="answer-input">Answer:</label>
           <textarea class="longtextinput" id="answer-input" v-bind="store.unit.answer"></textarea>
         </div>
-        <div class="col-span-1 col-start-3 row-span-3 flex flex-col">
+        <div class="col-span-2 col-start-5 row-span-3 flex flex-col">
           <label for="comment-input">Comment:</label>
           <textarea class="longtextinput" id="comment-input" v-bind="store.unit.comment"></textarea>
         </div>
-        <div class="flex flex-row items-center">
+        <div class="col-span-1 col-start-1 flex flex-row items-center">
           <label for="expiry-input">Expiry:</label>
-          <input type="date" id="expiry-input" class="shortinput">
+          <input type="date" id="expiry-input" v-bind="formattedExpiry" class="shortinput">
         </div>
-        <div class="flex flex-row items-center">
+        <div class="col-span-2 col-start-2 flex flex-row items-center">
           <label for="editedby-input">Edited by:</label>
           <textarea id="editedby-input" class="shortinput" v-bind="store.unit.modificationDate" disabled></textarea>
         </div>
-        <div class="flex flex-row justify-evenly">
+        <div class="col-span-1 col-start-4">
+          <TagSelector></TagSelector>
+        </div>
+        <div class="col-span-2 col-start-5 flex flex-row justify-evenly">
           <button @click="updateUnit()" type="button" class="uniform-button">Update</button>
           <button @click="deleteUnit()" type="button" class="uniform-button hover:bg-red-600">Delete</button>
         </div>
@@ -74,6 +77,7 @@ import { computed, watchEffect } from 'vue';
 import { ref } from 'vue'
 import { CheckCircleIcon } from '@heroicons/vue/24/outline'
 import { XMarkIcon } from '@heroicons/vue/20/solid'
+import TagSelector from './tagSelector.vue';
 
 const showNotification = ref(false)
 const notificationTitle = ref('')
