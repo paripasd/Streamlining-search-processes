@@ -11,6 +11,7 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
             selectedRow: null,
             highlightedWords:[],
             tagList: [
+                //{label:"TEXT TO DISPLAY", color:"COLOR OF TAG - BACKGROUND COLOR"}
                 {label:"Important",color:"bg-green-500"},
                 {label:"Draft",color:"bg-sky-500"},
                 {label:"Expires soon",color:"bg-cyorange"},
@@ -60,8 +61,7 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
           },
 
           updateFormattedExpiry(expiry){
-            let dateParts = expiry.split('-');
-            this.unit.expiry = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+            this.unit.expiry = expiry;
           },
     },
 
@@ -80,8 +80,11 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
         getCreatePath: (state) => state.createPath,
         getResults: (state) => state.results,
         getFormattedExpiry() {
-            let expiry = this.unit.expiry;
-            return expiry.split('T')[0];
+            const date = new Date(this.unit.expiry);
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            return `${year}-${month}-${day}`;
         }
     },
 });

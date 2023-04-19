@@ -37,14 +37,17 @@ namespace CompanYoungAPI.DataAccess
 
 		public void UpdateExpiressoonTagByDate()
 		{
-			var query = !new SolrQueryByField("tags", "Expires soon") & !new SolrQueryByField("tags", "Expired") & new SolrQueryByRange<DateTime>("expiry", DateTime.MinValue, DateTime.UtcNow.AddDays(14));
+			var query = /*!new SolrQueryByField("tags", "Expires soon") & */!new SolrQueryByField("tags", "Expired") & new SolrQueryByRange<DateTime>("expiry", DateTime.MinValue, DateTime.UtcNow.AddDays(14));
 			var results = Solr.Query(query);
 
 			var updatedDocs = new List<DataEntry>();
 			foreach (var doc in results)
 			{
-				doc.Tags = doc.Tags.Concat(new string[] { "Expires soon" }).ToArray(); //adds the expires soon tag
-				updatedDocs.Add(doc);
+				if(!doc.Tags.Contains("Expires soon"))
+				{
+					doc.Tags = doc.Tags.Concat(new string[] { "Expires soon" }).ToArray(); //adds the expires soon tag
+					updatedDocs.Add(doc);
+				}
 			}
 			Solr.AddRange(updatedDocs);
 			Solr.Commit();
