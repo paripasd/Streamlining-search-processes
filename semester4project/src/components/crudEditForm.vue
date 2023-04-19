@@ -47,11 +47,11 @@
         </div>
         <div class="col-span-1 col-start-1 flex flex-row items-center">
           <label for="expiry-input">Expiry:</label>
-          <input type="date" id="expiry-input" v-bind="formattedExpiry" class="shortinput">
+          <input type="date" id="expiry-input" class="shortinput">
         </div>
         <div class="col-span-2 col-start-2 flex flex-row items-center">
-          <label for="editedby-input">Edited by:</label>
-          <textarea id="editedby-input" class="shortinput" v-bind="store.unit.modificationDate" disabled></textarea>
+          <label for="editedby-input">Edited&nbsp;by:</label>
+          <input id="editedby-input" class="shortinput" v-bind="store.unit.modificationDate" disabled>
         </div>
         <div class="col-span-1 col-start-4">
           <TagSelector></TagSelector>
@@ -79,38 +79,34 @@ import { CheckCircleIcon } from '@heroicons/vue/24/outline'
 import { XMarkIcon } from '@heroicons/vue/20/solid'
 import TagSelector from './tagSelector.vue';
 
-const showNotification = ref(false)
-const notificationTitle = ref('')
-const notificationMessage = ref('')
+const showNotification = ref(false);
+const notificationTitle = ref('');
+const notificationMessage = ref('');
+const feedback = ref("");
 const store = useCrudPageStore();
-const formattedExpiry = computed({
-  get(){
-    return store.getFormattedExpiry;
-  },
-  set(value){
-    store.updateFormattedExpiry(value);
-  }
-});
 computed(() => store.unit);
 window.addEventListener('DOMContentLoaded', function () {
   watchEffect(() => {
     
-    const modificationDate = new Date(store.unit.modificationDate);
+    /*const modificationDate = new Date(store.unit.modificationDate);
 
-    const formattedDatetime = modificationDate.toLocaleString().replace('T', ' ').replace('Z', '');
-    store.unit.modificationDate = formattedDatetime;
+    const formattedDatetime = modificationDate.toISOString();
+    store.unit.modificationDate = formattedDatetime;*/
 
     const questionField = document.getElementById("question-input");
-    questionField.innerHTML = store.unit.question;
+    questionField.value = store.unit.question;
 
     const answerField = document.getElementById("answer-input");
-    answerField.innerHTML = store.unit.answer;
+    answerField.value = store.unit.answer;
 
     const commentField = document.getElementById("comment-input");
-    commentField.innerHTML = store.unit.comment;
+    commentField.value = store.unit.comment;
 
-    const modificationDateField = document.getElementById("editedby-input");
-    modificationDateField.innerHTML = store.unit.modificationDate;
+    const modificationField = document.getElementById("editedby-input");
+    modificationField.value = "unknown" + " on " + store.unit.modificationDate.split('T')[0];
+
+    const expiryField = document.getElementById("expiry-input");
+    expiryField.value = store.unit.expiry.split('T')[0];
 
     console.log(store.unit);
   });
@@ -128,8 +124,10 @@ async function updateUnit() {
   const commentField = document.getElementById("comment-input");
   unit.comment = commentField.value;
 
-  const modificationDateField = document.getElementById("editedby-input");
-  unit.modificationDate = modificationDateField.innerHTML;
+  unit.modificationDate = new Date().toISOString();
+
+  const expiryField = document.getElementById("expiry-input");
+  unit.expiry = new Date(expiryField.value).toISOString();
   try{
   const response = await fetch('https://localhost:7018/api/Update', {
     method: 'PUT',
