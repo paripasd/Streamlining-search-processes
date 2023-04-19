@@ -22,6 +22,7 @@ using SolrNet.Exceptions;
 using SolrNet.Impl;
 
 using System;
+using Newtonsoft.Json.Linq;
 
 namespace CompanYoungAPI.DataAccess
 {
@@ -75,43 +76,97 @@ namespace CompanYoungAPI.DataAccess
 			return result.First();
 		}
 
-        public IEnumerable<DataEntry> GetBySearch(string searchText, string[] path)
-        {
-            List<SolrQuery> textParams = new List<SolrQuery>();
-            if (searchText != "null")
-            {
-                textParams.Add(new SolrQuery($"question:{searchText}"));
-                textParams.Add(new SolrQuery($"answer:{searchText}"));
-                textParams.Add(new SolrQuery($"comment:{searchText}"));
-            }
-            else
-            {
-                textParams.Add(new SolrQuery("*:*"));
-            }
-            List<SolrQuery> pathParams = new List<SolrQuery>();
-            foreach (string s in path)
-            {
-                pathParams.Add(new SolrQuery($"path:\"{s}\""));
-            }
-            List<ISolrQuery> queryParams = new List<ISolrQuery>();
-            queryParams.Add(new SolrMultipleCriteriaQuery(textParams, "OR"));
-            if (path.Length != 0)
-            {
-                queryParams.Add(new SolrMultipleCriteriaQuery(pathParams, "AND"));
-            }
-            var options = new QueryOptions
-            {
-                // set the sort order
-                OrderBy = new[] { new SortOrder("id", Order.DESC) },
-                // set highlight
-                Highlight = new HighlightingParameters
-                {
-                    Fields = new[] { "answer" },
-                }
-			};
-            var solrResult = solr.Query(new SolrMultipleCriteriaQuery(queryParams, "AND"), options);
+		public List<DataEntryWithHighlight> GetBySearch(string searchText, string[] path)
+		{
+			List<SolrQuery> textParams = new List<SolrQuery>();
+			if (searchText != "null")
+			{
+				textParams.Add(new SolrQuery($"question:{searchText}"));
+				textParams.Add(new SolrQuery($"answer:{searchText}"));
+				//textParams.Add(new SolrQuery($"comment:{searchText}"));
+			}
+			else
+			{
+				textParams.Add(new SolrQuery("*:*"));
+			}
 
-            return solrResult;
+			List<ISolrQuery> queryParams = new List<ISolrQuery>();
+			queryParams.Add(new SolrMultipleCriteriaQuery(textParams, "OR"));
+
+			var options = new QueryOptions
+			{
+				// set the sort order
+				OrderBy = new[] { new SortOrder("id", Order.DESC) },
+				// set highlight
+				Highlight = new HighlightingParameters
+				{
+					Fields = new[] { "answer" },
+					BeforeTerm = "<b><span style=\"color: #f28033\">",
+					Fragsize = 10000,
+					AfterTerm = "</span></b>",
+					MergeContiguous = true,
+                },
+
+                ExtraParams = new Dictionary<string, string>
+				{
+                    {"hl.method", "unified"},
+                    {"hl.usePhraseHighlighter", "true"}
+                }
+            };
+			SolrQueryResults<DataEntry> solrResult = solr.Query(new SolrMultipleCriteriaQuery(queryParams), options);
+			List<DataEntryWithHighlight> pathFilteredData = new List<DataEntryWithHighlight>();
+			foreach (var r in solrResult)
+			{
+				if (path.Length > 1)
+				{
+					if (r.Path.SequenceEqual(path))
+					{
+                        DataEntryWithHighlight de = new DataEntryWithHighlight();
+                        de.Answer = r.Answer;
+                        de.Question = r.Question;
+                        de.Comment = r.Comment;
+                        de.Id = r.Id;
+                        de.Tags = r.Tags;
+                        de.Path = r.Path;
+                        de.ModificationDate = r.ModificationDate;
+                        de.Expiry = r.Expiry;
+                        foreach (var highlight in solrResult.Highlights)
+                        {
+                            if (highlight.Key.Equals(r.Id))
+                            {
+                                de.Snippet = highlight.Value;
+
+                            }
+                        }
+                        pathFilteredData.Add(de);
+					}
+				}
+				else
+				{
+					if (r.Path.Any(element => path.Contains(element)))
+					{
+                        DataEntryWithHighlight de = new DataEntryWithHighlight();
+                        de.Answer = r.Answer;
+                        de.Question = r.Question;
+                        de.Comment = r.Comment;
+                        de.Id = r.Id;
+                        de.Tags = r.Tags;
+                        de.Path = r.Path;
+                        de.ModificationDate = r.ModificationDate;
+                        de.Expiry = r.Expiry;
+                        foreach (var highlight in solrResult.Highlights)
+                        {
+                            if (highlight.Key.Equals(r.Id))
+                            {
+                                de.Snippet = highlight.Value;
+
+                            }
+                        }
+                        pathFilteredData.Add(de);
+                    }
+				}
+			}
+            return pathFilteredData;
         }
 
         public IEnumerable<string[]> GetUniquePaths()

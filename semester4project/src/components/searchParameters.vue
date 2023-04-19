@@ -225,7 +225,13 @@ async function getSubpaths() {
 async function search() {
     selectedLiveSuggestion.value = checkEmptyString(selectedLiveSuggestion.value);
     const selectedInstituteArray = [selectedInstitute.value];
-    const path = selectedInstituteArray.concat(selectedSubpath.value.split('/'));
+    var path;
+    if(selectedSubpath.value === '' || selectedSubpath.value === null){
+        path = selectedInstituteArray;
+    }else{
+        path = selectedInstituteArray.concat(selectedSubpath.value.split('/'));
+    }
+    
     console.log(path);
     const response = await fetch(`https://localhost:7018/api/Read/search/${selectedLiveSuggestion.value}`, {
         method: 'POST',

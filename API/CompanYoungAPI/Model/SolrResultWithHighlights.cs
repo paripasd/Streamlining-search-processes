@@ -5,9 +5,9 @@ namespace CompanYoungAPI.Model
 {
     public class SolrResultWithHighlights
     {
-        public List<DataEntry> Data { get; set; }
+        public DataEntry Data { get; set; }
 
-        public IDictionary<string,HighlightedSnippets> Highlights { get; set; }
+        public KeyValuePair<string,HighlightedSnippets> Highlights { get; set; }
         public SolrResultWithHighlights()
         {
 

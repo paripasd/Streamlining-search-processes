@@ -8,6 +8,7 @@ using CompanYoungAPI.Model;
 using CompanYoungAPI.DataAccess;
 using System.IO;
 using SolrNet;
+using SolrNet.Impl;
 
 namespace CompanYoungAPI.Controllers
 {
@@ -54,7 +55,7 @@ namespace CompanYoungAPI.Controllers
 		}
 
 		[HttpPost("search/{searchText}")]
-        public ActionResult<IEnumerable<DataEntry>> GetBySearch(string searchText, [FromBody] string[] path)
+        public ActionResult<List<DataEntryWithHighlight>> GetBySearch(string searchText, [FromBody] string[] path)
 		{
             return Ok(_readDataAccess.GetBySearch(searchText, path));
 		}
