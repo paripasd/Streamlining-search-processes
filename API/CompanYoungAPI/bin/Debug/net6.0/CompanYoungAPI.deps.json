@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "CompanYoungAPI/1.0.0": {
         "dependencies": {
+          "Lucene.Net": "3.0.3",
           "Microsoft.AspNetCore.Cors": "2.2.0",
           "Microsoft.Extensions.DependencyInjection": "7.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.13",
@@ -86,6 +87,17 @@
             "rid": "win7-x86",
             "assetType": "native",
             "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Lucene.Net/3.0.3": {
+        "dependencies": {
+          "SharpZipLib": "0.86.0"
+        },
+        "runtime": {
+          "lib/NET40/Lucene.Net.dll": {
+            "assemblyVersion": "3.0.3.0",
+            "fileVersion": "3.0.3.0"
           }
         }
       },
@@ -1477,6 +1489,14 @@
       "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
+      "SharpZipLib/0.86.0": {
+        "runtime": {
+          "lib/20/ICSharpCode.SharpZipLib.dll": {
+            "assemblyVersion": "0.86.0.518",
+            "fileVersion": "0.86.0.518"
+          }
+        }
+      },
       "SolrNet/1.1.1": {
         "dependencies": {
           "CommonServiceLocator": "2.0.2",
@@ -2622,6 +2642,13 @@
       "path": "libuv/1.9.1",
       "hashPath": "libuv.1.9.1.nupkg.sha512"
     },
+    "Lucene.Net/3.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-A/70q4eDcuuafQeDB9eaiDP9FQG7X29T4VIYRphS7Wk8kAM9gNcfVqYyd0H8BJ1BTpA5C1ORm9RzFn4BiNavrw==",
+      "path": "lucene.net/3.0.3",
+      "hashPath": "lucene.net.3.0.3.nupkg.sha512"
+    },
     "MessagePack/2.1.152": {
       "type": "package",
       "serviceable": true,
@@ -3265,6 +3292,13 @@
       "sha512": "sha512-VB5cn/7OzUfzdnC8tqAIMQciVLiq2epm2NrAm1E9OjNRyG4lVhfR61SMcLizejzQP8R8Uf/0l5qOIbUEi+RdEg==",
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512"
+    },
+    "SharpZipLib/0.86.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5DbS1SlKLMi+WG00Cm0ueYf2oyXJrowETQk8nx96rmdjTuHsA3laPykGV7Sxi0R5Xxfx0Kh/EfacAZ1f6M7y/g==",
+      "path": "sharpziplib/0.86.0",
+      "hashPath": "sharpziplib.0.86.0.nupkg.sha512"
     },
     "SolrNet/1.1.1": {
       "type": "package",

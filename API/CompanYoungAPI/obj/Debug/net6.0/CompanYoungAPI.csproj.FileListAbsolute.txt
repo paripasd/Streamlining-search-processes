@@ -771,3 +771,5 @@ C:\repositories\semester4project\API\CompanYoungAPI\obj\Debug\net6.0\refint\Comp
 C:\repositories\semester4project\API\CompanYoungAPI\obj\Debug\net6.0\CompanYoungAPI.pdb
 C:\repositories\semester4project\API\CompanYoungAPI\obj\Debug\net6.0\CompanYoungAPI.genruntimeconfig.cache
 C:\repositories\semester4project\API\CompanYoungAPI\obj\Debug\net6.0\ref\CompanYoungAPI.dll
+C:\repositories\semester4project\API\CompanYoungAPI\bin\Debug\net6.0\Lucene.Net.dll
+C:\repositories\semester4project\API\CompanYoungAPI\bin\Debug\net6.0\ICSharpCode.SharpZipLib.dll

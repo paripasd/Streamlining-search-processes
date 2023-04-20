@@ -27,8 +27,8 @@
             <p v-for="tag in tagList.filter(item => d.tags.includes(item.label))" class="tag-text" :class="tag.color" :title="tag.label">{{ tag.label }}</p>
           </div>
           <div class="flex items-center justify-between bg-stone-100 rounded-lg p-4 pb-2 w-full relative">
-            <div v-if="d.snippet.answer == null" id="answer-field" class="text-sm text-gray-900 flex-1 pr-10">{{ d.answer }}</div>
-            <div v-if="d.snippet.answer !== ''" v-html="d.snippet.answer" class="text-sm text-gray-900 flex-1 pr-10"></div>
+            <p v-if="d.snippet.answer == null" id="answer-field" class="w-full text-sm text-gray-900 flex-1 pr-10">{{ d.answer }}</p>
+            <p v-else v-html="d.snippet.answer" class="w-full text-sm text-gray-900 flex-1"></p>
             <button  class="transform hover:scale-110 transition duration-200 absolute right-0 my-1 mr-1"
               @click="animateButton(d.answer, $event)" title="Copy to clipboard">
               <ClipboardDocumentIcon class="w-6 h-6 text-gray-500 hover:text-cyorange" />

@@ -81,9 +81,9 @@ namespace CompanYoungAPI.DataAccess
 			List<SolrQuery> textParams = new List<SolrQuery>();
 			if (searchText != "null")
 			{
-				textParams.Add(new SolrQuery($"question:{searchText}"));
-				textParams.Add(new SolrQuery($"answer:{searchText}"));
-				//textParams.Add(new SolrQuery($"comment:{searchText}"));
+				textParams.Add(new SolrQuery($"question:\"{searchText}\""));
+				textParams.Add(new SolrQuery($"answer:\"{searchText}\""));
+				textParams.Add(new SolrQuery($"comment:\"{searchText}\""));
 			}
 			else
 			{
@@ -93,25 +93,21 @@ namespace CompanYoungAPI.DataAccess
 			List<ISolrQuery> queryParams = new List<ISolrQuery>();
 			queryParams.Add(new SolrMultipleCriteriaQuery(textParams, "OR"));
 
-			var options = new QueryOptions
-			{
-				// set the sort order
-				OrderBy = new[] { new SortOrder("id", Order.DESC) },
-				// set highlight
-				Highlight = new HighlightingParameters
-				{
-					Fields = new[] { "answer" },
-					BeforeTerm = "<b><span style=\"color: #f28033\">",
-					Fragsize = 10000,
-					AfterTerm = "</span></b>",
-					MergeContiguous = true,
-                },
+            HighlightingParameters highlightParams = new HighlightingParameters();
+			highlightParams.Fields = new[] { "answer" };
+            highlightParams.BeforeTerm = "<b><span style=\"color: #f28033\">";
+            highlightParams.AfterTerm = "</span></b>";
+			highlightParams.UsePhraseHighlighter = true;
+			highlightParams.Fragsize = 0;
+			highlightParams.Snippets = 1000000;
 
-                ExtraParams = new Dictionary<string, string>
-				{
-                    {"hl.method", "unified"},
-                    {"hl.usePhraseHighlighter", "true"}
-                }
+
+            var options = new QueryOptions
+			{
+                Highlight = highlightParams,
+                
+                OrderBy = new[] { new SortOrder("id", Order.DESC) }
+
             };
 			SolrQueryResults<DataEntry> solrResult = solr.Query(new SolrMultipleCriteriaQuery(queryParams), options);
 			List<DataEntryWithHighlight> pathFilteredData = new List<DataEntryWithHighlight>();
