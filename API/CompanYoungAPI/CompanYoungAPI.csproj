@@ -15,6 +15,9 @@
     <PackageReference Include="SolrNet" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="pythonnet" Version="3.0.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.29.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="6.0.16" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,5 +28,8 @@
     <None Remove="SolrNet" />
     <None Remove="Microsoft.Extensions.DependencyInjection" />
     <None Remove="pythonnet" />
+    <None Remove="System.IdentityModel.Tokens.Jwt" />
+    <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <None Remove="Microsoft.AspNetCore.Authorization" />
   </ItemGroup>
 </Project>
