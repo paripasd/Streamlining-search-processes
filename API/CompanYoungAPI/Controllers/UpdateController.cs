@@ -26,6 +26,8 @@ namespace CompanYoungAPI.Controllers
 		[HttpPut("expiry")]
         public void UpdateTagsByExpiry()
 		{
+            _updateDataAccess.UpdateExpiresSoonTagPlus();
+            _updateDataAccess.UpdateExpiredTagPlus();
             _updateDataAccess.UpdateExpiressoonTagByDate();
 			_updateDataAccess.UpdateExpiredTagByDate();
 		}

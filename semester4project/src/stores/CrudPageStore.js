@@ -6,7 +6,7 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
             path:[],
             createPath:[],
             data:[],
-            unit:{question:"",answer:"",comment:"", id:"", expiry:"", modifiedBy:"", path:[], tags:[]},
+            unit:{question:"",answer:"",comment:"", id:"", expiry:"",modificationDate:"", modifiedBy:"", path:[], tags:[]},
             results:[],
             selectedRow: null,
             highlightedWords:[],

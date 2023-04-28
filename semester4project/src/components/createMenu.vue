@@ -168,6 +168,19 @@ async function createNew(){
     }
     const responseData = await response.json();
 
+    try{
+      await fetch('https://localhost:7018/api/Update/expiry', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+      })
+    }
+    catch (error) {
+      console.error('Error:', error);
+    }
+
     showNotification.value = true;
     notificationTitle.value = 'Successfully created!';
     notificationMessage.value = '';
@@ -175,6 +188,9 @@ async function createNew(){
     setTimeout(() => {
     showNotification.value = false;
     }, 4000);
+
+    
+
   } catch(error) {
     feedback.value = "There was an error performing this action. See the console for details."
     console.error('Error:', error);

@@ -10,7 +10,7 @@
       <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
         <MenuItems class="absolute right-0 bottom-full z-10 mt-2 w-full origin-bottom-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div class="py-1 flex flex-col">
-            <div v-for="tag in store.tagList" class="flex justify-between items-center px-2 py-3 cursor-pointer hover:bg-gray-300" @click="flipTag(tag.label)">
+            <div v-for="tag in store.tagList.filter((tag) => tag.label !== 'Expires soon' && tag.label !== 'Expired')" class="flex justify-between items-center px-2 py-3 cursor-pointer hover:bg-gray-300" @click="flipTag(tag.label)">
                 <p class="tag-text" :class="tag.color">{{ tag.label }}</p>
                 <CheckIcon v-show="store.unit.tags.includes(tag.label)" class="w-5 h-5 text-gray-900"/>
             </div>
@@ -29,7 +29,7 @@ import { useCrudPageStore } from '@/stores/CrudPageStore';
 const store = useCrudPageStore();
 
 function flipTag(tag){
-    if(store.unit.tags.includes(tag)){
+  if(store.unit.tags.includes(tag)){
         store.unit.tags = store.unit.tags.filter(function(item){
             return item !== tag;
         });
