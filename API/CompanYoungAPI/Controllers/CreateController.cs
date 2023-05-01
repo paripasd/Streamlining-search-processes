@@ -11,18 +11,17 @@ namespace CompanYoungAPI.Controllers
 	[ApiController]
 	public class CreateController : ControllerBase
 	{
-		private UpdateDataAccess _updateDataAccess;
+		private CreateDataAccess _createDataAccess;
 
 		public CreateController()
 		{
-			_updateDataAccess = new();
+            _createDataAccess = new();
 		}
 
 		[HttpPost]
 		public ActionResult CreateInstance([FromBody] DataEntry data)
 		{
-			data.Id = Guid.NewGuid().ToString();
-			_updateDataAccess.UpdateInstance(data);
+            _createDataAccess.CreateInstance(data);
 			string url = Url.Action("GetById", "Read", new { id = data.Id });
 			return Created(url, data);
 		}

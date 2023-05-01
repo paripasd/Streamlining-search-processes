@@ -26,8 +26,9 @@ namespace CompanYoungAPI.Model
 
         //public ICollection<ICollection<string>> Snippets { get; set; }
 
-        /*[SolrField("_version_")]
-		public double Version { get; set; }*/
+        [SolrField("_version_")]
+		public long Version { get; set; }
+
 		[SolrField("expiry")]
         public DateTime Expiry { get; set; }
         //public string ModifiedBy { get; set; }
