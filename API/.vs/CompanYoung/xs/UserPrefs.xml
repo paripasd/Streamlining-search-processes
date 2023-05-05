@@ -1,34 +1,34 @@
 ﻿<Properties StartupConfiguration="{3CDF67F0-20FD-4B49-BB47-A588A0616FEB}|Default">
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench ActiveDocument="CompanYoungAPI/Controllers/AuthController.cs">
+  <MonoDevelop.Ide.ItemProperties.CompanYoungAPI PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/gaborkiss/Documents/GitHub/semester4project/API/CompanYoungAPI/Controllers/ReadController.cs" relfile="CompanYoungAPI/Controllers/ReadController.cs" line="56" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="CompanYoungAPI/JWTSolrConnection.cs">
     <Files>
-      <File FileName="CompanYoungAPI/DataAccess/ReadDataAccess.cs" Line="74" Column="1" />
-      <File FileName="CompanYoungAPI/Program.cs" Line="27" Column="15" />
-      <File FileName="CompanYoungAPI/Model/DataEntry.cs" Line="48" Column="1" />
-      <File FileName="CompanYoungAPI/DataAccess/UpdateDataAccess.cs" Line="49" Column="27" />
-      <File FileName="CompanYoungAPI/Controllers/CreateController.cs" Line="24" Column="40" />
-      <File FileName="CompanYoungAPI/Controllers/DeleteController.cs" Line="1" Column="1" />
-      <File FileName="CompanYoungAPI/Controllers/UpdateController.cs" Line="30" Column="1" />
-      <File FileName="CompanYoungAPI/Controllers/ReadController.cs" Line="1" Column="1" />
-      <File FileName="CompanYoungAPI/Controllers/AuthController.cs" Line="64" Column="42" />
-      <File FileName="CompanYoungAPI/Model/Credentials.cs" Line="8" Column="3" />
+      <File FileName="CompanYoungAPI/Program.cs" Line="17" Column="41" />
+      <File FileName="CompanYoungAPI/Properties/launchSettings.json" Line="16" Column="31" />
+      <File FileName="CompanYoungAPI/appsettings.json" Line="1" Column="1" />
+      <File FileName="CompanYoungAPI/DataAccess/ReadDataAccess.cs" Line="176" Column="1" />
+      <File FileName="CompanYoungAPI/Controllers/ReadController.cs" Line="55" Column="84" />
+      <File FileName="CompanYoungAPI/JWTSolrConnection.cs" Line="21" Column="1" />
+      <File FileName="CompanYoungAPI/Controllers/AuthController.cs" Line="1" Column="1" />
+      <File FileName="CompanYoungAPI/CustomHttpWebRequestFactory.cs" Line="23" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="CompanYoung" expanded="True">
             <Node name="CompanYoungAPI" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="AuthController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="DataAccess" expanded="True" />
               <Node name="Model" expanded="True" />
               <Node name="Properties" expanded="True" />
+              <Node name="JWTSolrConnection.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -38,5 +38,4 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.CompanYoungAPI PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
 </Properties>

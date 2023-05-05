@@ -37,7 +37,7 @@ namespace CompanYoungAPI.DataAccess
 
 		public IEnumerable<DataEntry> GetAll()
 		{
-            var options = new QueryOptions
+			var options = new QueryOptions
             {
                 // set the sort order
                 OrderBy = new[] { new SortOrder("id", Order.DESC) }

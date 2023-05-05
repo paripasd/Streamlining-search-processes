@@ -19,16 +19,18 @@
   import Tree from "vue3-tree";
   import "vue3-tree/dist/style.css";
   import { useCrudPageStore } from '@/stores/CrudPageStore';
-  import apiService from "@/apiService";
   
   export default {
     setup() {
       const store = useCrudPageStore();
       const data = ref(null);
       onMounted(async () => {
-        const response = await fetch("https://localhost:7018/api/Read/tree");
+        const response = await fetch("https://localhost:7018/api/Read/tree", {
+          method: 'GET',
+        });
         const fdata = await response.json();
         data.value = fdata;
+
       });
 
       const searchText = ref("");
