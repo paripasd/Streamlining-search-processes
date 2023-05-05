@@ -104,7 +104,7 @@ window.addEventListener('DOMContentLoaded', function () {
     commentField.value = store.unit.comment;
 
     const modificationField = document.getElementById("editedby-input");
-    modificationField.value = "unknown" + " on " + formatModificationDate(store.unit.modificationDate);
+    modificationField.value = "unknown" + " at " + formatModificationDate(store.unit.modificationDate);
 
     const expiryField = document.getElementById("expiry-input");
     expiryField.value = store.unit.expiry.split('T')[0];
