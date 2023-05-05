@@ -50,8 +50,8 @@ namespace CompanYoungAPI.Controllers
 
         [HttpGet("tree")]
         public ActionResult<IEnumerable<ReadDataAccess.Node>> GetTreeStructure()
-		{
-            return Ok(_readDataAccess.GetTreeStructure());
+        {
+			return Ok(_readDataAccess.GetTreeStructure());
 		}
 
 		[HttpPost("search/{searchText}")]
