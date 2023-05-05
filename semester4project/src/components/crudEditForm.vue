@@ -85,9 +85,10 @@ const notificationMessage = ref('');
 const feedback = ref("");
 const store = useCrudPageStore();
 computed(() => store.unit);
+
 window.addEventListener('DOMContentLoaded', function () {
   watchEffect(() => {
-    
+
     /*const modificationDate = new Date(store.unit.modificationDate);
 
     const formattedDatetime = modificationDate.toISOString();
@@ -103,7 +104,7 @@ window.addEventListener('DOMContentLoaded', function () {
     commentField.value = store.unit.comment;
 
     const modificationField = document.getElementById("editedby-input");
-    modificationField.value = "unknown" + " on " + store.unit.modificationDate.split('T')[0];
+    modificationField.value = "unknown" + " on " + formatModificationDate(store.unit.modificationDate);
 
     const expiryField = document.getElementById("expiry-input");
     expiryField.value = store.unit.expiry.split('T')[0];
@@ -113,8 +114,8 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 async function updateUnit() {
-  const unit = { question:"", answer:"", comment:"", id:store.unit.id, path: store.unit.path, tags: store.unit.tags};
-  
+  const unit = { question: "", answer: "", comment: "", id: store.unit.id, path: store.unit.path, tags: store.unit.tags };
+
   const questionField = document.getElementById("question-input");
   unit.question = questionField.value;
 
@@ -128,29 +129,47 @@ async function updateUnit() {
 
   const expiryField = document.getElementById("expiry-input");
   unit.expiry = new Date(expiryField.value).toISOString();
-  try{
-  const response = await fetch('https://localhost:7018/api/Update', {
-    method: 'PUT',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(unit)
-  })
-   
-  if (!response.ok) {
-    throw new Error(`HTTP error ${response.status}`);
-  }
-  showNotification.value = true;
-  notificationTitle.value = 'Update Successful';
-  notificationMessage.value = 'Successfully updated '+store.unit.question+' at '+store.unit.path[0];
-  store.updateDataByPath(store.unit.path);
-  setTimeout(() => {
-  showNotification.value = false;
-  }, 4000);
+
+
+  try {
+    const response = await fetch('https://localhost:7018/api/Update', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(unit)
+    })
+    try{
+      await fetch('https://localhost:7018/api/Update/expiry', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+      })
+    }
+    catch (error) {
+      console.error('Error:', error);
+    }
+    
+
+    if (!response.ok) {
+      throw new Error(`HTTP error ${response.status}`);
+    }
+    showNotification.value = true;
+    notificationTitle.value = 'Update Successful';
+    notificationMessage.value = 'Successfully updated ' + store.unit.question + ' at ' + store.unit.path[0];
+    store.updateDataByPath(store.unit.path);
+    setTimeout(() => {
+      showNotification.value = false;
+    }, 4000);
+
+    const modificationField = document.getElementById("editedby-input");
+    modificationField.value = "unknown" + " on " + formatModificationDate(unit.modificationDate);
 
   }
-  catch(error) {
+  catch (error) {
     feedback.value = "There was an error performing this action. See the console for details."
     console.error('Error:', error);
   }
@@ -158,13 +177,13 @@ async function updateUnit() {
 
 async function deleteUnit() {
 
-  try{
+  try {
     const response = await fetch('https://localhost:7018/api/Delete/' + store.unit.id, {
-    method: 'DELETE',
+      method: 'DELETE',
     })
     if (!response.ok) {
-    throw new Error(`HTTP error ${response.status}`);
-  }
+      throw new Error(`HTTP error ${response.status}`);
+    }
     const questionField = document.getElementById("question-input");
     questionField.innerHTML = "";
 
@@ -177,18 +196,42 @@ async function deleteUnit() {
     const modificationDateField = document.getElementById("editedby-input");
     modificationDateField.innerHTML = "";
 
+    try{
+      await fetch('https://localhost:7018/api/Update/expiry', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+      })
+    }
+    catch (error) {
+      console.error('Error:', error);
+    }
+
     showNotification.value = true;
     notificationTitle.value = 'Deleted';
-    notificationMessage.value = 'Successfully deleted '+store.unit.question+' at '+store.unit.path[0];
+    notificationMessage.value = 'Successfully deleted ' + store.unit.question + ' at ' + store.unit.path[0];
     store.updateDataByPath(store.unit.path);
     setTimeout(() => {
-    showNotification.value = false;
+      showNotification.value = false;
     }, 4000);
+    
   }
-  catch(error) {
+  catch (error) {
     feedback.value = "There was an error performing this action. See the console for details."
     console.error('Error:', error);
   }
+}
+
+function formatModificationDate(txtDate) {
+  const date = new Date(txtDate);
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  const hour = date.getHours().toString().padStart(2, '0');
+  const minute = date.getMinutes().toString().padStart(2, '0');
+  return `${day}/${month}/${year} ${hour}:${minute}`;
 }
 
 </script>
