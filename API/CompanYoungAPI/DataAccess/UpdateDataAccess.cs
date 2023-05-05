@@ -13,10 +13,19 @@ namespace CompanYoungAPI.DataAccess
             Solr = ServiceLocator.Current.GetInstance<ISolrOperations<DataEntry>>();
         }
 
-        public void UpdateInstance(DataEntry data) 
+        public bool UpdateInstance(DataEntry data) 
         {
-            Solr.Add(data);
-            Solr.Commit();
+            try
+            {
+                Solr.Add(data);
+                Solr.Commit();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+            return true;
         }
 
         public void UpdateExpiredTagByDate()

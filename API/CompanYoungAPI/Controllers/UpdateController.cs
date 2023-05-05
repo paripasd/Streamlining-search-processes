@@ -18,9 +18,17 @@ namespace CompanYoungAPI.Controllers
         }
         // PUT api/<UpdateController>/5
         [HttpPut]
-        public void UpdateInstance([FromBody] DataEntry data)
+        public ActionResult UpdateInstance([FromBody] DataEntry data)
         {
-            _updateDataAccess.UpdateInstance(data);
+            bool success = _updateDataAccess.UpdateInstance(data);
+            if (!success)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return Ok();
+            }
         }
 
 		[HttpPut("expiry")]
