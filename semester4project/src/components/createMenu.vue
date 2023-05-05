@@ -86,7 +86,7 @@
                                 </Switch>
                               </SwitchGroup>
                             </div>
-                            <p class="text-red-500" :hidden="!customPathEnabled">Use careful spelling when editing category names! Spelling mistakes will result in the creation of a new category!</p>
+                            <p class="text-red-500 text-xs ml-1 mt-1" :hidden="!customPathEnabled">Use careful spelling when editing category names! Spelling mistakes will result in the creation of a new category!</p>
                           </div>
                         <div class="flex flex-col">
                           <label for="question-input" class="ml-1">Question:</label>
