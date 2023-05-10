@@ -36,9 +36,9 @@ import { onMounted, ref, watch } from 'vue';
 export default {
     setup(props){
       const store = useCrudPageStore();
-
-      if(props.id){
-        const fetchData = async () => {
+      
+      const fetchData = async () => {
+        if(typeof(props.id) !== 'undefined'){
           const response = await fetch(`https://localhost:7018/api/Read/${props.id}`, {
             method: 'GET',
             headers: {
@@ -46,27 +46,12 @@ export default {
               'Content-Type': 'application/json',
             },
           });
-  
           const data = await response.json();
           store.updateUnit(data);
           store.updateDataByPath(data.path);
-          console.log(store.data);
-        };
-  
-        onMounted(fetchData);
-
-      }
-
-      watch(() => store.selectedRow, (newValue) => {
-        if(newValue !== null){
-
-          document.getElementById("tableContainer").scrollTo({
-              top: store.selectedRow.offsetTop,
-              behavior: "smooth",
-          });
         }
-      });
-
+      }
+      onMounted(fetchData);
     },
     props: ['id'],
     components: { Sidebar, CrudEditForm, Crudtable, TableHeader, Tree, CreateMenu }

@@ -35,23 +35,23 @@
       <div class="grid grid-rows-4 grid-cols-6 w-full h-full p-2 gap-2">
         <div class="col-span-2 row-span-3 flex flex-col">
           <label for="question-input">Question:</label>
-          <textarea class="longtextinput" id="question-input" v-bind="store.unit.question"></textarea>
+          <textarea class="longtextinput" id="question-input" v-model="store.unit.question"></textarea>
         </div>
         <div class="col-span-2 col-start-3 row-span-3 flex flex-col">
           <label for="answer-input">Answer:</label>
-          <textarea class="longtextinput" id="answer-input" v-bind="store.unit.answer"></textarea>
+          <textarea class="longtextinput" id="answer-input" v-model="store.unit.answer"></textarea>
         </div>
         <div class="col-span-2 col-start-5 row-span-3 flex flex-col">
           <label for="comment-input">Comment:</label>
-          <textarea class="longtextinput" id="comment-input" v-bind="store.unit.comment"></textarea>
+          <textarea class="longtextinput" id="comment-input" v-model="store.unit.comment"></textarea>
         </div>
         <div class="col-span-1 col-start-1 flex flex-row items-center">
           <label for="expiry-input">Expiry:</label>
-          <input type="date" id="expiry-input" class="shortinput">
+          <input type="date" id="expiry-input" v-model="expiryDate" class="shortinput">
         </div>
         <div class="col-span-2 col-start-2 flex flex-row items-center">
           <label for="editedby-input">Edited&nbsp;by:</label>
-          <input id="editedby-input" class="shortinput" v-bind="store.unit.modificationDate" disabled>
+          <input name="editedby-input" class="shortinput" disabled v-model="editedBy">
         </div>
         <div class="col-span-1 col-start-4">
           <TagSelector></TagSelector>
@@ -84,15 +84,25 @@ const notificationTitle = ref('');
 const notificationMessage = ref('');
 const feedback = ref("");
 const store = useCrudPageStore();
-computed(() => store.unit);
+const expiryDate = computed({
+  get: () => {
+    return store.unit.expiry.split('T')[0];
+  },
+  set: (date) => {
+    store.unit.expiry = new Date(date).toISOString();
+  }
+});
 
-window.addEventListener('DOMContentLoaded', function () {
+const editedBy = computed({
+  get: () => {
+    if(!store.unit.modificationDate || store.unit.modificationDate == "") return "";
+    return "unknown at " + formatModificationDate(store.unit.modificationDate);
+  },
+  set: () => {}
+});
+
+window.addEventListener('load', function () {
   watchEffect(() => {
-
-    /*const modificationDate = new Date(store.unit.modificationDate);
-
-    const formattedDatetime = modificationDate.toISOString();
-    store.unit.modificationDate = formattedDatetime;*/
 
     const questionField = document.getElementById("question-input");
     questionField.value = store.unit.question;
@@ -103,13 +113,9 @@ window.addEventListener('DOMContentLoaded', function () {
     const commentField = document.getElementById("comment-input");
     commentField.value = store.unit.comment;
 
-    const modificationField = document.getElementById("editedby-input");
-    modificationField.value = "unknown" + " at " + formatModificationDate(store.unit.modificationDate);
-
     const expiryField = document.getElementById("expiry-input");
     expiryField.value = store.unit.expiry.split('T')[0];
 
-    console.log(store.unit);
   });
 });
 
@@ -165,9 +171,6 @@ async function updateUnit() {
       showNotification.value = false;
     }, 4000);
 
-    const modificationField = document.getElementById("editedby-input");
-    modificationField.value = "unknown" + " on " + formatModificationDate(unit.modificationDate);
-
   }
   catch (error) {
     feedback.value = "There was an error performing this action. See the console for details."
@@ -184,31 +187,32 @@ async function deleteUnit() {
     if (!response.ok) {
       throw new Error(`HTTP error ${response.status}`);
     }
+    
+    
     const questionField = document.getElementById("question-input");
     questionField.innerHTML = "";
-
+    
     const answerField = document.getElementById("answer-input");
     answerField.innerHTML = "";
-
+    
     const commentField = document.getElementById("comment-input");
     commentField.innerHTML = "";
-
+    
     const modificationDateField = document.getElementById("editedby-input");
-    modificationDateField.innerHTML = "";
-
+    
     try{
       await fetch('https://localhost:7018/api/Update/expiry', {
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
       })
     }
     catch (error) {
       console.error('Error:', error);
     }
-
+    
     showNotification.value = true;
     notificationTitle.value = 'Deleted';
     notificationMessage.value = 'Successfully deleted ' + store.unit.question + ' at ' + store.unit.path[0];
@@ -217,6 +221,7 @@ async function deleteUnit() {
       showNotification.value = false;
     }, 4000);
     
+    store.unit = {question:"",answer:"",comment:"", id:"", expiry:"",modificationDate:"", modifiedBy:"", path:[], tags:[]};
   }
   catch (error) {
     feedback.value = "There was an error performing this action. See the console for details."

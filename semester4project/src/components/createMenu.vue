@@ -104,10 +104,6 @@
                           <label for="expiry-input" class="ml-1">Expiry:</label>
                           <input type="date" id="add-expiry-input" value="2029-12-31" class="shortinput">
                         </div>
-                        <div class="flex flex-row items-center">
-                          <label for="editedby-input" class="ml-1">Edited&nbsp;by:</label>
-                          <input type="text" id="editedby-input" class="shortinput" disabled>
-                        </div>
                         <div class="flex justify-end items-end h-full">
                           <button type="submit" class="uniform-button py-4 mr-4">Done</button>
                         </div>

@@ -26,7 +26,7 @@
                         class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                         <div v-if="liveSuggesstions.length === 0 && querySearch !== ''"
                             class="relative cursor-default select-none py-2 px-4 text-gray-700">
-                            Nothing found.
+                            No matching questions
                         </div>
 
                         <ComboboxOption @click="selectedLiveSuggestion = item" v-for="item in liveSuggesstions"
@@ -207,7 +207,6 @@ async function getLiveSuggestions() {
         body: JSON.stringify(path)
     });
     questionsToSuggest.value = await response.json();
-    console.log(questionsToSuggest.value);
 }
 
 function deleteSubPathInput() {
@@ -232,7 +231,6 @@ async function search() {
         path = selectedInstituteArray.concat(selectedSubpath.value.split('/'));
     }
     
-    console.log(path);
     const response = await fetch(`https://localhost:7018/api/Read/search/${selectedLiveSuggestion.value}`, {
         method: 'POST',
         headers: {
@@ -243,6 +241,5 @@ async function search() {
     });
     const data = await response.json();
     store.searchResult = data;
-    console.log(data);
 }
 </script>
