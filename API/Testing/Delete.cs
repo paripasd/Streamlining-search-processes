@@ -1,14 +1,7 @@
 ﻿using CommonServiceLocator;
 using CompanYoungAPI.Model;
-using Microsoft.VisualStudio.TestPlatform.Utilities;
 using SolrNet.Impl;
 using SolrNet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit.Abstractions;
 using SolrNet.Exceptions;
 using CompanYoungAPI.DataAccess;
 
@@ -29,7 +22,7 @@ namespace Testing
         [Fact]
         public void DeleteUnit()
         {
-            var idToDelete = "045095de-c710-4f2a-a409-c75a7693b2af"; // required
+            var idToDelete = ""; // required
             var allData = new List<DataEntry>();
 
             bool isInCollection = false;

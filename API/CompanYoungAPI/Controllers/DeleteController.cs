@@ -13,7 +13,7 @@ namespace CompanYoungAPI.Controllers
         {
             _deleteDataAccess = new();
         }
-        // DELETE
+
         [HttpDelete("{id}")]
         public void DeleteById(string id)
         {

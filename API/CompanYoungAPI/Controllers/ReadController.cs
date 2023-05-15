@@ -23,7 +23,6 @@ namespace CompanYoungAPI.Controllers
             _readDataAccess = new();
         }
 
-        // GET: api/Read
         [HttpGet]
         public ActionResult<IEnumerable<DataEntry>> GetAll()
         {

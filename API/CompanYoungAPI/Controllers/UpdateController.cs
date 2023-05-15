@@ -2,8 +2,6 @@
 using CompanYoungAPI.Model;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace CompanYoungAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -16,7 +14,7 @@ namespace CompanYoungAPI.Controllers
         {
             _updateDataAccess = new();
         }
-        // PUT api/<UpdateController>/5
+
         [HttpPut]
         public ActionResult UpdateInstance([FromBody] DataEntry data)
         {
@@ -34,6 +32,8 @@ namespace CompanYoungAPI.Controllers
 		[HttpPut("expiry")]
         public void UpdateTagsByExpiry()
 		{
+            // checking all timeframes and setting the Expired and Expires Soon tag accordingly
+            // Solr doesn't update tags on its own so we implemented our custom logic for it in the API
             _updateDataAccess.UpdateExpiresSoonTagPlus();
             _updateDataAccess.UpdateExpiredTagPlus();
             _updateDataAccess.UpdateExpiressoonTagByDate();

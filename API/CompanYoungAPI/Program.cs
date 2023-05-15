@@ -1,19 +1,15 @@
 ﻿using SolrNet;
 using CompanYoungAPI.Model;
-using CommonServiceLocator;
-using System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using HttpWebAdapters;
-using SolrNet.Impl;
 using CompanYoungAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var solrConnection = new JWTSolrConnection("http://localhost:8983/solr/testing");
+var solrConnection = new JWTSolrConnection("http://localhost:8983/solr/testing"); // maybe hide link into appsettings.json
 Startup.Init<DataEntry>(solrConnection);
 
 builder.Services.AddControllers();
@@ -44,7 +40,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
-        builder.AllowAnyOrigin() //kurvara at kell irni!!!!!!!!!!!
+        builder.AllowAnyOrigin() //IT NEEDS TO BE CHANGED WHEN PUT INTO PRODUCTION!!!!!!!!!!!
         .AllowAnyHeader()
         .AllowAnyMethod();
     });

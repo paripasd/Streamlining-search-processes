@@ -6,6 +6,7 @@ namespace CompanYoungAPI.Model
 {
 	public class DataEntry
 	{
+		// we need to assign every field to a "SolrField" if we would like Solr.Net to use it as a model
 		[SolrField("question")]
 		public string Question { get; set; }
 		[SolrField("answer")]

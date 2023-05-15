@@ -4,11 +4,6 @@ using CompanYoungAPI.Model;
 using SolrNet;
 using SolrNet.Exceptions;
 using SolrNet.Impl;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit.Abstractions;
 
 namespace Testing
@@ -35,9 +30,9 @@ namespace Testing
             DataEntry unitInDb = new DataEntry();
             // required properties to create
             newUnit.Id = Guid.NewGuid().ToString();
-            newUnit.Question = "Created test";
-            string[] path = { "427 Gudenaadalens Efterskole" };
-            string[] tags = { "none" };
+            newUnit.Question = "";
+            string[] path = { "" };
+            string[] tags = { "" };
             newUnit.Path = path;
             newUnit.Tags = tags;
             newUnit.Expiry = DateTime.Now.AddDays(14);

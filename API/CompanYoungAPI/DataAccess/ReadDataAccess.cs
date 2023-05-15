@@ -1,28 +1,7 @@
-﻿using System;
-using Microsoft.Extensions.Logging;
-using CompanYoungAPI.Model;
+﻿using CompanYoungAPI.Model;
 using CommonServiceLocator;
 using SolrNet;
-using SolrNet.Impl;
-using System.Collections;
 using SolrNet.Commands.Parameters;
-using Microsoft.Extensions.Options;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using NuGet.Protocol;
-using SolrNet.Schema;
-using System.Linq;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Microsoft.AspNetCore.Mvc;
-using static System.Net.WebRequestMethods;
-using SolrNet;
-using SolrNet.Commands.Parameters;
-using SolrNet.Exceptions;
-using SolrNet.Impl;
-
-using System;
-using Newtonsoft.Json.Linq;
 
 namespace CompanYoungAPI.DataAccess
 {
@@ -35,6 +14,7 @@ namespace CompanYoungAPI.DataAccess
 			solr = ServiceLocator.Current.GetInstance<ISolrOperations<DataEntry>>();
 		}
 
+		// get all data in the database in a specific order
 		public IEnumerable<DataEntry> GetAll()
 		{
 			var options = new QueryOptions
@@ -42,26 +22,52 @@ namespace CompanYoungAPI.DataAccess
                 // set the sort order
                 OrderBy = new[] { new SortOrder("id", Order.DESC) }
             };
-            var result = solr.Query(new SolrQuery("*:*"),options);
+
+			SolrQueryResults<DataEntry> result = new();
+			try
+			{
+				// "*:*" refers to the Solr query language, it means get any field and any values
+                result = solr.Query(new SolrQuery("*:*"), options);
+            }
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+            
 			return result;
 		}
 
+		// get all units based on the path field values we provide in the parameter
 		public IEnumerable<DataEntry> GetAllByPath(string[] path)
 		{
 			List<SolrQuery> queryParams = new List<SolrQuery>();
 			foreach(string s in path)
 			{
+				// building the query to search for each part of the path
 				queryParams.Add(new SolrQuery("path:\"" + s + "\""));
 			}
+
             var options = new QueryOptions
             {
                 // set the sort order
                 OrderBy = new[] { new SortOrder("id", Order.DESC) }
             };
-            var result = solr.Query(new SolrMultipleCriteriaQuery(queryParams, "AND"),options);
+
+            SolrQueryResults<DataEntry> result = new();
+            try
+			{
+				// we add our criteria to the query and use the "AND" operator
+                result = solr.Query(new SolrMultipleCriteriaQuery(queryParams, "AND"), options);
+            }
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+            
 			return result;
 		}
 
+		// get all questions for a specific path, this is used in the searchfield dropdown 
         public string[] GetAllQuestionByPathForSuggestion(string[] path)
         {
 			var result = GetAllByPath(path);
@@ -70,9 +76,19 @@ namespace CompanYoungAPI.DataAccess
             return questionSet.ToArray();
         }
 
+		// get unit by id
         public DataEntry GetById(string id)
 		{
-			var result = solr.Query(new SolrQuery($"id:{id}"));
+            SolrQueryResults<DataEntry> result = new();
+            try
+			{
+                result = solr.Query(new SolrQuery($"id:{id}"));
+            }
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+			
 			return result.First();
 		}
 
@@ -81,25 +97,28 @@ namespace CompanYoungAPI.DataAccess
 			List<SolrQuery> textParams = new List<SolrQuery>();
 			if (searchText != "null")
 			{
-				textParams.Add(new SolrQuery($"question:\"{searchText}\""));
+                // we are doing the search in the question, answer, comment field if we have a valid search phrase
+                textParams.Add(new SolrQuery($"question:\"{searchText}\""));
 				textParams.Add(new SolrQuery($"answer:\"{searchText}\""));
 				textParams.Add(new SolrQuery($"comment:\"{searchText}\""));
 			}
 			else
 			{
+				// if we have no search phrase we return everything
 				textParams.Add(new SolrQuery("*:*"));
 			}
 
 			List<ISolrQuery> queryParams = new List<ISolrQuery>();
 			queryParams.Add(new SolrMultipleCriteriaQuery(textParams, "OR"));
 
+            // enable and customise highlighting for search
             HighlightingParameters highlightParams = new HighlightingParameters();
-			highlightParams.Fields = new[] { "answer" };
-            highlightParams.BeforeTerm = "<b><span style=\"color: #f28033\">";
-            highlightParams.AfterTerm = "</span></b>";
-			highlightParams.UsePhraseHighlighter = true;
-			highlightParams.Fragsize = 0;
-			highlightParams.Snippets = 1000000;
+			highlightParams.Fields = new[] { "answer" }; // highlight only in answer field
+            highlightParams.BeforeTerm = "<b><span style=\"color: #f28033\">"; // how we want to showcase the highlight (start)
+            highlightParams.AfterTerm = "</span></b>";// how we want to showcase the highlight (end)
+            highlightParams.UsePhraseHighlighter = true; // highlight words next to each other
+			highlightParams.Fragsize = 0; // (0) idicates that the whole field value should be used, no fregmentation
+			highlightParams.Snippets = 1000000; // maximum number of highlighted snippets to return
 
 
             var options = new QueryOptions
@@ -109,8 +128,22 @@ namespace CompanYoungAPI.DataAccess
                 OrderBy = new[] { new SortOrder("id", Order.DESC) }
 
             };
-			SolrQueryResults<DataEntry> solrResult = solr.Query(new SolrMultipleCriteriaQuery(queryParams), options);
+
+			SolrQueryResults<DataEntry> solrResult = new();
+
+			try
+			{
+				// sending the query with the above defined options and parameters
+                solrResult = solr.Query(new SolrMultipleCriteriaQuery(queryParams), options);
+            }
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+
 			List<DataEntryWithHighlight> pathFilteredData = new List<DataEntryWithHighlight>();
+			// filtering for path and formatting for easier usage in the UI
+			// this part may be reconsidered as Solr might be able to handle path filtering within this query!!!
 			foreach (var r in solrResult)
 			{
 				if (path.Length > 1)
@@ -165,6 +198,7 @@ namespace CompanYoungAPI.DataAccess
             return pathFilteredData;
         }
 
+		// get unique paths ex: for tree, dropdown
         public IEnumerable<string[]> GetUniquePaths()
 		{
 			var queryOptions = new QueryOptions
@@ -172,7 +206,18 @@ namespace CompanYoungAPI.DataAccess
 				Fields = new[] { "path" },
 				Rows = int.MaxValue
 			};
-			var result = solr.Query(new SolrQuery("*:*"), queryOptions);
+
+            SolrQueryResults<DataEntry> result = new();
+            try
+			{
+                result = solr.Query(new SolrQuery("*:*"), queryOptions);
+            }
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+			
+			// its magic and it works to get unique paths
 			var uniquePaths = result.Select(r => r.Path)
 				.GroupBy(pathArray => string.Join("|", pathArray))
 				.Select(group => group.First())
@@ -180,6 +225,7 @@ namespace CompanYoungAPI.DataAccess
 			return uniquePaths;
 		}
 
+		// get institute names from path, first element of path is always institute
 		public IEnumerable<string> GetInstitutes()
 		{
 			IEnumerable<string[]> paths = GetUniquePaths();
@@ -187,13 +233,16 @@ namespace CompanYoungAPI.DataAccess
 			return institutes;
 		}
 
-		public IEnumerable<string[]> GetInstituteSubPaths(string institute)
+        // get subpath names from path, everything except the first element of path is subpath
+        public IEnumerable<string[]> GetInstituteSubPaths(string institute)
 		{
 			IEnumerable<string[]> paths = GetUniquePaths();
 			var subpaths = paths.Where(p => p[0] == institute).Select(p => p[1..]);
 			return subpaths;
 		}
 
+		// this class is here because we only use this in the method below so coupling it here is the best choice
+		// we need this because we are showcasing data in a tree format in the UI 
 		public class Node
 		{
 			public string label { get; set; }
@@ -209,6 +258,7 @@ namespace CompanYoungAPI.DataAccess
 
 			public Node FindOrCreateChild(string label)
 			{
+				// if we find the child we return it, if we don't than we create a new in the tree
 				Node child = nodes.Find(x => x.label == label);
 				if (child == null)
 				{
@@ -221,6 +271,8 @@ namespace CompanYoungAPI.DataAccess
 			}
 		}
 
+		// tree structure logic for building
+		// get all unique paths, assign them as root nodes, check all root nodes for child nodes
 		public IEnumerable<Node> GetTreeStructure()
 		{
 			IEnumerable<string[]> paths = GetUniquePaths();

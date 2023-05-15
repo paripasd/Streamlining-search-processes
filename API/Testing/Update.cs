@@ -35,14 +35,14 @@ namespace Testing
             bool isInCollection = false;
 
             //create new unit
-            string[] path = { "427 Gudenaadalens Efterskole" };
-            string[] tags = { "none" };
+            string[] path = { "" };
+            string[] tags = { "" };
 
-            newUnit.Id = "3f4968ea-d9c0-4596-b32d-55af929fca42"; //must be the same id as the old unit
+            newUnit.Id = ""; //must be the same id as the old unit
             newUnit.Path = path; //required
             newUnit.Tags = tags; //required
             newUnit.Expiry = DateTime.Now.AddDays(14); //required
-            newUnit.Question = "Test2"; // change
+            newUnit.Question = ""; // change
             // + add more change if necesary
 
             try
