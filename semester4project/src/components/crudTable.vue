@@ -39,6 +39,7 @@
   
 
   async function updateSelected(unit){
+    console.log(unit);
     store.updateUnit(unit);
   }
 
