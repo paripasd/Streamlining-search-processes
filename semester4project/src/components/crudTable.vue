@@ -39,8 +39,7 @@
   
 
   async function updateSelected(unit){
-    console.log(unit);
-    store.updateUnit(unit);
+    store.updateUnit(JSON.parse(JSON.stringify(unit)));
   }
 
 
