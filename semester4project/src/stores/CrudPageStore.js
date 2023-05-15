@@ -45,19 +45,18 @@ export const useCrudPageStore = defineStore("CrudPageStore", {
             this.results = results
         },
 
-        updateDataByPath(path) {
+        async updateDataByPath(path) {
             this.updatePath(path);
-            fetch('https://localhost:7018/api/Read/', {
+            const response = await fetch('https://localhost:7018/api/Read/', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify(path)
-            })
-            .then(response => response.json())
-            .then(data => this.updateData(data));
-            console.log(this.data);
+            });
+            const data = await response.json();
+            this.updateData(data);
           },
 
           updateFormattedExpiry(expiry){

@@ -31,18 +31,15 @@
 <script setup>
   import { ref } from 'vue'
   import {
-    Bars3Icon,
-    CalendarIcon,
-    ChartBarIcon,
+    MagnifyingGlassIcon,
     FolderIcon,
     HomeIcon,
-    DocumentIcon
   } from '@heroicons/vue/24/outline'
   
   const navigation = [
-    { name: 'Home', href: '/', icon: HomeIcon, current: false },
+    //{ name: 'Home', href: '/', icon: HomeIcon, current: false },
+    { name: 'Search', href: '/search', icon: MagnifyingGlassIcon, current: false },
     { name: 'Data Manager', href: '/datamanager', icon: FolderIcon, current: false },
-    { name: 'Search', href: '/search', icon: DocumentIcon, current: false },
   ]
   
   const sidebarOpen = ref(false)

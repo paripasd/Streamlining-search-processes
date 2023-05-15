@@ -34,7 +34,7 @@
                     <CreateTree/>
                   </div>
                   <div class="flex-auto basis-1/2">
-                    <div>
+                    <div class="max-w-[700px]">
                         <!-- Notification component -->
                         <div aria-live="assertive" class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6">
                           <div class="flex w-full flex-col items-center space-y-4 sm:items-end">
@@ -63,20 +63,30 @@
                         </div>
                         <form @submit.prevent="createNew()" id="data-entry-form" class="space-y-5">
                           <div>
-                            <div class="flex flex-row">
-                              <input type="text" id="custompath-input" class="shortinput m-0 mb-4 transition duration-200 disabled:bg-slate-200 disabled:text-black disabled:border-slate-400" :disabled="!customPathEnabled" v-model="store.createPath">
+                            <div class="grid grid-cols-3 items-center">
+                              <div v-for="index in store.createPath.length+1" class="items-center flex flex-row">
+                                <input v-model="store.createPath[index-1]" class="shortinput w-full" :class="{'opacity-70 border-slate-200' : index == store.createPath.length+1}" :disabled="!customPathEnabled">
+                                <svg v-show="index != store.createPath.length+1" class="h-5 w-5 flex-shrink-0 text-gray-300" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                  <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+                                </svg>
+                                <button @click="store.createPath.splice(store.createPath.length-1, 1)" type="button" v-show="index == store.createPath.length+1" :disabled="!customPathEnabled">
+                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 hover:text-red-600 text-gray-400">
+                                    <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"></path>
+                                  </svg>
+                                </button>
+                              </div>
                             </div>
                             <div class="flex flex-row">
                               <SwitchGroup as="div" class="flex items-center">
-                                <Switch v-model="customPathEnabled" :class="[customPathEnabled ? 'bg-cyorange' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyorange focus:ring-offset-2']">
-                                  <span aria-hidden="true" :class="[customPathEnabled ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
-                                </Switch>
-                                <SwitchLabel as="span" class="ml-3 text-sm">
+                                <SwitchLabel as="span" class="mt-2 ml-1 text-sm">
                                   <span class="font-medium text-gray-900">Use custom path</span>
                                 </SwitchLabel>
+                                <Switch v-model="customPathEnabled" class="ml-3" :class="[customPathEnabled ? 'bg-cyorange' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyorange focus:ring-offset-2']">
+                                  <span aria-hidden="true" :class="[customPathEnabled ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
+                                </Switch>
                               </SwitchGroup>
                             </div>
-                            <p class="text-red-500" :hidden="!customPathEnabled">Category names are separated by commas (,) - do not use commas in category names!</p>
+                            <p class="text-red-500 text-xs ml-1 mt-1" :hidden="!customPathEnabled">Use careful spelling when editing category names! Spelling mistakes will result in the creation of a new category!</p>
                           </div>
                         <div class="flex flex-col">
                           <label for="question-input" class="ml-1">Question:</label>
@@ -93,10 +103,6 @@
                         <div class="flex flex-row items-center">
                           <label for="expiry-input" class="ml-1">Expiry:</label>
                           <input type="date" id="add-expiry-input" value="2029-12-31" class="shortinput">
-                        </div>
-                        <div class="flex flex-row items-center">
-                          <label for="editedby-input" class="ml-1">Edited&nbsp;by:</label>
-                          <input type="text" id="editedby-input" class="shortinput" disabled>
                         </div>
                         <div class="flex justify-end items-end h-full">
                           <button type="submit" class="uniform-button py-4 mr-4">Done</button>
@@ -146,9 +152,6 @@ const feedback = ref("");
 async function createNew(){
   //id is generated at API, but can't be null
   const newQna = {question: formQuestion.value, answer: formAnswer.value, comment: formComment.value, id: "", tags: ["none"], path: store.getCreatePath};
-  if(typeof newQna.path === 'string'){ //by default it's an array, if it's a string it means that it was modified using the custom path field
-    newQna.path = newQna.path.split(',');
-  }
   newQna.expiry = new Date(document.getElementById("add-expiry-input").value).toISOString();
   newQna.modificationDate = new Date().toISOString();
   console.log(document.getElementById("add-expiry-input").value);

@@ -15,8 +15,6 @@
   
   <script setup>
   import { computed } from '@vue/reactivity';
-  import { watchEffect } from 'vue';
-  import { HomeIcon } from '@heroicons/vue/20/solid'
   import { useCrudPageStore } from '@/stores/CrudPageStore';
 
   const store = useCrudPageStore();
@@ -27,8 +25,4 @@
     store.updateDataByPath(store.path.slice(0,index+1));
   }
 
-  /*const pages = [
-    { name: '609 Roskilde Tekniske Skole', href: '#', current: false },
-    { name: 'Generelt', href: '#', current: true },
-  ]*/
   </script>

@@ -11,6 +11,7 @@ const routes = [
     name:'Home',
     path:'/',
     component:home,
+    redirect: '/search',
     meta: { requiresAuth: true },
   },
   {

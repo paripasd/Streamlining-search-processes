@@ -3,8 +3,13 @@
     <div v-for="d in store.getFilteredResult" :key="d.id"
       class="h-fit my-4 relative space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-cyorange">
       <div class="pb-8">
-          <div class="flex flex-row space-x-3">
-            <p class="text-gray-500" v-for="p in d.path">{{ p }} /</p>
+          <div class="flex flex-row">
+            <div class="flex flex-row items-center" v-for="p in d.path">
+              <p class="text-gray-500">{{ p }}</p>
+              <svg class="h-5 w-5 flex-shrink-0 mx-1 text-gray-300" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+              </svg>
+            </div>
           </div>
           <div class="relative">
             <div class="absolute inset-0 flex items-center" aria-hidden="true">

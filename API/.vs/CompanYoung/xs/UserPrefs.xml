@@ -1,23 +1,18 @@
 ﻿<Properties StartupConfiguration="{3CDF67F0-20FD-4B49-BB47-A588A0616FEB}|Default">
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.CompanYoungAPI PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/gaborkiss/Documents/GitHub/semester4project/API/CompanYoungAPI/Controllers/ReadController.cs" relfile="CompanYoungAPI/Controllers/ReadController.cs" line="56" column="1" />
-    </BreakpointStore>
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="CompanYoungAPI/JWTSolrConnection.cs">
+  <MonoDevelop.Ide.ItemProperties.CompanYoungAPI PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="CompanYoungAPI/DataAccess/UpdateDataAccess.cs">
     <Files>
       <File FileName="CompanYoungAPI/Program.cs" Line="17" Column="41" />
       <File FileName="CompanYoungAPI/Properties/launchSettings.json" Line="16" Column="31" />
       <File FileName="CompanYoungAPI/appsettings.json" Line="1" Column="1" />
-      <File FileName="CompanYoungAPI/DataAccess/ReadDataAccess.cs" Line="176" Column="1" />
-      <File FileName="CompanYoungAPI/Controllers/ReadController.cs" Line="55" Column="84" />
-      <File FileName="CompanYoungAPI/JWTSolrConnection.cs" Line="21" Column="1" />
-      <File FileName="CompanYoungAPI/Controllers/AuthController.cs" Line="1" Column="1" />
+      <File FileName="CompanYoungAPI/DataAccess/ReadDataAccess.cs" Line="175" Column="1" />
+      <File FileName="CompanYoungAPI/Controllers/ReadController.cs" Line="29" Column="10" />
+      <File FileName="CompanYoungAPI/JWTSolrConnection.cs" Line="12" Column="32" />
+      <File FileName="CompanYoungAPI/Controllers/AuthController.cs" Line="27" Column="59" />
       <File FileName="CompanYoungAPI/CustomHttpWebRequestFactory.cs" Line="23" Column="1" />
+      <File FileName="CompanYoungAPI/DataAccess/UpdateDataAccess.cs" Line="18" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -25,10 +20,11 @@
           <Node name="CompanYoung" expanded="True">
             <Node name="CompanYoungAPI" expanded="True">
               <Node name="Controllers" expanded="True" />
-              <Node name="DataAccess" expanded="True" />
+              <Node name="DataAccess" expanded="True">
+                <Node name="UpdateDataAccess.cs" selected="True" />
+              </Node>
               <Node name="Model" expanded="True" />
               <Node name="Properties" expanded="True" />
-              <Node name="JWTSolrConnection.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -38,4 +34,8 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
