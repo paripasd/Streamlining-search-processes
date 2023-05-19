@@ -77,6 +77,7 @@ namespace CompanYoungAPI.Controllers
             return Ok(_readDataAccess.GetInstituteSubPaths(institute));
 		}
 
+        //Test method for supplying UI with institution identifier - this would normally be fetched from CY API
         [HttpGet("cydata")]
         public ActionResult<int> CallServer() 
         {

@@ -15,8 +15,15 @@ namespace CompanYoungAPI.DataAccess
 
         public void CreateInstance(DataEntry data)
         {
-            Solr.Add(data);
-            Solr.Commit();
-        }
+			try
+			{
+				Solr.Add(data);
+				Solr.Commit();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+		}
     }
 }

@@ -1,5 +1,6 @@
 import {defineStore} from "pinia";
 
+//Store for communication between components on crud page, and tag list
 export const useCrudPageStore = defineStore("CrudPageStore", {
     state: () => {
         return {

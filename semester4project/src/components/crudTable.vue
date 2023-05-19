@@ -38,8 +38,9 @@
   const tableRows = ref([]);
   
 
+  //Updates the currently selected object in the store based on the selection in the crud table
   async function updateSelected(unit){
-    store.updateUnit(JSON.parse(JSON.stringify(unit)));
+    store.updateUnit(JSON.parse(JSON.stringify(unit))); //The object is copied by JSON to avoid having the same pointer references
   }
 
 

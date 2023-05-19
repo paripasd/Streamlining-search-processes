@@ -180,6 +180,7 @@ const institutes = ref(null);
 const subpaths = ref(null);
 const selectedSubpath = ref('');
 onMounted(async () => {
+    //When the component is loaded the institutes are fetched
     const response = await fetch(`https://localhost:7018/api/Read/institutes`);
     const data = await response.json();
     institutes.value = data;
@@ -215,12 +216,14 @@ function deleteSubPathInput() {
 
 const checkEmptyString = (str) => (str === "" ? null : str);
 
+//Fetches the subpaths within one institution, so that when one is selected in the first dropdown, the second contains its subpaths
 async function getSubpaths() {
     const response = await fetch(`https://localhost:7018/api/Read/subpaths/${selectedInstitute.value}`);
     const data = await response.json();
     subpaths.value = data.flatMap(innerArr => innerArr.join('/'));
 }
 
+//Combines data from all search components, then fetches fromt the API
 async function search() {
     selectedLiveSuggestion.value = checkEmptyString(selectedLiveSuggestion.value);
     const selectedInstituteArray = [selectedInstitute.value];

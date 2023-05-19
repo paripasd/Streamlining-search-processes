@@ -13,6 +13,7 @@ import { useSearchPageStore } from '@/stores/SearchPageStore';
 const tagList = useCrudPageStore().tagList;
 const store = useSearchPageStore();
 
+//If a tag is clicked and isn't present in the selected tags array (for filtering) it gets added and vice versa
 function flipTag(tag){
     if(store.selectedTags.includes(tag)){
         store.selectedTags = store.selectedTags.filter(function(item){

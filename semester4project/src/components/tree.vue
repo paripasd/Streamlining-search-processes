@@ -12,6 +12,7 @@ import Tree from "vue3-tree";
 import "vue3-tree/dist/style.css";
 import { useCrudPageStore } from '@/stores/CrudPageStore';
 
+//Third party tree library, with the methods modified so that when a node is clicked it fetches the data for the appropriate path
 export default {
   setup() {
     const store = useCrudPageStore();
@@ -29,20 +30,6 @@ export default {
 
     const onUpdate = (nodes) => {
 
-    };
-
-    const onNodeClick2 = (node) => {
-      store.updatePath(node.path);
-      fetch('https://localhost:7018/api/Read/', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(node.path)
-      })
-        .then(response => response.json())
-        .then(data => store.updateData(data));
     };
 
     const onNodeClick = async (node) => {

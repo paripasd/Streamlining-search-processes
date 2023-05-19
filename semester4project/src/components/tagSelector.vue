@@ -28,6 +28,7 @@ import { useCrudPageStore } from '@/stores/CrudPageStore';
 
 const store = useCrudPageStore();
 
+//If a tag is clicked and isn't present in the tags of the unit it gets added and vice versa
 function flipTag(tag){
   if(store.unit.tags.includes(tag)){
         store.unit.tags = store.unit.tags.filter(function(item){

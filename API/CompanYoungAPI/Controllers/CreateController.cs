@@ -21,9 +21,10 @@ namespace CompanYoungAPI.Controllers
 		[HttpPost]
 		public ActionResult CreateInstance([FromBody] DataEntry data)
 		{
-            _createDataAccess.CreateInstance(data);
+			data.Id = Guid.NewGuid().ToString(); // new unique id is generated
+			_createDataAccess.CreateInstance(data);
 			string url = Url.Action("GetById", "Read", new { id = data.Id });
-			return Created(url, data);
+			return Created(url, data); // feedback
 		}
 	}
 }

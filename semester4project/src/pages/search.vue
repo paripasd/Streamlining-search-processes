@@ -19,7 +19,7 @@ import { onMounted } from 'vue';
 
 const store = useSearchPageStore();
 onMounted(async () => {
-    const response = await fetch(`https://localhost:7018/api/Read/cydata`);
+    const response = await fetch(`https://localhost:7018/api/Read/cydata`); //When the page is loaded this automatically fetches the actual institution from YoungCRM - currently test data from our own API instead
     const data = await response.json();
     store.defaultNumber = data;
 });
