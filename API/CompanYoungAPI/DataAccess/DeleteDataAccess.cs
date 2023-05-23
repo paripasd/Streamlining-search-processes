@@ -15,8 +15,15 @@ namespace CompanYoungAPI.DataAccess
 
         public void DeleteById(string id) 
         {
-            Solr.Delete(id);
-            Solr.Commit();
+            try
+            {
+                Solr.Delete(id);
+                Solr.Commit();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }
