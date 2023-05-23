@@ -46,6 +46,7 @@ const router = createRouter({
   routes,
 });
 
+//Login redirecting
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   const authStore = useAuthStore();

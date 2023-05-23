@@ -149,13 +149,12 @@ const formAnswer = ref("");
 const formComment = ref("");
 const feedback = ref("");
 
+//Creates new object and posts it to the API
 async function createNew(){
-  //id is generated at API, but can't be null
+  //id is generated at API but can't be null, tag array can't be empty
   const newQna = {question: formQuestion.value, answer: formAnswer.value, comment: formComment.value, id: "", tags: ["none"], path: store.getCreatePath};
   newQna.expiry = new Date(document.getElementById("add-expiry-input").value).toISOString();
   newQna.modificationDate = new Date().toISOString();
-  console.log(document.getElementById("add-expiry-input").value);
-  console.log(JSON.stringify(newQna));
   try{
     const response = await fetch('https://localhost:7018/api/Create',{
       method: 'POST',
@@ -184,6 +183,7 @@ async function createNew(){
       console.error('Error:', error);
     }
 
+    //Shows confirmation notification
     showNotification.value = true;
     notificationTitle.value = 'Successfully created!';
     notificationMessage.value = '';

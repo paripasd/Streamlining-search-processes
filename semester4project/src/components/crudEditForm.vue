@@ -84,6 +84,7 @@ const notificationTitle = ref('');
 const notificationMessage = ref('');
 const feedback = ref("");
 const store = useCrudPageStore();
+//Computed attributes can be defined a setter and a getter
 const expiryDate = computed({
   get: () => {
     return store.unit.expiry.split('T')[0];
@@ -101,6 +102,7 @@ const editedBy = computed({
   set: () => {}
 });
 
+//Persistently updates the variables based on the fields in the UI
 window.addEventListener('load', function () {
   watchEffect(() => {
 
@@ -119,6 +121,7 @@ window.addEventListener('load', function () {
   });
 });
 
+//Updates the object selected in the crud table based on the input in the fields
 async function updateUnit() {
   const unit = { question: "", answer: "", comment: "", id: store.unit.id, path: store.unit.path, tags: store.unit.tags };
 
@@ -178,6 +181,7 @@ async function updateUnit() {
   }
 }
 
+//Deletes the object selected in the crud table
 async function deleteUnit() {
 
   try {

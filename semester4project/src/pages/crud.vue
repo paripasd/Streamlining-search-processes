@@ -38,6 +38,7 @@ export default {
       const store = useCrudPageStore();
       
       const fetchData = async () => {
+        //If there is an ID in the link, the crud page automatically opens with that object loaded
         if(typeof(props.id) !== 'undefined'){
           const response = await fetch(`https://localhost:7018/api/Read/${props.id}`, {
             method: 'GET',
