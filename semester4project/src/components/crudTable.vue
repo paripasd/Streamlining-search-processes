@@ -1,5 +1,5 @@
 <template>
-    <div class="px-4 sm:px-6 lg:px-8 flow-root max-h-[95%] w-full min-h-[0px] overflow-scroll">
+    <div class="px-4 sm:px-6 lg:px-8 flow-root max-h-[95%] w-full min-h-[0px] overflow-y-auto">
         <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
           <div class="inline-block py-2 align-middle w-full sm:px-6 lg:px-8">
             <table id="table" class="max-h-full w-full">

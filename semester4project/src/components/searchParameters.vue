@@ -1,15 +1,16 @@
 <template>
     <div class="w-full mb-2">
-        <TagFilter/>
+        <TagFilter />
     </div>
     <div class="flex w-full">
-        <Combobox class="z-20 w-full" v-model="selectedLiveSuggestion">
+        <Combobox class="z-20 w-full" v-model="selectedLiveSuggestion" nullable>
             <div class="relative mt-1">
                 <div
-                    class="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+                    class="relative w-full cursor-default overflow-hidden rounded bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
                     <ComboboxInput class="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
                         placeholder="Search..."
-                        @change="querySearch = $event.target.value, getLiveSuggestions(), selectedLiveSuggestion = $event.target.value" />
+                        @change="querySearch = $event.target.value, getLiveSuggestions(), selectedLiveSuggestion = $event.target.value"
+                        @keyup.enter="search()" />
 
                     <ComboboxButton v-if="selectedLiveSuggestion" @click="selectedLiveSuggestion = ''"
                         class="absolute inset-y-0 right-6 flex items-center pr-2">
@@ -23,7 +24,12 @@
                 <TransitionRoot leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0"
                     @after-leave="querySearch = ''">
                     <ComboboxOptions
-                        class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                        class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white  text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+
+                        <div class="relative rounded bg-gray-600 cursor-default py-2 select-none px-1 text-white">
+                            Matching questions:
+                        </div>
+
                         <div v-if="liveSuggesstions.length === 0 && querySearch !== ''"
                             class="relative cursor-default select-none py-2 px-4 text-gray-700">
                             No matching questions
@@ -32,7 +38,7 @@
                         <ComboboxOption @click="selectedLiveSuggestion = item" v-for="item in liveSuggesstions"
                             as="template" v-slot="{ selectedLiveSuggestion, active }">
                             <li class="relative cursor-default select-none py-2 pl-10 pr-4" :class="{
-                                'bg-teal-600 text-white': active,
+                                'bg-gray-300': active,
                                 'text-gray-900': !active,
                             }">
                                 <span class="block truncate"
@@ -40,7 +46,7 @@
                                     {{ item }}
                                 </span>
                                 <span v-if="selectedLiveSuggestion" class="absolute inset-y-0 left-0 flex items-center pl-3"
-                                    :class="{ 'text-white': active, 'text-teal-600': !active }">
+                                    :class="{ 'text-white': active, 'text-gray-300': !active }">
                                     <CheckIcon class="h-5 w-5" aria-hidden="true" />
                                 </span>
                             </li>
@@ -67,10 +73,11 @@
             <Combobox class="z-10" v-model="selectedInstitute">
                 <div class="relative mt-1">
                     <div
-                        class="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
-                        <ComboboxInput id="input"
+                        class="relative w-full cursor-default overflow-hidden rounded bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+                        <ComboboxInput id="input" placeholder="Choose organization..."
                             class="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
-                            :displayValue="(institute) => institute" @change="query = $event.target.value" />
+                            :displayValue="(institute) => institute" @change="query = $event.target.value"
+                            @keyup.enter="search()" />
                         <ComboboxButton class="absolute inset-y-0 right-0 flex items-center pr-2">
                             <ChevronUpDownIcon class="h-5 w-5 hover:text-cyorange text-gray-400" aria-hidden="true" />
                         </ComboboxButton>
@@ -78,7 +85,7 @@
                     <TransitionRoot leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0"
                         @after-leave="query = ''">
                         <ComboboxOptions
-                            class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                            class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                             <div v-if="filteredInstitutes.length === 0 && query !== ''"
                                 class="relative cursor-default select-none py-2 px-4 text-gray-700">
                                 Nothing found.
@@ -88,7 +95,7 @@
                                 @click="selectedInstitute = item, getSubpaths(), deleteSubPathInput(), selectedLiveSuggestion = ''"
                                 v-for="item in filteredInstitutes" as="template" v-slot="{ selectedInstitute, active }">
                                 <li class="relative cursor-default select-none py-2 pl-10 pr-4" :class="{
-                                    'bg-teal-600 text-white': active,
+                                    'bg-gray-300': active,
                                     'text-gray-900': !active,
                                 }">
                                     <span class="block truncate"
@@ -96,7 +103,7 @@
                                         {{ item }}
                                     </span>
                                     <span v-if="selectedInstitute" class="absolute inset-y-0 left-0 flex items-center pl-3"
-                                        :class="{ 'text-white': active, 'text-teal-600': !active }">
+                                        :class="{ 'text-white': active, 'text-gray-300': !active }">
                                         <CheckIcon class="h-5 w-5" aria-hidden="true" />
                                     </span>
                                 </li>
@@ -111,10 +118,11 @@
             <Combobox class="z-10" v-model="selectedSubpath">
                 <div class="relative mt-1">
                     <div
-                        class="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
-                        <ComboboxInput id="input-2"
+                        class="relative w-full cursor-default overflow-hidden rounded bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+                        <ComboboxInput id="input-2" placeholder="Choose department..."
                             class="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
-                            :displayValue="(subpaths) => subpaths" @change="query2 = $event.target.value" />
+                            :displayValue="(subpaths) => subpaths" @change="query2 = $event.target.value"
+                            @keyup.enter="search()" />
                         <ComboboxButton class="absolute inset-y-0 right-0 flex items-center pr-2">
                             <ChevronUpDownIcon class="h-5 w-5 hover:text-cyorange text-gray-400" aria-hidden="true" />
                         </ComboboxButton>
@@ -122,7 +130,7 @@
                     <TransitionRoot leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0"
                         @after-leave="query2 = ''">
                         <ComboboxOptions
-                            class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                            class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                             <div v-if="filteredSubpaths.length === 0 && query2 !== ''"
                                 class="relative cursor-default select-none py-2 px-4 text-gray-700">
                                 Nothing found.
@@ -131,7 +139,7 @@
                             <ComboboxOption @click="selectedSubpath = i, selectedLiveSuggestion = ''"
                                 v-for="i in filteredSubpaths" as="template" v-slot="{ selectedSubpath, active }">
                                 <li class="relative cursor-default select-none py-2 pl-10 pr-4" :class="{
-                                    'bg-teal-600 text-white': active,
+                                    'bg-gray-300': active,
                                     'text-gray-900': !active,
                                 }">
                                     <span class="block truncate"
@@ -139,7 +147,7 @@
                                         {{ i }}
                                     </span>
                                     <span v-if="selectedSubpath" class="absolute inset-y-0 left-0 flex items-center pl-3"
-                                        :class="{ 'text-white': active, 'text-teal-600': !active }">
+                                        :class="{ 'text-white': active, 'text-gray-300': !active }">
                                         <CheckIcon class="h-5 w-5" aria-hidden="true" />
                                     </span>
                                 </li>
@@ -199,6 +207,7 @@ const liveSuggesstions = computed(() => questionsToSuggest.value.filter((questio
 async function getLiveSuggestions() {
     const selectedInstituteArray = [selectedInstitute.value];
     const path = selectedInstituteArray.concat(selectedSubpath.value.split('/'));
+
     const response = await fetch(`https://localhost:7018/api/Read/livesuggest`, {
         method: 'POST',
         headers: {
@@ -218,22 +227,22 @@ const checkEmptyString = (str) => (str === "" ? null : str);
 
 //Fetches the subpaths within one institution, so that when one is selected in the first dropdown, the second contains its subpaths
 async function getSubpaths() {
+
     const response = await fetch(`https://localhost:7018/api/Read/subpaths/${selectedInstitute.value}`);
     const data = await response.json();
     subpaths.value = data.flatMap(innerArr => innerArr.join('/'));
 }
 
-//Combines data from all search components, then fetches fromt the API
+//Combines data from all search components, then fetches from the API
 async function search() {
     selectedLiveSuggestion.value = checkEmptyString(selectedLiveSuggestion.value);
     const selectedInstituteArray = [selectedInstitute.value];
     var path;
-    if(selectedSubpath.value === '' || selectedSubpath.value === null){
+    if (selectedSubpath.value === '' || selectedSubpath.value === null) {
         path = selectedInstituteArray;
-    }else{
+    } else {
         path = selectedInstituteArray.concat(selectedSubpath.value.split('/'));
     }
-    
     const response = await fetch(`https://localhost:7018/api/Read/search/${selectedLiveSuggestion.value}`, {
         method: 'POST',
         headers: {

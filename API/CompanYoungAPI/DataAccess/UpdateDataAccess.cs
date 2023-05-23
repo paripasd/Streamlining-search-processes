@@ -28,7 +28,7 @@ namespace CompanYoungAPI.DataAccess
             return true;
         }
 
-        public void UpdateExpiredTagByDate()
+        public bool UpdateExpiredTagByDate()
 		{
             // we need the units that doesn't have the Expired tag and the expiry field value is in the past to mark them
             var query = !new SolrQueryByField("tags", "Expired") & new SolrQueryByRange<DateTime>("expiry", DateTime.MinValue, DateTime.UtcNow);
@@ -41,6 +41,7 @@ namespace CompanYoungAPI.DataAccess
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                return false;
             }
 
 			var updatedDocs = new List<DataEntry>();
@@ -59,11 +60,13 @@ namespace CompanYoungAPI.DataAccess
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                return false;
             }
+            return true;
 			
 		}
 
-        public void UpdateExpiredTagPlus()
+        public bool UpdateExpiredTagPlus()
         {
             // we need the units that have the Expired tag and the expiry field value is in the future or within the next 14 days from the current time
             var query = new SolrQueryByField("tags", "Expired") & new SolrQueryByRange<DateTime>("expiry", DateTime.UtcNow, DateTime.MaxValue) || new SolrQueryByRange<DateTime>("expiry", DateTime.UtcNow, DateTime.UtcNow.AddDays(14));
@@ -77,6 +80,7 @@ namespace CompanYoungAPI.DataAccess
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                return false;
             }
 
             var updatedDocs = new List<DataEntry>();
@@ -95,10 +99,12 @@ namespace CompanYoungAPI.DataAccess
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                return false;
             }
+            return true;
         }
 
-        public void UpdateExpiresSoonTagPlus()
+        public bool UpdateExpiresSoonTagPlus()
         {
             // we need the units that has the Expires Soon tag and the value of the expiry field is after 14 days from the current date
             var query = new SolrQueryByField("tags", "Expires soon") & new SolrQueryByRange<DateTime>("expiry", DateTime.UtcNow.AddDays(14), DateTime.MaxValue);
@@ -112,6 +118,7 @@ namespace CompanYoungAPI.DataAccess
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                return false;
             }
 
             var updatedDocs = new List<DataEntry>();
@@ -130,15 +137,26 @@ namespace CompanYoungAPI.DataAccess
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                return false;
             }
+            return true;
         }
 
-        public void UpdateExpiressoonTagByDate()
+        public bool UpdateExpiressoonTagByDate()
 		{
             // we need the units that doesn't have the Expired tag and the expiry field value is between the past and 14 days after the current time
 			var query = !new SolrQueryByField("tags", "Expired") & new SolrQueryByRange<DateTime>("expiry", DateTime.MinValue, DateTime.UtcNow.AddDays(14));
-			var results = Solr.Query(query);
-
+            SolrQueryResults<DataEntry> results = new SolrQueryResults<DataEntry>();
+            try
+            {
+                results = Solr.Query(query);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+			
 			var updatedDocs = new List<DataEntry>();
 			foreach (var doc in results)
 			{
@@ -148,8 +166,17 @@ namespace CompanYoungAPI.DataAccess
                     updatedDocs.Add(doc);
 				}
 			}
-			Solr.AddRange(updatedDocs);
-			Solr.Commit();
+            try
+            {
+                Solr.AddRange(updatedDocs);
+                Solr.Commit();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+            return true;
 		}
 	}
 }

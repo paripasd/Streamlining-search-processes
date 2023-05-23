@@ -15,9 +15,17 @@ namespace CompanYoungAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void DeleteById(string id)
+        public ActionResult DeleteById(string id)
         {
-           _deleteDataAccess.DeleteById(id);
+           bool success = _deleteDataAccess.DeleteById(id);
+            if (success)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }

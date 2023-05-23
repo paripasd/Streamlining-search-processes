@@ -30,14 +30,22 @@ namespace CompanYoungAPI.Controllers
         }
 
 		[HttpPut("expiry")]
-        public void UpdateTagsByExpiry()
+        public ActionResult UpdateTagsByExpiry()
 		{
             // checking all timeframes and setting the Expired and Expires Soon tag accordingly
             // Solr doesn't update tags on its own so we implemented our custom logic for it in the API
-            _updateDataAccess.UpdateExpiresSoonTagPlus();
-            _updateDataAccess.UpdateExpiredTagPlus();
-            _updateDataAccess.UpdateExpiressoonTagByDate();
-			_updateDataAccess.UpdateExpiredTagByDate();
+            bool step_one = _updateDataAccess.UpdateExpiresSoonTagPlus();
+            bool step_two = _updateDataAccess.UpdateExpiredTagPlus();
+            bool step_three = _updateDataAccess.UpdateExpiressoonTagByDate();
+            bool step_four = _updateDataAccess.UpdateExpiredTagByDate();
+            if (step_one && step_two && step_three && step_four)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
 		}
     }
 }

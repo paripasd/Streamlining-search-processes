@@ -11,8 +11,11 @@
             class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
             <div class="p-4">
               <div class="flex items-start">
-                <div class="flex-shrink-0">
+                <div v-if="successful_message" class="flex-shrink-0">
                   <CheckCircleIcon class="h-6 w-6 text-green-400" aria-hidden="true" />
+                </div>
+                <div v-if="!successful_message" class="flex-shrink-0">
+                  <XMarkIcon class="h-6 w-6 text-red-400" aria-hidden="true" />
                 </div>
                 <div class="ml-3 w-0 flex-1 pt-0.5">
                   <p class="text-sm font-medium text-gray-900">{{ notificationTitle }}</p>
@@ -80,6 +83,7 @@ import { XMarkIcon } from '@heroicons/vue/20/solid'
 import TagSelector from './tagSelector.vue';
 
 const showNotification = ref(false);
+const successful_message = ref(true);
 const notificationTitle = ref('');
 const notificationMessage = ref('');
 const feedback = ref("");
@@ -87,10 +91,32 @@ const store = useCrudPageStore();
 //Computed attributes can be defined a setter and a getter
 const expiryDate = computed({
   get: () => {
-    return store.unit.expiry.split('T')[0];
+    try {
+      return store.unit.expiry.split('T')[0];
+    } catch (error) {
+      successful_message.value = false;
+      showNotification.value = true;
+      notificationTitle.value = 'Invalid date';
+      notificationMessage.value = 'Try inputting a valid date';
+      setTimeout(() => {
+        showNotification.value = false;
+        successful_message.value = true;
+      }, 4000);
+    }
   },
   set: (date) => {
-    store.unit.expiry = new Date(date).toISOString();
+    try {
+      store.unit.expiry = new Date(date).toISOString();
+    } catch (error) {
+      successful_message.value = false;
+      showNotification.value = true;
+      notificationTitle.value = 'Invalid date';
+      notificationMessage.value = 'Try inputting a valid date';
+      setTimeout(() => {
+        showNotification.value = false;
+        successful_message.value = true;
+      }, 4000);
+    }
   }
 });
 
@@ -150,34 +176,63 @@ async function updateUnit() {
       body: JSON.stringify(unit)
     })
     try{
-      await fetch('https://localhost:7018/api/Update/expiry', {
+      const response = await fetch('https://localhost:7018/api/Update/expiry', {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
       })
+      if(!response.ok){
+        successful_message.value = false;
+        showNotification.value = true;
+        notificationTitle.value = 'Update expiry failed';
+        notificationMessage.value = 'There was a problem with the request';
+        setTimeout(() => {
+          showNotification.value = false;
+          successful_message.value = true;
+        }, 4000);
+      }
     }
     catch (error) {
-      console.error('Error:', error);
+      successful_message.value = false;
+      showNotification.value = true;
+      notificationTitle.value = 'Update expiry failed';
+      notificationMessage.value = 'There was a problem with the server or the connection';
+      setTimeout(() => {
+        showNotification.value = false;
+        successful_message.value = true;
+      }, 4000);
     }
-    
-
-    if (!response.ok) {
-      throw new Error(`HTTP error ${response.status}`);
+    if(!response.ok){
+        successful_message.value = false;
+        showNotification.value = true;
+        notificationTitle.value = 'Update failed';
+        notificationMessage.value = 'There was a problem with the request';
+        setTimeout(() => {
+          showNotification.value = false;
+          successful_message.value = true;
+        }, 4000);
     }
-    showNotification.value = true;
-    notificationTitle.value = 'Update Successful';
-    notificationMessage.value = 'Successfully updated ' + store.unit.question + ' at ' + store.unit.path[0];
-    store.updateDataByPath(store.unit.path);
-    setTimeout(() => {
-      showNotification.value = false;
-    }, 4000);
-
+    if(response.ok){
+      showNotification.value = true;
+      notificationTitle.value = 'Update Successful';
+      notificationMessage.value = 'Successfully updated ' + store.unit.question + ' at ' + store.unit.path[0];
+      store.updateDataByPath(store.unit.path);
+      setTimeout(() => {
+        showNotification.value = false;
+      }, 4000);
+    }
   }
   catch (error) {
-    feedback.value = "There was an error performing this action. See the console for details."
-    console.error('Error:', error);
+    successful_message.value = false;
+    showNotification.value = true;
+    notificationTitle.value = 'Update failed';
+    notificationMessage.value = 'There was a problem with the server or the connection';
+    setTimeout(() => {
+      showNotification.value = false;
+      successful_message.value = true;
+    }, 4000);
   }
 }
 
@@ -188,11 +243,17 @@ async function deleteUnit() {
     const response = await fetch('https://localhost:7018/api/Delete/' + store.unit.id, {
       method: 'DELETE',
     })
-    if (!response.ok) {
-      throw new Error(`HTTP error ${response.status}`);
+    if(!response.ok){
+        successful_message.value = false;
+        showNotification.value = true;
+        notificationTitle.value = 'Delete failed';
+        notificationMessage.value = 'There was a problem with the request';
+        setTimeout(() => {
+          showNotification.value = false;
+          successful_message.value = true;
+        }, 4000);
     }
-    
-    
+  
     const questionField = document.getElementById("question-input");
     questionField.innerHTML = "";
     
@@ -205,31 +266,55 @@ async function deleteUnit() {
     const modificationDateField = document.getElementById("editedby-input");
     
     try{
-      await fetch('https://localhost:7018/api/Update/expiry', {
+      const response = await fetch('https://localhost:7018/api/Update/expiry', {
         method: 'PUT',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }
       })
+      if(!response.ok){
+        successful_message.value = false;
+        showNotification.value = true;
+        notificationTitle.value = 'Update expiry failed';
+        notificationMessage.value = 'There was a problem with the request';
+        setTimeout(() => {
+          showNotification.value = false;
+          successful_message.value = true;
+        }, 4000);
+      }
     }
     catch (error) {
-      console.error('Error:', error);
+      successful_message.value = false;
+      showNotification.value = true;
+      notificationTitle.value = 'Update expiry failed';
+      notificationMessage.value = 'There was a problem with the server or the connection';
+      setTimeout(() => {
+        showNotification.value = false;
+        successful_message.value = true;
+      }, 4000);
     }
     
-    showNotification.value = true;
-    notificationTitle.value = 'Deleted';
-    notificationMessage.value = 'Successfully deleted ' + store.unit.question + ' at ' + store.unit.path[0];
-    store.updateDataByPath(store.unit.path);
-    setTimeout(() => {
-      showNotification.value = false;
-    }, 4000);
-    
+    if(response.ok){
+      showNotification.value = true;
+      notificationTitle.value = 'Deleted';
+      notificationMessage.value = 'Successfully deleted ' + store.unit.question + ' at ' + store.unit.path[0];
+      store.updateDataByPath(store.unit.path);
+      setTimeout(() => {
+        showNotification.value = false;
+      }, 4000);
+    }
     store.unit = {question:"",answer:"",comment:"", id:"", expiry:"",modificationDate:"", modifiedBy:"", path:[], tags:[]};
   }
   catch (error) {
-    feedback.value = "There was an error performing this action. See the console for details."
-    console.error('Error:', error);
+    successful_message.value = false;
+    showNotification.value = true;
+    notificationTitle.value = 'Delete failed';
+    notificationMessage.value = 'There was a problem with the server or the connection';
+    setTimeout(() => {
+      showNotification.value = false;
+      successful_message.value = true;
+    }, 4000);
   }
 }
 

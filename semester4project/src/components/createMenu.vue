@@ -18,8 +18,8 @@
           <TransitionChild as="template" enter="transform transition ease-in-out duration-500 sm:duration-700" enter-from="translate-x-full" enter-to="translate-x-0" leave="transform transition ease-in-out duration-500 sm:duration-700" leave-from="translate-x-0" leave-to="translate-x-full">
             <DialogPanel class="pointer-events-auto relative w-screen max-w-full">
               <TransitionChild as="template" enter="ease-in-out duration-500" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in-out duration-500" leave-from="opacity-100" leave-to="opacity-0">
-                <div class="absolute top-0 left-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4">
-                  <button id="Create Close" type="button" class="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white" @click="open = false">
+                <div class="absolute top-0 left-0 -ml-8 flex pl-2 pt-4 pr-2 sm:-ml-10 sm:pr-4">
+                  <button id="Create Close" type="button" class="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white" @click="open = false, clear()">
                     <span class="sr-only">Close panel</span>
                     <XMarkIcon class="h-6 w-6" aria-hidden="true" />
                   </button>
@@ -42,7 +42,10 @@
                               <div v-if="showNotification" class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
                                 <div class="p-4">
                                   <div class="flex items-start">
-                                    <div class="flex-shrink-0">
+                                    <div v-if="!successful_message" class="flex-shrink-0">
+                                      <XMarkIcon class="h-6 w-6 text-red-400" aria-hidden="true" />
+                                    </div>
+                                    <div v-if="successful_message" class="flex-shrink-0">
                                       <CheckCircleIcon class="h-6 w-6 text-green-400" aria-hidden="true" />
                                     </div>
                                     <div class="ml-3 w-0 flex-1 pt-0.5">
@@ -81,7 +84,7 @@
                                 <SwitchLabel as="span" class="mt-2 ml-1 text-sm">
                                   <span class="font-medium text-gray-900">Use custom path</span>
                                 </SwitchLabel>
-                                <Switch v-model="customPathEnabled" class="ml-3" :class="[customPathEnabled ? 'bg-cyorange' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyorange focus:ring-offset-2']">
+                                <Switch v-model="customPathEnabled" class="ml-3" :class="[customPathEnabled ? 'bg-cyorange' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent']">
                                   <span aria-hidden="true" :class="[customPathEnabled ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
                                 </Switch>
                               </SwitchGroup>
@@ -107,11 +110,9 @@
                         <div class="flex justify-end items-end h-full">
                           <button type="submit" class="uniform-button py-4 mr-4">Done</button>
                         </div>
-                        <p>{{ feedback }}</p>
                       </form>
                       </div>
                   </div>
-                  
                 </div>
               </div>
             </DialogPanel>
@@ -140,6 +141,7 @@ import { CheckCircleIcon } from '@heroicons/vue/24/outline'
 const showNotification = ref(false)
 const notificationTitle = ref('')
 const notificationMessage = ref('')
+const successful_message = ref(true)
 
 
 const store = useCrudPageStore();
@@ -148,6 +150,12 @@ const formQuestion = ref("");
 const formAnswer = ref("");
 const formComment = ref("");
 const feedback = ref("");
+
+function clear(){
+  formQuestion.value = "";
+  formAnswer.value = "";
+  formComment.value = "";
+}
 
 //Creates new object and posts it to the API
 async function createNew(){
@@ -163,40 +171,66 @@ async function createNew(){
               'Content-Type': 'application/json'
             },
         body: JSON.stringify(newQna)
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error ${response.status}`);
+    })
+    if(response.status == 400){
+      successful_message.value = false;
+      showNotification.value = true;
+      notificationTitle.value = 'Creation failed';
+      notificationMessage.value = 'There was a problem with the request';
+      setTimeout(() => {
+        showNotification.value = false;
+        successful_message.value = true;
+      }, 4000);
     }
-    const responseData = await response.json();
 
     try{
-      await fetch('https://localhost:7018/api/Update/expiry', {
+      const response = await fetch('https://localhost:7018/api/Update/expiry', {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
       })
+      if(!response.ok){
+        successful_message.value = false;
+        showNotification.value = true;
+        notificationTitle.value = 'Update expiry failed';
+        notificationMessage.value = 'There was a problem with the request';
+        setTimeout(() => {
+          showNotification.value = false;
+          successful_message.value = true;
+        }, 4000);
+      }
     }
     catch (error) {
-      console.error('Error:', error);
+      successful_message.value = false;
+      showNotification.value = true;
+      notificationTitle.value = 'Update expiry failed';
+      notificationMessage.value = 'There was a problem with the server or the connection';
+      setTimeout(() => {
+        showNotification.value = false;
+        successful_message.value = true;
+      }, 4000);
     }
-
-    //Shows confirmation notification
-    showNotification.value = true;
-    notificationTitle.value = 'Successfully created!';
-    notificationMessage.value = '';
-    store.updateDataByPath(newQna.path);
-    setTimeout(() => {
-    showNotification.value = false;
-    }, 4000);
-
+    if(response.status == 201){
+      showNotification.value = true;
+      notificationTitle.value = 'Successfully created!';
+      notificationMessage.value = newQna.question + ' at ' + newQna.path;
+      store.updateDataByPath(newQna.path);
+      setTimeout(() => {
+      showNotification.value = false;
+      }, 4000);
+    }
     
-
   } catch(error) {
-    feedback.value = "There was an error performing this action. See the console for details."
-    console.error('Error:', error);
+    successful_message.value = false;
+    showNotification.value = true;
+    notificationTitle.value = 'Creation failed';
+    notificationMessage.value = 'There was a problem with the server or the connection';
+    setTimeout(() => {
+      showNotification.value = false;
+      successful_message.value = true;
+    }, 4000);
   }
 }
 

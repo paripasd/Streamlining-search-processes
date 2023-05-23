@@ -43,43 +43,43 @@ namespace CompanYoungAPI.Controllers
 
         [HttpGet("{id}")]
         public ActionResult<DataEntry> GetById(string id)
-		{
+        {
             return Ok(_readDataAccess.GetById(id));
-		}
+        }
 
         [HttpGet("tree")]
         public ActionResult<IEnumerable<ReadDataAccess.Node>> GetTreeStructure()
         {
-			return Ok(_readDataAccess.GetTreeStructure());
-		}
+            return Ok(_readDataAccess.GetTreeStructure());
+        }
 
-		[HttpPost("search/{searchText}")]
+        [HttpPost("search/{searchText}")]
         public ActionResult<List<DataEntryWithHighlight>> GetBySearch(string searchText, [FromBody] string[] path)
-		{
+        {
             return Ok(_readDataAccess.GetBySearch(searchText, path));
-		}
+        }
 
         [HttpGet("uniquePaths")]
         public ActionResult<IEnumerable<string[]>> GetUniquePaths()
-		{
+        {
             return Ok(_readDataAccess.GetUniquePaths());
-		}
+        }
 
-		[HttpGet("institutes")]
+        [HttpGet("institutes")]
         public ActionResult<string> GetInstitutes()
-		{
+        {
             return Ok(_readDataAccess.GetInstitutes());
-		}
+        }
 
-		[HttpGet("subpaths/{institute}")]
+        [HttpGet("subpaths/{institute}")]
         public ActionResult<string[]> GetInstituteSubPaths(string institute)
-		{
+        {
             return Ok(_readDataAccess.GetInstituteSubPaths(institute));
-		}
+        }
 
         //Test method for supplying UI with institution identifier - this would normally be fetched from CY API
         [HttpGet("cydata")]
-        public ActionResult<int> CallServer() 
+        public ActionResult<int> CallServer()
         {
             return Ok(609);
         }

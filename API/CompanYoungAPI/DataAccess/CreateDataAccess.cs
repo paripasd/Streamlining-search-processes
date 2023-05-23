@@ -13,7 +13,7 @@ namespace CompanYoungAPI.DataAccess
             Solr = ServiceLocator.Current.GetInstance<ISolrOperations<DataEntry>>();
         }
 
-        public void CreateInstance(DataEntry data)
+        public bool CreateInstance(DataEntry data)
         {
             try
             {
@@ -23,7 +23,9 @@ namespace CompanYoungAPI.DataAccess
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-            } 
+                return false;
+            }
+            return true;
         }
     }
 }
