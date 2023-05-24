@@ -1,0 +1,51 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@layer components {
+
+  .longtextinput {
+    @apply rounded-md border border-solid border-slate-300 p-1 m-1 block w-full h-full text-gray-900 text-sm resize-none focus:border-cyorange outline-none
+  }
+
+  .shortinput {
+    @apply rounded-md border border-solid border-slate-300 p-1 m-1 block w-full h-8 text-gray-900 text-sm focus:border-cyorange outline-none
+  }
+
+  #data-edit-form label {
+    @apply text-base text-gray-900 ml-1 inline-block align-middle
+  }
+
+  .uniform-button {
+    @apply font-bold text-gray-100 bg-stone-800 rounded-md w-24 hover:text-white hover:bg-cyorange hover:scale-110 transition unselectable
+  }
+
+  .folder img{
+    @apply w-6 h-6
+  }
+
+  .folder {
+    @apply odd:bg-gray-200 even:bg-gray-400
+  }
+
+  .dropdown {
+    @apply appearance-none bg-white border border-slate-300 outline-none p-2 focus:border-cyorange cursor-pointer transition
+  }
+
+  .tag-text {
+    @apply text-sm text-white font-semibold py-1 px-2 rounded-full unselectable
+  }
+
+  .tag-short {
+    @apply w-2 h-2 p-2 rounded-full
+  }
+
+  .unselectable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
