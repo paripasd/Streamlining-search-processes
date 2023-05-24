@@ -4,13 +4,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using CompanYoungAPI;
+using Microsoft.Extensions.Configuration;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-// maybe hide link into appsettings.json
-Startup.Init<DataEntry>("http://localhost:8983/solr/testing");
+Startup.Init<DataEntry>(builder.Configuration["ConnectionString"]);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
