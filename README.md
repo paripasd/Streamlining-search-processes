@@ -21,7 +21,7 @@ The following guide requires you to have Docker and Docker Desktop already insta
 
 ![image](https://github.com/attilaUCN/semester4project/assets/69151140/738c0ab9-bfe4-4808-a4db-09cd927f0f28)
 
-2. From this extension select the "Import into new volume" option and select the path to the given data file from the repository and give the volume "test_information" name. Than click import.
+2. From this extension select the "Import into new volume" option and select the path to "test_information.tar.gz" file from the repository and give the volume "test_information" name. Than click import.
 
 ![image](https://github.com/attilaUCN/semester4project/assets/69151140/488869ab-a6f9-4083-b624-a8eaf606ebef)
 
