@@ -1,8 +1,17 @@
 # Setup
 
-## Docker
+## API
 
-Download the Volumes Backup & Share extensin to docker desktop.
+Open the API code in Visual Studio and build the project than run it. The Swagger UI should appear which means the api is up and running on localhost.
+
+## UI
+
+Node.js should be installed beforehand.
+Open terminal in the UI folder and excecute "npm install" than "npm run serve" to create the website hosted on localhost.
+
+## Docker
+The following guide requires you to have Docker and Docker Desktop already installed on your machine.
+Download the Volumes Backup & Share extension to docker desktop.
 
 ![image](https://github.com/attilaUCN/semester4project/assets/69151140/738c0ab9-bfe4-4808-a4db-09cd927f0f28)
 
