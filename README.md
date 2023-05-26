@@ -4,7 +4,7 @@
 
 Download the Volumes Backup & Share extensin to docker desktop.
 
-![image](https://github.com/attilaUCN/semester4project/assets/69151140/8e77a98c-9ab0-4a93-824d-1906f3bd8aa4)
+![image](https://github.com/attilaUCN/semester4project/assets/69151140/738c0ab9-bfe4-4808-a4db-09cd927f0f28)
 
 From this extension select the "Import into new volume" option and select the path to the given data file from the repository and give the volume "test_information" name. Than click import.
 
