@@ -15,5 +15,5 @@ Open the API code in Visual Studio and build the project than run it. The Swagge
 Node.js should be installed beforehand.
 Open terminal in the UI folder and excecute "npm install" than "npm run serve" to create the website hosted on localhost.
 
-## Docker
+## SolR (in Docker)
 Download Docker. Create a SolR container with a volume mounted to it from the "test_information.tar.gz" file and run the container.
