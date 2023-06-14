@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5qyZkW8NALl3o9ie8NfvLmT1TVZkZ9H2H7NeZtJdNbNsq4QTjN0F3rjChbmuTTl1+NkhSD1nWP5pC6mRtBda4w==",
+  "dgSpecHash": "x20cbAC44nvWGEpOad5zYEC76nR6nw0LsaRpZsePJIHmetoPQ/GtHRJMJetemwcczRaqRxpim/1v3j/XjQizdQ==",
   "success": true,
-  "projectFilePath": "C:\\repositories\\semester4project\\API\\CompanYoungAPI\\CompanYoungAPI.csproj",
+  "projectFilePath": "C:\\repositories\\Streamlining-processes\\API\\CompanYoungAPI\\CompanYoungAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\parip\\.nuget\\packages\\commonservicelocator\\2.0.2\\commonservicelocator.2.0.2.nupkg.sha512",
     "C:\\Users\\parip\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",

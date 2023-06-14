@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\repositories\\semester4project\\API\\CompanYoungAPI\\CompanYoungAPI.csproj": {}
+    "C:\\repositories\\Streamlining-processes\\API\\CompanYoungAPI\\CompanYoungAPI.csproj": {}
   },
   "projects": {
-    "C:\\repositories\\semester4project\\API\\CompanYoungAPI\\CompanYoungAPI.csproj": {
+    "C:\\repositories\\Streamlining-processes\\API\\CompanYoungAPI\\CompanYoungAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\repositories\\semester4project\\API\\CompanYoungAPI\\CompanYoungAPI.csproj",
+        "projectUniqueName": "C:\\repositories\\Streamlining-processes\\API\\CompanYoungAPI\\CompanYoungAPI.csproj",
         "projectName": "CompanYoungAPI",
-        "projectPath": "C:\\repositories\\semester4project\\API\\CompanYoungAPI\\CompanYoungAPI.csproj",
+        "projectPath": "C:\\repositories\\Streamlining-processes\\API\\CompanYoungAPI\\CompanYoungAPI.csproj",
         "packagesPath": "C:\\Users\\parip\\.nuget\\packages\\",
-        "outputPath": "C:\\repositories\\semester4project\\API\\CompanYoungAPI\\obj\\",
+        "outputPath": "C:\\repositories\\Streamlining-processes\\API\\CompanYoungAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

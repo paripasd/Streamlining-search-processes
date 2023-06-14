@@ -13382,11 +13382,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\repositories\\semester4project\\API\\Testing\\Testing.csproj",
+      "projectUniqueName": "C:\\repositories\\Streamlining-processes\\API\\Testing\\Testing.csproj",
       "projectName": "Testing",
-      "projectPath": "C:\\repositories\\semester4project\\API\\Testing\\Testing.csproj",
+      "projectPath": "C:\\repositories\\Streamlining-processes\\API\\Testing\\Testing.csproj",
       "packagesPath": "C:\\Users\\parip\\.nuget\\packages\\",
-      "outputPath": "C:\\repositories\\semester4project\\API\\Testing\\obj\\",
+      "outputPath": "C:\\repositories\\Streamlining-processes\\API\\Testing\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -13408,8 +13408,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\repositories\\semester4project\\API\\CompanYoungAPI\\CompanYoungAPI.csproj": {
-              "projectPath": "C:\\repositories\\semester4project\\API\\CompanYoungAPI\\CompanYoungAPI.csproj"
+            "C:\\repositories\\Streamlining-processes\\API\\CompanYoungAPI\\CompanYoungAPI.csproj": {
+              "projectPath": "C:\\repositories\\Streamlining-processes\\API\\CompanYoungAPI\\CompanYoungAPI.csproj"
             }
           }
         }
