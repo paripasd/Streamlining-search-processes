@@ -2,6 +2,7 @@
 
 
 This solution handles effective, scalable storage and retrival of FAQ documents with an emphasis on search speed and expandability. 
+
 Apache SolR handles the storage and provides us countless tools for querying our data in different ways. The user interface is developed with Vue.js and Tailwind CSS to create an appealing website. The communication between system nodes and additional logic is handled by our C# API. 
 
 
